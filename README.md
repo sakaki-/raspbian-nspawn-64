@@ -318,6 +318,6 @@ If you'd like to take this idea forward, perhaps by packaging the various contai
 Lastly, **feedback** is welcomed! So if you have any problems, questions or comments regarding `raspbian-nspawn-64`, feel free to drop me a line! (sakaki@deciban.com)
 
 
-## <a id="acknowledgement"></a>Acknowledgment
+## <a id="acknowledgement"></a>Acknowledgement
 
 The idea of this came from Crazyhead90's  [Raspbian-desktop-64bitkernel-pi3bplus](https://github.com/Crazyhead90/pi64/releases/tag/2018-04-17) image (64-bit kernel + 32-bit userland OS), and [this post](https://www.raspberrypi.org/forums/viewtopic.php?p=1406832#p1406832) by jdonald (which suggests a chroot into a 64-bit guest from such a setup). I've just extended jdonald's idea to use the Linux containers support provided by `systemd-nspawn`, and tied it all together in what I hope is a reasonably user-friendly way ^-^

@@ -1,0 +1,420 @@
+St  Name                           Version                        Arch   Description                                                  Licenses
+--  ----                           -------                        ----   -----------                                                  --------
+ii  adduser                        3.115                          all    add and remove users and groups                              GPL-2
+ii  adwaita-icon-theme             3.22.0-1+deb9u1                all    default icon theme of GNOME                                  GFDL-1.2 GPL LGPL-3
+ii  apt                            1.4.9                          arm64  commandline package manager                                  GPL-2
+ii  apt-utils                      1.4.9                          arm64  package management related utility programs                  GPL-2
+ii  aspell                         0.60.7~20110707-3+b2           arm64  GNU Aspell spell-checker                                     LGPL
+ii  aspell-en                      2016.11.20-0-0.1               all    English dictionary for GNU Aspell                            Public Domain public domain
+ii  base-files                     9.9+deb9u7                     arm64  Debian base system miscellaneous files                       GPL
+ii  base-passwd                    3.5.43                         arm64  Debian base system master password and group files           GPL-2
+ii  bash                           4.4-5                          arm64  GNU Bourne Again SHell                                       GPL-3
+ii  bsdmainutils                   9.0.12+nmu1                    arm64  collection of more utilities from FreeBSD                    unknown
+ii  bsdutils                       1:2.29.2-1+deb9u1              arm64  basic utilities from 4.4BSD-Lite                             BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  coreutils                      8.26-3                         arm64  GNU core utilities                                           GPL-3
+ii  cpio                           2.11+dfsg-6                    arm64  GNU cpio -- a program to manage archives of files            GPL-3
+ii  cron                           3.0pl1-128+deb9u1              arm64  process scheduling daemon                                    Artistic GPL-2+ ISC Paul-Vixie's-license
+ii  dash                           0.5.8-2.4                      arm64  POSIX-compliant shell                                        GPL
+ii  dbus                           1.10.26-0+deb9u1               arm64  simple interprocess messaging system (daemon and utilities)  AFL-2.1 BSD-3-clause BSD-3-clause-generic Expat GPL-2+ GPL-2+ or AFL-2.1 GPL-2+ or AFL-2.1, Tcl-BSDish g10-permissive
+ii  dconf-gsettings-backend:arm64  0.26.0-2+b1                    arm64  simple configuration storage system - GSettings back-end     GPL-3 LGPL-2+
+ii  dconf-service                  0.26.0-2+b1                    arm64  simple configuration storage system - D-Bus service          GPL-3 LGPL-2+
+ii  debconf                        1.5.61                         all    Debian configuration management system                       BSD-2-clause
+ii  debconf-i18n                   1.5.61                         all    full internationalization support for debconf                BSD-2-clause
+ii  debian-archive-keyring         2017.5                         all    GnuPG archive keys of the Debian archive                     GPL
+ii  debianutils                    4.8.1.1                        arm64  Miscellaneous utilities specific to Debian                   GPL
+ii  dictionaries-common            1.27.2                         all    spelling dictionaries - common utilities                     GPL-2+ GPL-3+
+ii  diffutils                      1:3.5-3                        arm64  File comparison utilities                                    GFDL GPL
+ii  dmidecode                      3.0-4                          arm64  SMBIOS/DMI table decoder                                     GPL-2+
+ii  dmsetup                        2:1.02.137-2                   arm64  Linux Kernel Device Mapper userspace library                 GPL-2 LGPL-2.1
+ii  dpkg                           1.18.25                        arm64  Debian package management system                             BSD-2-clause GPL-2 GPL-2+ public-domain-md5 public-domain-s-s-d
+ii  e2fslibs:arm64                 1.43.4-2                       arm64  ext2/ext3/ext4 file system libraries                         GPL-2 LGPL-2
+ii  e2fsprogs                      1.43.4-2                       arm64  ext2/ext3/ext4 file system utilities                         GPL-2 LGPL-2
+ii  emacsen-common                 2.0.8                          all    Common facilities for all emacsen                            GPL
+ii  enchant                        1.6.0-11+b1                    arm64  Wrapper for various spell checker engines (binary programs)  LGPL-2.1
+ii  file                           1:5.30-1+deb9u2                arm64  Recognize the type of data in a file using "magic" numbers   BSD-2-Clause-alike BSD-2-Clause-netbsd BSD-2-Clause-regents MIT-Old-Style-with-legal-disclaimer-2 public-domain
+ii  findutils                      4.6.0+git+20161106-2           arm64  utilities for finding files--find, xargs                     GFDL-1.3 GPL-3
+ii  firefox-esr                    60.3.0esr-1~deb9u1             arm64  Mozilla Firefox web browser - Extended Support Release (ESR) BSD-2-clause BSD-3 BSD-3-clause BSD-4-clause GPL-2 GPL-2 or GPL-3 GPL-2 or MIT GPL-3 LGPL-2.1 MIT MPL-1.1 MPL-1.1 or GPL-2 or LGPL-2.1 MPL-1.1 or GPL-2 or LGPL-2.1, MPL-1.1 or LGPL-2.1, MPL-2.0 other public-domain
+ii  fontconfig                     2.11.0-6.7+b1                  arm64  generic font configuration library - support binaries        unknown
+ii  fontconfig-config              2.11.0-6.7                     all    generic font configuration library - configuration           unknown
+ii  fonts-dejavu-core              2.37-1                         all    Vera font family derivate with additional characters         GPL-2+ bitstream-vera
+ii  gcc-6-base:arm64               6.3.0-18+deb9u1                arm64  GCC, the GNU Compiler Collection (base package)              Artistic GFDL-1.2 GPL GPL-2 GPL-3
+ii  glib-networking:arm64          2.50.0-1+b1                    arm64  network-related giomodules for GLib                          LGPL-2+ LGPL-2.1+
+ii  glib-networking-common         2.50.0-1                       all    network-related giomodules for GLib - data files             LGPL-2+ LGPL-2.1+
+ii  glib-networking-services       2.50.0-1+b1                    arm64  network-related giomodules for GLib - D-Bus services         LGPL-2+ LGPL-2.1+
+ii  gnupg                          2.1.18-8~deb9u3                arm64  GNU privacy guard - a free PGP replacement                   BSD-3-clause Expat GPL-3+ GPL-3+ or BSD-3-clause LGPL-2.1+ LGPL-3+ RFC-Reference TinySCHEME permissive
+ii  gnupg-agent                    2.1.18-8~deb9u3                arm64  GNU privacy guard - cryptographic agent                      BSD-3-clause Expat GPL-3+ GPL-3+ or BSD-3-clause LGPL-2.1+ LGPL-3+ RFC-Reference TinySCHEME permissive
+ii  gpgv                           2.1.18-8~deb9u3                arm64  GNU privacy guard - signature verification tool              BSD-3-clause Expat GPL-3+ GPL-3+ or BSD-3-clause LGPL-2.1+ LGPL-3+ RFC-Reference TinySCHEME permissive
+ii  grep                           2.27-2                         arm64  GNU grep, egrep and fgrep                                    GPL-3+
+ii  groff-base                     1.22.3-9                       arm64  GNU troff text-formatting system (base system components)    GFDL-1.3 GPL-3
+ii  gsettings-desktop-schemas      3.22.0-1                       all    GSettings desktop-wide schemas                               LGPL-2.1+
+ii  gstreamer1.0-plugins-base:arm6 1.10.4-1                       arm64  GStreamer plugins from the "base" set                        LGPL
+ii  gstreamer1.0-plugins-good:arm6 1.10.4-1                       arm64  GStreamer plugins from the "good" set                        LGPL
+ii  gstreamer1.0-pulseaudio:arm64  1.10.4-1                       arm64  GStreamer plugin for PulseAudio                              LGPL
+ii  gstreamer1.0-x:arm64           1.10.4-1                       arm64  GStreamer plugins for X11 and Pango                          LGPL
+ii  gtk-update-icon-cache          3.22.11-1                      arm64  icon theme caching utility                                   Apache-2.0 Expat LGPL-2+ LGPL-2+ or other LGPL-2.1+ other
+ii  gzip                           1.6-5+b1                       arm64  GNU compression utilities                                    GPL
+ii  hicolor-icon-theme             0.15-1                         all    default fallback theme for FreeDesktop.org icon themes       GPL
+ii  hostname                       3.18+b1                        arm64  utility to set/show the host name or domain name             GPL-2
+ii  hunspell-en-us                 20070829-7                     all    English_american dictionary for hunspell                     LGPL
+ii  ifupdown                       0.8.19                         arm64  high level tools to configure network interfaces             GPL-2+
+ii  init                           1.48                           arm64  metapackage ensuring an init system is installed             BSD-3-clause GPL-2+
+ii  init-system-helpers            1.48                           all    helper tools for all init systems                            BSD-3-clause GPL-2+
+ii  iproute2                       4.9.0-1+deb9u1                 arm64  networking and traffic control tools                         GPL-2
+ii  iptables                       1.6.0+snapshot20161117-6       arm64  administration tools for packet filtering and NAT            Artistic-2 GPL-2 GPL-2+ custom
+ii  iputils-ping                   3:20161105-1                   arm64  Tools to test the reachability of network hosts              GPL
+ii  isc-dhcp-client                4.3.5-3+deb9u1                 arm64  DHCP client for automatically obtaining an IP address        GPL-2 ISC
+ii  isc-dhcp-common                4.3.5-3+deb9u1                 arm64  common manpages relevant to all of the isc-dhcp packages     GPL-2 ISC
+ii  iso-codes                      3.75-1                         all    ISO language, territory, currency, script codes and their tr LGPL-2.1+
+ii  kmod                           23-2                           arm64  tools for managing Linux kernel modules                      GPL-2 LGPL-2.1
+ii  libaa1:arm64                   1.4p5-44+b1                    arm64  ASCII art library                                            LGPL
+ii  libacl1:arm64                  2.2.52-3+b1                    arm64  Access control list shared library                           GPL LGPL-2.1
+ii  libapparmor1:arm64             2.11.0-3+deb9u2                arm64  changehat AppArmor library                                   BSD-3-clause BSD-3-clause or GPL-2+ GPL-2 GPL-2+ LGPL-2.1+
+ii  libapt-inst2.0:arm64           1.4.9                          arm64  deb package format runtime library                           GPL-2
+ii  libapt-pkg5.0:arm64            1.4.9                          arm64  package management runtime library                           GPL-2
+ii  libasound2:arm64               1.1.3-5                        arm64  shared library for ALSA applications                         LPGL-2.1+
+ii  libasound2-data                1.1.3-5                        all    Configuration files and profiles for ALSA drivers            LPGL-2.1+
+ii  libasound2-plugins:arm64       1.1.1-1                        arm64  ALSA library additional plugins                              LGPL-2.1
+ii  libaspell15:arm64              0.60.7~20110707-3+b2           arm64  GNU Aspell spell-checker runtime library                     LGPL
+ii  libassuan0:arm64               2.4.3-2                        arm64  IPC library for the GnuPG components                         GAP GAP~FSF GPL-2+ GPL-2+ with libtool exception GPL-3+ LGPL-2.1+ LGPL-3+
+ii  libasyncns0:arm64              0.8-6                          arm64  Asynchronous name service query library                      LGPL-2.1+
+ii  libatk-bridge2.0-0:arm64       2.22.0-2                       arm64  AT-SPI 2 toolkit bridge - shared library                     GPL-2 LGPL-2+
+ii  libatk1.0-0:arm64              2.22.0-1                       arm64  ATK accessibility toolkit                                    LGPL-2
+ii  libatk1.0-data                 2.22.0-1                       all    Common files for the ATK accessibility toolkit               LGPL-2
+ii  libatspi2.0-0:arm64            2.22.0-6+deb9u1                arm64  Assistive Technology Service Provider Interface - shared lib GPL-2 LGPL-2+ Public domain
+ii  libattr1:arm64                 1:2.4.47-2+b2                  arm64  Extended attribute shared library                            GPL-2 LGPL-2.1
+ii  libaudit-common                1:2.6.7-2                      all    Dynamic library for security auditing - common files         GPL-2 LGPL-2.1
+ii  libaudit1:arm64                1:2.6.7-2                      arm64  Dynamic library for security auditing                        GPL-2 LGPL-2.1
+ii  libavahi-client3:arm64         0.6.32-2                       arm64  Avahi client library                                         GPL GPL-2 LGPL-2.1
+ii  libavahi-common-data:arm64     0.6.32-2                       arm64  Avahi common data files                                      GPL GPL-2 LGPL-2.1
+ii  libavahi-common3:arm64         0.6.32-2                       arm64  Avahi common library                                         GPL GPL-2 LGPL-2.1
+ii  libavc1394-0:arm64             0.5.4-4+b1                     arm64  control IEEE 1394 audio/video devices                        GPL-2+ LGPL-2.1+
+ii  libavcodec57:arm64             7:3.2.12-1~deb9u1              arm64  FFmpeg library with de/encoders for audio/video codecs - run BSD-1-clause BSD-2-clause BSD-3-clause BSL Expat FSF GPL-2+ GPL-2+ with Avisynth exception GPL-3+ IJG ISC LGPL-2+ LGPL-2.1+ Sundry Zlib man-page public-domain
+ii  libavresample3:arm64           7:3.2.12-1~deb9u1              arm64  FFmpeg compatibility library for resampling - runtime files  BSD-1-clause BSD-2-clause BSD-3-clause BSL Expat FSF GPL-2+ GPL-2+ with Avisynth exception GPL-3+ IJG ISC LGPL-2+ LGPL-2.1+ Sundry Zlib man-page public-domain
+ii  libavutil55:arm64              7:3.2.12-1~deb9u1              arm64  FFmpeg library with functions for simplifying programming -  BSD-1-clause BSD-2-clause BSD-3-clause BSL Expat FSF GPL-2+ GPL-2+ with Avisynth exception GPL-3+ IJG ISC LGPL-2+ LGPL-2.1+ Sundry Zlib man-page public-domain
+ii  libblkid1:arm64                2.29.2-1+deb9u1                arm64  block device ID library                                      BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  libbsd0:arm64                  0.8.3-1                        arm64  utility functions from BSD systems - shared library          BSD-2-clause BSD-2-clause-NetBSD BSD-2-clause-author BSD-2-clause-verbatim BSD-3-clause BSD-3-clause-Peter-Wemm BSD-3-clause-Regents BSD-4-clause-Christopher-G-Demetriou BSD-4-clause-Niels-Provos BSD-5-clause-Peter-Wemm Beerware Expat ISC ISC-Original public-domain public-domain-Colin-Plumb
+ii  libbz2-1.0:arm64               1.0.6-8.1                      arm64  high-quality block-sorting file compressor library - runtime GPL-2
+ii  libc-bin                       2.24-11+deb9u3                 arm64  GNU C Library: Binaries                                      GPL-2 LGPL-2.1
+ii  libc-l10n                      2.24-11+deb9u3                 all    GNU C Library: localization files                            GPL-2 LGPL-2.1
+ii  libc6:arm64                    2.24-11+deb9u3                 arm64  GNU C Library: Shared libraries                              GPL-2 LGPL-2.1
+ii  libcaca0:arm64                 0.99.beta19-2+b2               arm64  colour ASCII art library                                     LGPL
+ii  libcairo-gobject2:arm64        1.14.8-1                       arm64  Cairo 2D vector graphics library (GObject library)           LGPL-2.1
+ii  libcairo2:arm64                1.14.8-1                       arm64  Cairo 2D vector graphics library                             LGPL-2.1
+ii  libcap-ng0:arm64               0.7.7-3+b1                     arm64  An alternate POSIX capabilities library                      GPL-2 GPL-3 LGPL-2.1
+ii  libcap2:arm64                  1:2.25-1                       arm64  POSIX 1003.1e capabilities (library)                         BSD-3-clause BSD-3-clause or GPL-2 BSD-3-clause or GPL-2+ GPL-2 GPL-2+
+ii  libcap2-bin                    1:2.25-1                       arm64  POSIX 1003.1e capabilities (utilities)                       BSD-3-clause BSD-3-clause or GPL-2 BSD-3-clause or GPL-2+ GPL-2 GPL-2+
+ii  libcdparanoia0:arm64           3.10.2+debian-11               arm64  audio extraction tool for sampling CDs (library)             GPL-2+ LGPL-2.1+
+ii  libcolord2:arm64               1.3.3-2                        arm64  system service to manage device colour profiles -- runtime   CC0 GFDL-NIV GPL-2+ LGPL-2.1+
+ii  libcomerr2:arm64               1.43.4-2                       arm64  common error description library                             unknown
+ii  libcroco3:arm64                0.6.11-3                       arm64  Cascading Style Sheet (CSS) parsing and manipulation toolkit LGPL
+ii  libcryptsetup4:arm64           2:1.7.3-4                      arm64  disk encryption support - shared library                     GPL-2+ LGPL-2.1+ public-domain
+ii  libcups2:arm64                 2.2.1-8+deb9u2                 arm64  Common UNIX Printing System(tm) - Core library               BSD-2-clause GPL-2.0 with AOSDL exception LGPL-2.0 with AOSDL exception Zlib
+ii  libcurl3-gnutls:arm64          7.52.1-5+deb9u8                arm64  easy-to-use client-side URL transfer library (GnuTLS flavour BSD-3-Clause BSD-4-Clause ISC curl other public-domain
+ii  libdatrie1:arm64               0.2.10-4+b1                    arm64  Double-array trie library                                    GPL-2+ LGPL-2.1+
+ii  libdb5.3:arm64                 5.3.28-12+deb9u1               arm64  Berkeley v5.3 Database Libraries [runtime]                   unknown
+ii  libdbus-1-3:arm64              1.10.26-0+deb9u1               arm64  simple interprocess messaging system (library)               AFL-2.1 BSD-3-clause BSD-3-clause-generic Expat GPL-2+ GPL-2+ or AFL-2.1 GPL-2+ or AFL-2.1, Tcl-BSDish g10-permissive
+ii  libdbus-glib-1-2:arm64         0.108-2                        arm64  simple interprocess messaging system (GLib-based shared libr AFL-2.1 Expat GPL-2+ GPL-2+ or AFL-2.1 GPL-2+ or AFL-2.1 or Expat
+ii  libdconf1:arm64                0.26.0-2+b1                    arm64  simple configuration storage system - runtime library        GPL-3 LGPL-2+
+ii  libdebconfclient0:arm64        0.227                          arm64  Debian Configuration Management System (C-implementation lib public domain
+ii  libdevmapper1.02.1:arm64       2:1.02.137-2                   arm64  Linux Kernel Device Mapper userspace library                 GPL-2 LGPL-2.1
+ii  libdns-export162               1:9.10.3.dfsg.P4-12.3+deb9u4   arm64  Exported DNS Shared Library                                  unknown
+ii  libdrm-amdgpu1:arm64           2.4.74-1                       arm64  Userspace interface to amdgpu-specific kernel DRM services - unknown
+ii  libdrm-freedreno1:arm64        2.4.74-1                       arm64  Userspace interface to msm/kgsl kernel DRM services -- runti unknown
+ii  libdrm-nouveau2:arm64          2.4.74-1                       arm64  Userspace interface to nouveau-specific kernel DRM services  unknown
+ii  libdrm-radeon1:arm64           2.4.74-1                       arm64  Userspace interface to radeon-specific kernel DRM services - unknown
+ii  libdrm2:arm64                  2.4.74-1                       arm64  Userspace interface to kernel DRM services -- runtime        unknown
+ii  libdv4:arm64                   1.0.0-11                       arm64  software library for DV format digital video (runtime lib)   GPL-2+ LGPL-2.1+
+ii  libedit2:arm64                 3.1-20160903-3                 arm64  BSD editline and history libraries                           unknown
+ii  libegl1-mesa:arm64             13.0.6-1+b2                    arm64  free implementation of the EGL API -- runtime                GPL LGPL
+ii  libelf1:arm64                  0.168-1                        arm64  library to read and write ELF files                          GPL-2 GPL-3 LGPL
+ii  libenchant1c2a:arm64           1.6.0-11+b1                    arm64  Wrapper library for various spell checker engines (runtime l LGPL-2.1
+ii  libepoxy0:arm64                1.3.1-2                        arm64  OpenGL function pointer management library                   Expat
+ii  libestr0                       0.1.10-2                       arm64  Helper functions for handling strings (lib)                  LGPL-2.1
+ii  libevent-2.0-5:arm64           2.0.21-stable-3                arm64  Asynchronous event notification library                      BSD license
+ii  libexpat1:arm64                2.2.0-2+deb9u1                 arm64  XML parsing C library - runtime library                      unknown
+ii  libfastjson4:arm64             0.99.4-1                       arm64  fast json library for C                                      Apache-2.0 Expat
+ii  libfdisk1:arm64                2.29.2-1+deb9u1                arm64  fdisk partitioning library                                   BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  libffi6:arm64                  3.2.1-6                        arm64  Foreign Function Interface library runtime                   GPL
+ii  libflac8:arm64                 1.3.2-1                        arm64  Free Lossless Audio Codec - runtime C library                BSD-3-clause GFDL-1.1+ GPL-2+ GPL-2+ or LGPL-2.1+ ISC LGPL-2+ LGPL-2.1+ Public-domain
+ii  libfontconfig1:arm64           2.11.0-6.7+b1                  arm64  generic font configuration library - runtime                 unknown
+ii  libfreetype6:arm64             2.6.3-3.2                      arm64  FreeType 2 font engine, shared library files                 BSD-2-Clause BSD-3-Clause Catharon-OSL FTL GPL-2+ GPL-2+ or FTL GZip OpenGroup-BSD-like
+ii  libgbm1:arm64                  13.0.6-1+b2                    arm64  generic buffer management API -- runtime                     GPL LGPL
+ii  libgcc1:arm64                  1:6.3.0-18+deb9u1              arm64  GCC support library                                          Artistic GFDL-1.2 GPL GPL-2 GPL-3
+ii  libgcrypt20:arm64              1.7.6-2+deb9u3                 arm64  LGPL Crypto library - runtime library                        GPL-2 LGPL
+ii  libgdbm3:arm64                 1.8.3-14                       arm64  GNU dbm database routines (runtime version)                  GPL-2
+ii  libgdk-pixbuf2.0-0:arm64       2.36.5-2+deb9u2                arm64  GDK Pixbuf library                                           GPL-2 LGPL-2
+ii  libgdk-pixbuf2.0-common        2.36.5-2+deb9u2                all    GDK Pixbuf library - data files                              GPL-2 LGPL-2
+ii  libgl1-mesa-dri:arm64          13.0.6-1+b2                    arm64  free implementation of the OpenGL API -- DRI modules         GPL LGPL
+ii  libgl1-mesa-glx:arm64          13.0.6-1+b2                    arm64  free implementation of the OpenGL API -- GLX runtime         GPL LGPL
+ii  libglapi-mesa:arm64            13.0.6-1+b2                    arm64  free implementation of the GL API -- shared library          GPL LGPL
+ii  libgles2-mesa:arm64            13.0.6-1+b2                    arm64  free implementation of the OpenGL|ES 2.x API -- runtime      GPL LGPL
+ii  libglib2.0-0:arm64             2.50.3-2                       arm64  GLib library of C routines                                   LGPL
+ii  libgmp10:arm64                 2:6.1.2+dfsg-1                 arm64  Multiprecision arithmetic library                            GPL GPL-2 GPL-3 LGPL-3
+ii  libgnutls30:arm64              3.5.8-5+deb9u4                 arm64  GNU TLS library - main runtime library                       GFDL-1.3 GPL GPL-3 LGPL LGPL-3
+ii  libgomp1:arm64                 6.3.0-18+deb9u1                arm64  GCC OpenMP (GOMP) support library                            Artistic GFDL-1.2 GPL GPL-2 GPL-3
+ii  libgpg-error0:arm64            1.26-2                         arm64  library for common error values and messages in GnuPG compon GPL-2.1+
+ii  libgpm2:arm64                  1.20.4-6.2+b1                  arm64  General Purpose Mouse - shared library                       GPL-2
+ii  libgraphite2-3:arm64           1.3.10-1                       arm64  Font rendering engine for Complex Scripts -- library         Artistic or GPL-1+ GPL1+ | Artistic LGPL | other LGPL-2+ MPL-1.1 | GPL-2 | LGPL-2.1 other
+ii  libgsm1:arm64                  1.0.13-4+b2                    arm64  Shared libraries for GSM speech compressor                   unknown
+ii  libgssapi-krb5-2:arm64         1.15-1+deb9u1                  arm64  MIT Kerberos runtime libraries - krb5 GSS-API Mechanism      GPL-2
+ii  libgstreamer-plugins-bad1.0-0: 1.10.4-1                       arm64  GStreamer development files for libraries from the "bad" set LGPL
+ii  libgstreamer-plugins-base1.0-0 1.10.4-1                       arm64  GStreamer libraries from the "base" set                      LGPL
+ii  libgstreamer1.0-0:arm64        1.10.4-1                       arm64  Core GStreamer libraries and elements                        LGPL
+ii  libgtk-3-0:arm64               3.22.11-1                      arm64  GTK+ graphical user interface library                        Apache-2.0 Expat LGPL-2+ LGPL-2+ or other LGPL-2.1+ other
+ii  libgtk-3-common                3.22.11-1                      all    common files for the GTK+ graphical user interface library   Apache-2.0 Expat LGPL-2+ LGPL-2+ or other LGPL-2.1+ other
+ii  libgudev-1.0-0:arm64           230-3                          arm64  GObject-based wrapper library for libudev                    LGPL-2+
+ii  libharfbuzz-icu0:arm64         1.4.2-1                        arm64  OpenType text shaping engine ICU backend                     MIT
+ii  libharfbuzz0b:arm64            1.4.2-1                        arm64  OpenType text shaping engine (shared library)                MIT
+ii  libhogweed4:arm64              3.3-1+b2                       arm64  low level cryptographic library (public-key cryptos)         GAP GPL-2 GPL-2+ GPL-2+ with Autoconf exception LGPL-2+ LGPL-2.1+ other public-domain
+ii  libhunspell-1.4-0:arm64        1.4.1-2+b2                     arm64  spell checker and morphological analyzer (shared library)    GPL-2 LGPL-2.1
+ii  libhyphen0:arm64               2.8.8-5                        arm64  ALTLinux hyphenation library - shared library                GPL-2+ GPL-2+ or LGPL-2.1+ or MPL-1.1+ LGPL-2.1+ MPL-1.1+
+ii  libice6:arm64                  2:1.0.9-2                      arm64  X11 Inter-Client Exchange library                            unknown
+ii  libicu57:arm64                 57.1-6+deb9u2                  arm64  International Components for Unicode                         unknown
+ii  libidn11:arm64                 1.33-1                         arm64  GNU Libidn library, implementation of IETF IDN specification GAP GFDL-1.3+ GPL-3+ LGPL-2.1+ LGPL-3+ or GPL-2+
+ii  libidn2-0:arm64                0.16-1+deb9u1                  arm64  Internationalized domain names (IDNA2008) library            GPL-3+ LGPL-3+ or GPL-2+ Unicode
+ii  libiec61883-0:arm64            1.2.0-2                        arm64  partial implementation of IEC 61883 (shared lib)             LGPL
+ii  libip4tc0:arm64                1.6.0+snapshot20161117-6       arm64  netfilter libip4tc library                                   Artistic-2 GPL-2 GPL-2+ custom
+ii  libip6tc0:arm64                1.6.0+snapshot20161117-6       arm64  netfilter libip6tc library                                   Artistic-2 GPL-2 GPL-2+ custom
+ii  libiptc0:arm64                 1.6.0+snapshot20161117-6       arm64  netfilter libiptc library                                    Artistic-2 GPL-2 GPL-2+ custom
+ii  libisc-export160               1:9.10.3.dfsg.P4-12.3+deb9u4   arm64  Exported ISC Shared Library                                  unknown
+ii  libjack-jackd2-0:arm64         1.9.10+20150825git1ed50c92~dfs arm64  JACK Audio Connection Kit (libraries)                        BSD-3-clause Expat Expat~modrequest GPL-2 GPL-2+ GPL-2~either GPL-2~jack-audio-connection-kit GPL-2~jackd2 GPL-2~or GPL-3+ LGPL-2+ LGPL-2.1+ None public-domain~Kroon
+ii  libjavascriptcoregtk-4.0-18:ar 2.18.6-1~deb9u1                arm64  JavaScript engine library from WebKitGTK+                    Apache-2.0 BSD-2-clause BSD-3-clause BSL Expat GPL-2+ GPL-3+ ISC LGPL-2 LGPL-2+ LGPL-2.1 LGPL-2.1+ MIT-X11 MPL-1.1 MPL-1.1 or GPL-2+ or LGPL-2.1+ public-domain
+ii  libjbig0:arm64                 2.1-3.1+b2                     arm64  JBIGkit libraries                                            GPL-2+
+ii  libjpeg62-turbo:arm64          1:1.5.1-2                      arm64  libjpeg-turbo JPEG runtime library                           BSD-3 BSD-BY-LC-NE Expat
+ii  libjson-glib-1.0-0:arm64       1.2.6-1                        arm64  GLib JSON manipulation library                               LGPL-2.1+
+ii  libjson-glib-1.0-common        1.2.6-1                        all    GLib JSON manipulation library (common files)                LGPL-2.1+
+ii  libjsoncpp1:arm64              1.7.4-3                        arm64  library for reading and writing JSON for C++                 Expat_or_PublicDomain_or_DualExpatPD GPL-3+
+ii  libk5crypto3:arm64             1.15-1+deb9u1                  arm64  MIT Kerberos runtime libraries - Crypto Library              GPL-2
+ii  libkeyutils1:arm64             1.5.9-9                        arm64  Linux Key Management Utilities (library)                     GPL-2+ LGPL-2+
+ii  libkmod2:arm64                 23-2                           arm64  libkmod shared library                                       GPL-2 LGPL-2.1
+ii  libkrb5-3:arm64                1.15-1+deb9u1                  arm64  MIT Kerberos runtime libraries                               GPL-2
+ii  libkrb5support0:arm64          1.15-1+deb9u1                  arm64  MIT Kerberos runtime libraries - Support library             GPL-2
+ii  libksba8:arm64                 1.3.5-2                        arm64  X.509 and CMS support library                                GPL-3
+ii  liblcms2-2:arm64               2.8-4+deb9u1                   arm64  Little CMS 2 color management library                        GPL-2+ MIT
+ii  libldap-2.4-2:arm64            2.4.44+dfsg-5+deb9u2           arm64  OpenLDAP libraries                                           unknown
+ii  libldap-common                 2.4.44+dfsg-5+deb9u2           all    OpenLDAP common files for libraries                          unknown
+ii  libllvm3.9:arm64               1:3.9.1-9                      arm64  Modular compiler and toolchain technologies, runtime library ARM Apple BSD-3-Clause BSD-3-clause Expat LLVM MIT NCSA Polly Python U-OF-I-BSD-LIKE U-OF-I-BSD-LIKE or MIT public-domain
+ii  liblocale-gettext-perl         1.07-3+b1                      arm64  module using libc functions for internationalization in Perl Artistic Artistic or GPL-1+ GPL-1+
+ii  liblogging-stdlog0:arm64       1.0.5-2+b2                     arm64  easy to use and lightweight logging library                  BSD-2-Clause
+ii  liblognorm5:arm64              2.0.1-1.1+b1                   arm64  log normalizing library                                      Apache-2.0 LGPL-2.1
+ii  libltdl7:arm64                 2.4.6-2                        arm64  System independent dlopen wrapper for GNU libtool            GFDL GPL
+ii  liblz4-1:arm64                 0.0~r131-2+b1                  arm64  Fast LZ compression algorithm library - runtime              BSD-2-clause GPL-2+
+ii  liblzma5:arm64                 5.2.2-1.2+b1                   arm64  XZ-format compression library                                Autoconf GPL-2 GPL-2+ LGPL-2.1+ PD PD-debian config-h noderivs none permissive-fsf permissive-nowarranty probably-PD
+ii  libmagic-mgc                   1:5.30-1+deb9u2                arm64  File type determination library using "magic" numbers (compi BSD-2-Clause-alike BSD-2-Clause-netbsd BSD-2-Clause-regents MIT-Old-Style-with-legal-disclaimer-2 public-domain
+ii  libmagic1:arm64                1:5.30-1+deb9u2                arm64  Recognize the type of data in a file using "magic" numbers - BSD-2-Clause-alike BSD-2-Clause-netbsd BSD-2-Clause-regents MIT-Old-Style-with-legal-disclaimer-2 public-domain
+ii  libmnl0:arm64                  1.0.4-2                        arm64  minimalistic Netlink communication library                   GPL-2+ LGPL-2.1
+ii  libmount1:arm64                2.29.2-1+deb9u1                arm64  device mounting library                                      BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  libmp3lame0:arm64              3.99.5+repack1-9+b2            arm64  MP3 encoding library                                         BSD-3-clause GPL-1+ LGPL-2+ LGPL-2.1+ zlib/libpng
+ii  libncurses5:arm64              6.0+20161126-1+deb9u2          arm64  shared libraries for terminal handling                       unknown
+ii  libncursesw5:arm64             6.0+20161126-1+deb9u2          arm64  shared libraries for terminal handling (wide character suppo unknown
+ii  libnetfilter-conntrack3:arm64  1.0.6-2                        arm64  Netfilter netlink-conntrack library                          GPL-2+
+ii  libnettle6:arm64               3.3-1+b2                       arm64  low level cryptographic library (symmetric and one-way crypt GAP GPL-2 GPL-2+ GPL-2+ with Autoconf exception LGPL-2+ LGPL-2.1+ other public-domain
+ii  libnewt0.52:arm64              0.52.19-1+b1                   arm64  Not Erik's Windowing Toolkit - text mode windowing with slan LGPL-2
+ii  libnfnetlink0:arm64            1.0.1-3                        arm64  Netfilter netlink library                                    GPL
+ii  libnghttp2-14:arm64            1.18.1-1                       arm64  library implementing HTTP/2 protocol (shared library)        BSD-2-clause Expat GPL-3+ with autoconf exception MIT SIL-OFL-1.1 all-permissive
+ii  libnotify4:arm64               0.7.7-2                        arm64  sends desktop notifications to a notification daemon         LGPL-2.1
+ii  libnpth0:arm64                 1.3-1                          arm64  replacement for GNU Pth using system threads                 GPL-2+ GPL-2+ or LGPL-3+ LGPL-3+
+ii  libnuma1:arm64                 2.0.11-2.1                     arm64  Libraries for controlling NUMA policy                        GPL LGPL
+ii  libogg0:arm64                  1.3.2-1                        arm64  Ogg bitstream library                                        unknown
+ii  libopenjp2-7:arm64             2.1.2-1.1+deb9u2               arm64  JPEG 2000 image compression/decompression library            BSD-2 BSD-3 LIBPNG LIBTIFF LIBTIFF-GLARSON LIBTIFF-PIXAR MIT ZLIB public-domain
+ii  libopus0:arm64                 1.2~alpha2-1                   arm64  Opus codec runtime library                                   unknown
+ii  liborc-0.4-0:arm64             1:0.4.26-2                     arm64  Library of Optimized Inner Loops Runtime Compiler            unknown
+ii  libp11-kit0:arm64              0.23.3-2                       arm64  library for loading and coordinating access to PKCS#11 modul BSD-3-Clause ISC ISC+IBM permissive-like-automake-output same-as-rest-of-p11kit
+ii  libpam-cap:arm64               1:2.25-1                       arm64  POSIX 1003.1e capabilities (PAM module)                      BSD-3-clause BSD-3-clause or GPL-2 BSD-3-clause or GPL-2+ GPL-2 GPL-2+
+ii  libpam-modules:arm64           1.1.8-3.6                      arm64  Pluggable Authentication Modules for PAM                     GPL
+ii  libpam-modules-bin             1.1.8-3.6                      arm64  Pluggable Authentication Modules for PAM - helper binaries   GPL
+ii  libpam-runtime                 1.1.8-3.6                      all    Runtime support for the PAM library                          GPL
+ii  libpam-systemd:arm64           232-25+deb9u6                  arm64  system and service manager - PAM module                      CC0 Expat GPL-2 GPL-2+ LGPL-2.1+ public-domain
+ii  libpam0g:arm64                 1.1.8-3.6                      arm64  Pluggable Authentication Modules library                     GPL
+ii  libpango-1.0-0:arm64           1.40.5-1                       arm64  Layout and rendering of internationalized text               LGPL-2 LGPL-2.1
+ii  libpangocairo-1.0-0:arm64      1.40.5-1                       arm64  Layout and rendering of internationalized text               LGPL-2 LGPL-2.1
+ii  libpangoft2-1.0-0:arm64        1.40.5-1                       arm64  Layout and rendering of internationalized text               LGPL-2 LGPL-2.1
+ii  libpcre3:arm64                 2:8.39-3                       arm64  Old Perl 5 Compatible Regular Expression Library - runtime f "BSD" LICENCE "BSD" License
+ii  libpipeline1:arm64             1.4.1-2                        arm64  pipeline manipulation library                                GPL-2+ GPL-3+
+ii  libpixman-1-0:arm64            0.34.0-1                       arm64  pixel-manipulation library for X and cairo                   MIT license
+ii  libpng16-16:arm64              1.6.28-1                       arm64  PNG library - runtime (version 1.6)                          BSD-like-with-advertising-clause GPL-2+ GPL-2+ or BSD-like-with-advertising-clause expat libpng
+ii  libpolkit-agent-1-0:arm64      0.105-18                       arm64  PolicyKit Authentication Agent API                           Apache-2.0 LGPL-2.0+
+ii  libpolkit-backend-1-0:arm64    0.105-18                       arm64  PolicyKit backend API                                        Apache-2.0 LGPL-2.0+
+ii  libpolkit-gobject-1-0:arm64    0.105-18                       arm64  PolicyKit Authorization API                                  Apache-2.0 LGPL-2.0+
+ii  libpopt0:arm64                 1.16-10+b2                     arm64  lib for parsing cmdline parameters                           GPL-2+ X-Consortium
+ii  libprocps6:arm64               2:3.3.12-3+deb9u1              arm64  library for accessing process information from /proc         GPL-2.0+ LGPL-2.0+ LGPL-2.1+
+ii  libproxy1v5:arm64              0.4.14-2                       arm64  automatic proxy configuration management library (shared)    GPL LGPL-2.1
+ii  libpsl5:arm64                  0.17.0-3                       arm64  Library for Public Suffix List (shared libraries)            Chromium MIT
+ii  libpulse0:arm64                10.0-1+deb9u1                  arm64  PulseAudio client libraries                                  GPL-2 LGPL-2 LGPL-2.1
+ii  libpulsedsp:arm64              10.0-1+deb9u1                  arm64  PulseAudio OSS pre-load library                              GPL-2 LGPL-2 LGPL-2.1
+ii  libraw1394-11:arm64            2.1.2-1+b1                     arm64  library for direct access to IEEE 1394 bus (aka FireWire)    GPL LGPL
+ii  libreadline7:arm64             7.0-3                          arm64  GNU readline and history libraries, run-time libraries       GFDL GPL-3
+ii  librest-0.7-0:arm64            0.8.0-2                        arm64  REST service access library                                  GPL-2+ LGPL-2.1
+ii  librsvg2-2:arm64               2.40.16-1+b1                   arm64  SAX-based renderer library for SVG files (runtime)           GPL-2+ LGPL-2+
+ii  librsvg2-common:arm64          2.40.16-1+b1                   arm64  SAX-based renderer library for SVG files (extra runtime)     GPL-2+ LGPL-2+
+ii  librtmp1:arm64                 2.4+20151223.gitfa8646d.1-1+b1 arm64  toolkit for RTMP streams (shared library)                    GPL-2 LGPL-2.1
+ii  libsamplerate0:arm64           0.1.8-8+b2                     arm64  Audio sample rate conversion library                         GPL
+ii  libsasl2-2:arm64               2.1.27~101-g0780600+dfsg-3     arm64  Cyrus SASL - authentication abstraction library              BSD-4-clause GPL-3+
+ii  libsasl2-modules-db:arm64      2.1.27~101-g0780600+dfsg-3     arm64  Cyrus SASL - pluggable authentication modules (DB)           BSD-4-clause GPL-3+
+ii  libseccomp2:arm64              2.3.1-2.1+deb9u1               arm64  high level interface to Linux seccomp filter                 LGPL-2.0+
+ii  libsecret-1-0:arm64            0.18.5-3.1                     arm64  Secret store                                                 Apache-2.0 BSD-3-clause GPL-2+ LGPL-2.1+
+ii  libsecret-common               0.18.5-3.1                     all    Secret store (common files)                                  Apache-2.0 BSD-3-clause GPL-2+ LGPL-2.1+
+ii  libselinux1:arm64              2.6-3+b3                       arm64  SELinux runtime shared libraries                             GPL-2 LGPL-2.1
+ii  libsemanage-common             2.6-2                          all    Common files for SELinux policy management libraries         GPL LGPL
+ii  libsemanage1:arm64             2.6-2                          arm64  SELinux policy management library                            GPL LGPL
+ii  libsensors4:arm64              1:3.4.0-4                      arm64  library to read temperature/voltage/fan sensors              GPL GPL-2
+ii  libsepol1:arm64                2.6-2                          arm64  SELinux library for manipulating binary security policies    GPL LGPL
+ii  libshine3:arm64                3.1.0-5                        arm64  Fixed-point MP3 encoding library - runtime files             GPL-2+ LGPL-2
+ii  libshout3:arm64                2.3.1-3                        arm64  MP3/Ogg Vorbis broadcast streaming library                   Expat~X Expat~X with X exception GAP GAP~Makefile.in GAP~configure GPL-2 GPL-2+ GPL-2+ with Autoconf exception GPL-2+~file GPL-2+~file with Autoconf exception GPL-3+ LGPL-2+ NTP~Rushing
+ii  libslang2:arm64                2.3.1-5                        arm64  S-Lang programming library - runtime version                 GPL-2+
+ii  libsm6:arm64                   2:1.2.2-1+b3                   arm64  X11 Session Management library                               unknown
+ii  libsmartcols1:arm64            2.29.2-1+deb9u1                arm64  smart column output alignment library                        BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  libsnappy1v5:arm64             1.1.3-3                        arm64  fast compression/decompression library                       unknown
+ii  libsndfile1:arm64              1.0.27-3                       arm64  Library for reading/writing audio files                      LGPL-2.1+
+ii  libsoup-gnome2.4-1:arm64       2.56.0-2+deb9u2                arm64  HTTP library implementation in C -- GNOME support library    LGPL-2+
+ii  libsoup2.4-1:arm64             2.56.0-2+deb9u2                arm64  HTTP library implementation in C -- Shared library           LGPL-2+
+ii  libsoxr0:arm64                 0.1.2-2                        arm64  High quality 1D sample-rate conversion library               BSD-3-clause LGPL-2.1+ Spherepack permissive1 permissive2
+ii  libspeex1:arm64                1.2~rc1.2-1+b2                 arm64  The Speex codec runtime library                              unknown
+ii  libspeexdsp1:arm64             1.2~rc1.2-1+b2                 arm64  The Speex extended runtime library                           unknown
+ii  libsqlite3-0:arm64             3.16.2-5+deb9u1                arm64  SQLite 3 shared library                                      GPL-2+ public-domain
+ii  libss2:arm64                   1.43.4-2                       arm64  command-line interface parsing library                       unknown
+ii  libssh2-1:arm64                1.7.0-1                        arm64  SSH2 client-side library                                     BSD3
+ii  libssl1.0.2:arm64              1.0.2l-2+deb9u3                arm64  Secure Sockets Layer toolkit - shared libraries              BSD-style
+ii  libssl1.1:arm64                1.1.0f-3+deb9u2                arm64  Secure Sockets Layer toolkit - shared libraries              BSD-style
+ii  libstartup-notification0:arm64 0.12-4+b2                      arm64  library for program launch feedback (shared library)         LGPL
+ii  libstdc++6:arm64               6.3.0-18+deb9u1                arm64  GNU Standard C++ Library v3                                  Artistic GFDL-1.2 GPL GPL-2 GPL-3
+ii  libswresample2:arm64           7:3.2.12-1~deb9u1              arm64  FFmpeg library for audio resampling, rematrixing etc. - runt BSD-1-clause BSD-2-clause BSD-3-clause BSL Expat FSF GPL-2+ GPL-2+ with Avisynth exception GPL-3+ IJG ISC LGPL-2+ LGPL-2.1+ Sundry Zlib man-page public-domain
+ii  libsystemd0:arm64              232-25+deb9u6                  arm64  systemd utility library                                      CC0 Expat GPL-2 GPL-2+ LGPL-2.1+ public-domain
+ii  libtag1v5:arm64                1.11.1+dfsg.1-0.1              arm64  audio meta-data library                                      BSD-2-clause LGPL-2.1 LGPL-2.1 or MPL-1.1 MPL-1.1
+ii  libtag1v5-vanilla:arm64        1.11.1+dfsg.1-0.1              arm64  audio meta-data library - vanilla flavour                    BSD-2-clause LGPL-2.1 LGPL-2.1 or MPL-1.1 MPL-1.1
+ii  libtasn1-6:arm64               4.10-1.1+deb9u1                arm64  Manage ASN.1 structures (runtime)                            GFDL-1.3 GPL-3 LGPL LGPL-2.1
+ii  libtdb1:arm64                  1.3.11-2                       arm64  Trivial Database - shared library                            BSD-3 GPL-3+ ISC LGPL-3+
+ii  libtext-charwidth-perl         0.04-7+b3                      arm64  get display widths of characters on the terminal             Artistic GPL-2
+ii  libtext-iconv-perl             1.7-5+b3                       arm64  converts between character sets in Perl                      Artistic GPL-2
+ii  libtext-wrapi18n-perl          0.06-7.1                       all    internationalized substitute of Text::Wrap                   Artistic GPL
+ii  libthai-data                   0.1.26-1                       all    Data files for Thai language support library                 GPL-2+ LGPL-2.1+
+ii  libthai0:arm64                 0.1.26-1                       arm64  Thai language support library                                GPL-2+ LGPL-2.1+
+ii  libtheora0:arm64               1.1.1+dfsg.1-14+b1             arm64  Theora Video Compression Codec                               unknown
+ii  libtiff5:arm64                 4.0.8-2+deb9u2                 arm64  Tag Image File Format (TIFF) library                         Hylafax
+ii  libtinfo5:arm64                6.0+20161126-1+deb9u2          arm64  shared low-level terminfo library for terminal handling      unknown
+ii  libtwolame0:arm64              0.3.13-2                       arm64  MPEG Audio Layer 2 encoding library                          LGPL-2+
+ii  libtxc-dxtn-s2tc:arm64         1.0+git20151227-2              arm64  Texture compression library for Mesa                         Expat
+ii  libudev1:arm64                 232-25+deb9u6                  arm64  libudev shared library                                       CC0 Expat GPL-2 GPL-2+ LGPL-2.1+ public-domain
+ii  libunistring0:arm64            0.9.6+really0.9.3-0.1          arm64  Unicode string library for C                                 GFDL-1.2+ GPL-2+ GPL-2+ with exception GPL-3+ GPL-3+ or GFDL-1.2+ LGPL-3+ MIT
+ii  libustr-1.0-1:arm64            1.0.4-6                        arm64  Micro string library: shared library                         BSD-2-clause GPL-2+ LGPL-2+ LGPL-2+ or BSD-2-clause or MIT MIT
+ii  libuuid1:arm64                 2.29.2-1+deb9u1                arm64  Universally Unique ID library                                BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  libv4l-0:arm64                 1.12.3-1                       arm64  Collection of video4linux support libraries                  GPL-2 LGPL
+ii  libv4lconvert0:arm64           1.12.3-1                       arm64  Video4linux frame format conversion library                  GPL-2 LGPL
+ii  libva-drm1:arm64               1.7.3-2                        arm64  Video Acceleration (VA) API for Linux -- DRM runtime         BSD-3-clause Expat Expat-advertising GPL-2+ other
+ii  libva-x11-1:arm64              1.7.3-2                        arm64  Video Acceleration (VA) API for Linux -- X11 runtime         BSD-3-clause Expat Expat-advertising GPL-2+ other
+ii  libva1:arm64                   1.7.3-2                        arm64  Video Acceleration (VA) API for Linux -- runtime             BSD-3-clause Expat Expat-advertising GPL-2+ other
+ii  libvdpau-va-gl1:arm64          0.4.2-1                        arm64  VDPAU driver with OpenGL/VAAPI backend                       LGPL-3
+ii  libvdpau1:arm64                1.1.1-6                        arm64  Video Decode and Presentation API for Unix (libraries)       Expat other
+ii  libvisual-0.4-0:arm64          0.4.0-10                       arm64  audio visualization framework                                LGPL-2+ LGPL-2.1+
+ii  libvorbis0a:arm64              1.3.5-4+deb9u2                 arm64  decoder library for Vorbis General Audio Compression Codec   unknown
+ii  libvorbisenc2:arm64            1.3.5-4+deb9u2                 arm64  encoder library for Vorbis General Audio Compression Codec   unknown
+ii  libvpx4:arm64                  1.6.1-3+deb9u1                 arm64  VP8 and VP9 video codec (shared library)                     BSD-3-Clause ISC public-domain
+ii  libwavpack1:arm64              5.0.0-2+deb9u2                 arm64  audio codec (lossy and lossless) - library                   public domain
+ii  libwayland-client0:arm64       1.12.0-1                       arm64  wayland compositor infrastructure - client library           X11
+ii  libwayland-cursor0:arm64       1.12.0-1                       arm64  wayland compositor infrastructure - cursor library           X11
+ii  libwayland-egl1-mesa:arm64     13.0.6-1+b2                    arm64  implementation of the Wayland EGL platform -- runtime        GPL LGPL
+ii  libwayland-server0:arm64       1.12.0-1                       arm64  wayland compositor infrastructure - server library           X11
+ii  libwebkit2gtk-4.0-37:arm64     2.18.6-1~deb9u1                arm64  Web content engine library for GTK+                          Apache-2.0 BSD-2-clause BSD-3-clause BSL Expat GPL-2+ GPL-3+ ISC LGPL-2 LGPL-2+ LGPL-2.1 LGPL-2.1+ MIT-X11 MPL-1.1 MPL-1.1 or GPL-2+ or LGPL-2.1+ public-domain
+ii  libwebp6:arm64                 0.5.2-1                        arm64  Lossy compression of digital photographic images.            Apache-2.0
+ii  libwebpmux2:arm64              0.5.2-1                        arm64  Lossy compression of digital photographic images.            Apache-2.0
+ii  libwebrtc-audio-processing1:ar 0.3-1                          arm64  AudioProcessing module from the WebRTC project.              BSD-3-clause
+ii  libwrap0:arm64                 7.6.q-26                       arm64  Wietse Venema's TCP wrappers library                         unknown
+ii  libx11-6:arm64                 2:1.6.4-3+deb9u1               arm64  X11 client-side library                                      MIT license
+ii  libx11-data                    2:1.6.4-3+deb9u1               all    X11 client-side library                                      MIT license
+ii  libx11-xcb1:arm64              2:1.6.4-3+deb9u1               arm64  Xlib/XCB interface library                                   MIT license
+ii  libx264-148:arm64              2:0.148.2748+git97eaef2-1      arm64  x264 video coding library                                    BSD-3-clause Expat GPL-2+ GPL-2+ with other exception ISC LGPL-2.1+ public-domain
+ii  libx265-95:arm64               2.1-2+b2                       arm64  H.265/HEVC video stream encoder (shared library)             GPL-2+ LGPL-2.1+
+ii  libxapian30:arm64              1.4.3-2+deb9u2                 arm64  Search engine library                                        GPL-2
+ii  libxau6:arm64                  1:1.0.8-1                      arm64  X11 authorisation library                                    unknown
+ii  libxaw7:arm64                  2:1.0.13-1+b2                  arm64  X11 Athena Widget library                                    unknown
+ii  libxcb-dri2-0:arm64            1.12-1                         arm64  X C Binding, dri2 extension                                  unknown
+ii  libxcb-dri3-0:arm64            1.12-1                         arm64  X C Binding, dri3 extension                                  unknown
+ii  libxcb-glx0:arm64              1.12-1                         arm64  X C Binding, glx extension                                   unknown
+ii  libxcb-present0:arm64          1.12-1                         arm64  X C Binding, present extension                               unknown
+ii  libxcb-render0:arm64           1.12-1                         arm64  X C Binding, render extension                                unknown
+ii  libxcb-shm0:arm64              1.12-1                         arm64  X C Binding, shm extension                                   unknown
+ii  libxcb-sync1:arm64             1.12-1                         arm64  X C Binding, sync extension                                  unknown
+ii  libxcb-util0:arm64             0.3.8-3+b2                     arm64  utility libraries for X C Binding -- atom, aux and event     GPL-2+ MIT/X Consortium License
+ii  libxcb-xfixes0:arm64           1.12-1                         arm64  X C Binding, xfixes extension                                unknown
+ii  libxcb1:arm64                  1.12-1                         arm64  X C Binding                                                  unknown
+ii  libxcomposite1:arm64           1:0.4.4-2                      arm64  X11 Composite extension library                              unknown
+ii  libxcursor1:arm64              1:1.1.14-1+deb9u2              arm64  X cursor management library                                  unknown
+ii  libxdamage1:arm64              1:1.1.4-2+b3                   arm64  X11 damaged region extension library                         unknown
+ii  libxdmcp6:arm64                1:1.1.2-3                      arm64  X11 Display Manager Control Protocol library                 unknown
+ii  libxext6:arm64                 2:1.3.3-1+b2                   arm64  X11 miscellaneous extension library                          unknown
+ii  libxfixes3:arm64               1:5.0.3-1                      arm64  X11 miscellaneous 'fixes' extension library                  unknown
+ii  libxft2:arm64                  2.3.2-1+b2                     arm64  FreeType-based font drawing library for X                    unknown
+ii  libxi6:arm64                   2:1.7.9-1                      arm64  X11 Input extension library                                  unknown
+ii  libxinerama1:arm64             2:1.1.3-1+b3                   arm64  X11 Xinerama extension library                               unknown
+ii  libxkbcommon0:arm64            0.7.1-2~deb9u1                 arm64  library interface to the XKB compiler - shared library       unknown
+ii  libxkbfile1:arm64              1:1.0.9-2                      arm64  X11 keyboard file manipulation library                       unknown
+ii  libxml2:arm64                  2.9.4+dfsg1-2.2+deb9u2         arm64  GNOME XML library                                            unknown
+ii  libxmu6:arm64                  2:1.1.2-2                      arm64  X11 miscellaneous utility library                            unknown
+ii  libxmuu1:arm64                 2:1.1.2-2                      arm64  X11 miscellaneous micro-utility library                      unknown
+ii  libxpm4:arm64                  1:3.5.12-1                     arm64  X11 pixmap library                                           unknown
+ii  libxrandr2:arm64               2:1.5.1-1                      arm64  X11 RandR extension library                                  unknown
+ii  libxrender1:arm64              1:0.9.10-1                     arm64  X Rendering Extension client library                         unknown
+ii  libxshmfence1:arm64            1.2-1+b2                       arm64  X shared memory fences - shared library                      unknown
+ii  libxslt1.1:arm64               1.1.29-2.1                     arm64  XSLT 1.0 processing library - runtime library                unknown
+ii  libxt6:arm64                   1:1.1.5-1                      arm64  X11 toolkit intrinsics library                               unknown
+ii  libxtables12:arm64             1.6.0+snapshot20161117-6       arm64  netfilter xtables library                                    Artistic-2 GPL-2 GPL-2+ custom
+ii  libxtst6:arm64                 2:1.2.3-1                      arm64  X11 Testing -- Record extension library                      unknown
+ii  libxv1:arm64                   2:1.0.11-1                     arm64  X11 Video extension library                                  
+ii  libxvidcore4:arm64             2:1.3.4-1+b2                   arm64  Open source MPEG-4 video codec (library)                     GPL-2+ LGPL-2+
+ii  libxxf86vm1:arm64              1:1.1.4-1+b2                   arm64  X11 XFree86 video mode extension library                     unknown
+ii  libzvbi-common                 0.2.35-13                      all    Vertical Blanking Interval decoder (VBI) - common files      BSD-2-Clause BSD-3-Clause GPL-2 GPL-2 or GPL-2+ GPL-2+ GPL-2+ or BSD-3-Clause LGPL-2+ LGPL-2.1+ MIT
+ii  libzvbi0:arm64                 0.2.35-13                      arm64  Vertical Blanking Interval decoder (VBI) - runtime files     BSD-2-Clause BSD-3-Clause GPL-2 GPL-2 or GPL-2+ GPL-2+ GPL-2+ or BSD-3-Clause LGPL-2+ LGPL-2.1+ MIT
+ii  locales                        2.24-11+deb9u3                 all    GNU C Library: National Language (locale) data [support]     GPL-2 LGPL-2.1
+ii  login                          1:4.4-4.1                      arm64  system login tools                                           GPL-2
+ii  logrotate                      3.11.0-0.1                     arm64  Log rotation utility                                         GPL-2
+ii  lsb-base                       9.20161125                     all    Linux Standard Base init script functionality                BSD-3-clause GPL-2
+ii  man-db                         2.7.6.1-2                      arm64  on-line manual pager                                         GPL-2+ GPL-3+
+ii  mawk                           1.3.3-17+b3                    arm64  a pattern scanning and text processing language              GPL-2
+ii  mesa-va-drivers:arm64          13.0.6-1+b2                    arm64  Mesa VA-API video acceleration drivers                       GPL LGPL
+ii  mesa-vdpau-drivers:arm64       13.0.6-1+b2                    arm64  Mesa VDPAU video acceleration drivers                        GPL LGPL
+ii  mount                          2.29.2-1+deb9u1                arm64  tools for mounting and manipulating filesystems              BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  multiarch-support              2.24-11+deb9u3                 arm64  Transitional package to ensure multiarch compatibility       GPL-2 LGPL-2.1
+ii  nano                           2.7.4-1                        arm64  small, friendly text editor inspired by Pico                 GFDL-NIV+ GFDL-NIV+ or GPL-3+ GPL-3+
+ii  ncurses-base                   6.0+20161126-1+deb9u2          all    basic terminal type definitions                              unknown
+ii  ncurses-bin                    6.0+20161126-1+deb9u2          arm64  terminal-related programs and man pages                      unknown
+ii  netbase                        5.4                            all    Basic TCP/IP networking system                               GPL-2
+ii  notification-daemon            3.20.0-1+b1                    arm64  daemon for displaying passive pop-up notifications           GPL-2+
+ii  passwd                         1:4.4-4.1                      arm64  change and administer password and group data                GPL-2
+ii  perl-base                      5.24.1-3+deb9u4                arm64  minimal Perl system                                          Artistic Artistic-2 BSD-3-clause BSD-3-clause-GENERIC BSD-3-clause-with-weird-numbering BSD-4-clause-POWERDOG BZIP CC0-1.0 DONT-CHANGE-THE-GPL Expat Expat or GPL-1+ or Artistic GPL-1+ GPL-1+ or Artistic GPL-1+ or Artistic, GPL-2+ GPL-2+ or Artistic GPL-3+-WITH-BISON-EXCEPTION HSIEH-BSD HSIEH-DERIVATIVE HSIEH-DERIVATIVE or HSIEH-BSD or LGPL-2.1 LGPL-2.1 REGCOMP REGCOMP, RRA-KEEP-THIS-NOTICE S2P SDBM-PUBLIC-DOMAIN TEXT-TABS Unicode ZLIB
+ii  pinentry-curses                1.0.0-2                        arm64  curses-based PIN or pass-phrase entry dialog for GnuPG       GPL-2+ LGPL-3+ LGPL-3+ or GPL-2+ X11
+ii  policykit-1                    0.105-18                       arm64  framework for managing administrative policies and privilege Apache-2.0 LGPL-2.0+
+ii  procps                         2:3.3.12-3+deb9u1              arm64  /proc file system utilities                                  GPL-2.0+ LGPL-2.0+ LGPL-2.1+
+ii  pulseaudio                     10.0-1+deb9u1                  arm64  PulseAudio sound server                                      GPL-2 LGPL-2 LGPL-2.1
+ii  pulseaudio-utils               10.0-1+deb9u1                  arm64  Command line tools for the PulseAudio sound server           GPL-2 LGPL-2 LGPL-2.1
+ii  readline-common                7.0-3                          all    GNU readline and history libraries, common files             GFDL GPL-3
+ii  rsyslog                        8.24.0-1                       arm64  reliable system and kernel logging daemon                    Apache-2.0 BSD-3-clause GPL-3.0+ LGPL-3.0+
+ii  rtkit                          0.11-4+b1                      arm64  Realtime Policy and Watchdog Daemon                          Expat GPL-3+
+ii  sed                            4.4-1                          arm64  GNU stream editor for filtering/transforming text            GPL-3
+ii  sensible-utils                 0.0.9+deb9u1                   all    Utilities for sensible alternative selection                 GPL-2
+ii  shared-mime-info               1.8-1+deb9u1                   arm64  FreeDesktop.org shared MIME database and spec                GPL
+ii  sudo                           1.8.19p1-2.1                   arm64  Provide limited super user privileges to specific users      unknown
+ii  systemd                        232-25+deb9u6                  arm64  system and service manager                                   CC0 Expat GPL-2 GPL-2+ LGPL-2.1+ public-domain
+ii  systemd-container              232-25+deb9u6                  arm64  systemd container/nspawn tools                               CC0 Expat GPL-2 GPL-2+ LGPL-2.1+ public-domain
+ii  systemd-sysv                   232-25+deb9u6                  arm64  system and service manager - SysV links                      CC0 Expat GPL-2 GPL-2+ LGPL-2.1+ public-domain
+ii  sysvinit-utils                 2.88dsf-59.9                   arm64  System-V-like utilities                                      GPL-2
+ii  tar                            1.29b-1.1                      arm64  GNU version of the tar archiving utility                     GPL-2 GPL-3
+ii  tasksel                        3.39                           all    tool for selecting tasks for installation on Debian systems  GPL-2
+ii  tasksel-data                   3.39                           all    official tasks used for installation of Debian systems       GPL-2
+ii  tcpd                           7.6.q-26                       arm64  Wietse Venema's TCP wrapper utilities                        unknown
+ii  tzdata                         2018g-0+deb9u1                 all    time zone and daylight-saving time data                      public domain
+ii  ucf                            3.0036                         all    Update Configuration File(s): preserve user changes to confi GPL-2
+ii  udev                           232-25+deb9u6                  arm64  /dev/ and hotplug management daemon                          CC0 Expat GPL-2 GPL-2+ LGPL-2.1+ public-domain
+ii  util-linux                     2.29.2-1+deb9u1                arm64  miscellaneous system utilities                               BSD-2-clause BSD-3-clause BSD-4-clause GPL-2 GPL-2+ GPL-3+ LGPL LGPL-2+ LGPL-2.1+ LGPL-3+ MIT public-domain
+ii  va-driver-all:arm64            1.7.3-2                        arm64  Video Acceleration (VA) API -- driver metapackage            BSD-3-clause Expat Expat-advertising GPL-2+ other
+ii  vdpau-driver-all:arm64         1.1.1-6                        arm64  Video Decode and Presentation API for Unix (driver metapacka Expat other
+ii  vim-common                     2:8.0.0197-4+deb9u1            all    Vi IMproved - Common files                                   GPL-2
+ii  vim-tiny                       2:8.0.0197-4+deb9u1            arm64  Vi IMproved - enhanced vi editor - compact version           GPL-2
+ii  wget                           1.18-5+deb9u2                  arm64  retrieves files from the web                                 GFDL-1.2 GPL-3
+ii  whiptail                       0.52.19-1+b1                   arm64  Displays user-friendly dialog boxes from shell scripts       LGPL-2
+ii  x11-apps                       7.7+6+b1                       arm64  X applications                                               unknown
+ii  x11-common                     1:7.7+19                       all    X Window System (X.Org) infrastructure                       GPL
+ii  xkb-data                       2.19-1+deb9u1                  all    X Keyboard Extension (XKB) configuration data                unknown
+ii  xxd                            2:8.0.0197-4+deb9u1            arm64  tool to make (or reverse) a hex dump                         GPL-2
+ii  zenity                         3.22.0-1+b1                    arm64  Display graphical dialog boxes from shell scripts            LGPL-2
+ii  zenity-common                  3.22.0-1                       all    Display graphical dialog boxes from shell scripts (common fi LGPL-2
+ii  zlib1g:arm64                   1:1.2.8.dfsg-5                 arm64  compression library - runtime                                unknown

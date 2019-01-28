@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Start debian-stretch-64 container
+Terminal=false
+Name=Start 64-bit Container
+Exec=ds64-start
+Type=Application
+Icon=ds64-start.png
+Categories=System

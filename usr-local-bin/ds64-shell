@@ -1,0 +1,21 @@
+#!/bin/bash
+# Open a shell for (remote) user pi inside the container
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# License: GPL 3.0+
+# NO WARRANTY
+
+if ! ds64-running; then
+        zenity --error --no-wrap \
+  --title="Error starting 64-bit shell" \
+  --text="The debian-stretch-64 container is not running!\nPlease start it and try again." \
+  --timeout=5
+        exit 1
+fi
+exec sudo machinectl shell \
+	--setenv=QT_AUTO_SCREEN_SCALE_FACTOR=0 \
+	--setenv=DISPLAY="${DISPLAY}" \
+	--setenv=PULSE_SERVER="unix:/run/host-user/1000/pulse/native" \
+	--uid=1000 \
+	debian-stretch-64 \
+	/bin/bash

@@ -1,0 +1,36 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: rpd-wallpaper
+
+Files: *.jpg
+Copyright: 2016 Greg Annandale
+License: Proprietary
+ Greg Annandale ("the Photographer") grants Raspberry Pi Trading /
+ Raspberry Pi Foundation ("the Licensee") the non-exclusive,
+ non-transferable and non-assignable use of all images named above for
+ 10 years, for the purpose of use as the default wallpaper included
+ within the Raspberry Pi Desktop, distributed by the Raspberry Pi Foundation.
+ The licence is “digital only” and for medium resolution (long edge at
+ 1920px), images shall not be used in any other form (such as in print
+ publications) nor for any commercial activities. However, use of the
+ images to promote the operating system and the activities of the
+ Foundation (such as on social media, on blogs and printed at trade
+ shows) is acceptable.
+
+ The Photographer retains all copyrights attached to the images as well
+ as any other rights which may not be detailed in this agreement.
+
+ Selling and/or redistribution of the images is forbidden.
+
+ Licensee is allowed to crop and/or electronically alter images to suit
+ their purposes for the usage stated above.
+
+ The Licensee indemnifies and holds harmless the Photographer against
+ all claims, liability, damages, costs and expenses stemming from a
+ breach of this agreement, the use of the images, your failure to abide
+ by any restriction regarding the use of an image, or any claim by a
+ third party related to the use of the images.
+
+ The images are provided "as is" with no warranty regarding the
+ suitability of the images for any purpose. The artist is not liable to
+ the client or any person or entity for damages, costs or losses
+ stemming from any usage of the images.

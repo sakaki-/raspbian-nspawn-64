@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Stop debian-stretch-64 container
+Terminal=false
+Name=Stop 64-bit Container
+Exec=ds64-stop
+Type=Application
+Icon=ds64-stop
+Categories=System

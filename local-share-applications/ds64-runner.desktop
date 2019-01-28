@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Run program in debian-stretch-64 container
+Terminal=false
+Name=Run 64-bit Program...
+Exec=ds64-runner
+Type=Application
+Icon=ds64-runner.png
+Categories=System

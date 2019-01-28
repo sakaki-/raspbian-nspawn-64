@@ -79,7 +79,11 @@ Begin with your RPi3 powered off. Remove the current (vanilla Raspbian or other)
 
 Next, insert the (`raspbian-nspawn-64`) microSD card you just wrote the image to into the Pi. Apply power.
 
-You should see the RPi3's standard 'rainbow square' on-screen for about 2 seconds, then the display will go blank, and the system will perform its first-time boot actions (including resizing the root partition and filesystem to fill the available free space on your card). Due to the [`vc4-fkms-v3d`](https://www.raspberrypi.org/forums/viewtopic.php?p=1037662#p1037662) graphics driver in use, **the screen may be blank for much of the initial boot** (although there will also be intermittent console output), so please be patient. **Within two minutes** of applying power (subseqent boots will be much faster) you should be presented with the standard Raspbian first-time setup wizard: 
+You should see the RPi3's standard 'rainbow square' on-screen for about 2 seconds, then the display will go blank, and the system will perform its first-time boot actions (including resizing the root partition and filesystem to fill the available free space on your card). Due to the [`vc4-fkms-v3d`](https://www.raspberrypi.org/forums/viewtopic.php?p=1037662#p1037662) graphics driver in use, **the screen may be blank for much of the initial boot** (although there will also be intermittent console output), so please be patient.
+
+> If you see the message `dmi: Firmware registration failed.` displayed, this may [safely be ignored](https://docs.oracle.com/cd/E93554_01/E94694/html/uek4-issues-benigndmesgerror.html).
+
+**Within two minutes** of applying power (subseqent boots will be much faster) you should be presented with the standard Raspbian first-time setup wizard: 
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/raspbian-nspawn-piwiz.jpg" alt="Raspberry Pi first-time setup wizard" width="960px"/>
 

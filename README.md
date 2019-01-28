@@ -99,6 +99,8 @@ But, since your new `raspian-nspawn-64` image uses an RPi3-aware 64-bit kernel (
 
 So, let's now review how to carry out some key tasks on your new system.
 
+> NB: the way things are set up on the image as of v1.0.0, the default `pi` user is is 'special': if you add a *new* user to your system, the same menu options and home filesystem access within the container *won't* be available for them. Correcting this is a straightforward matter, but not one that has yet been carried out (as this is a proof of concept, rather than a production, release).
+
 ### <a id="checking_container_is_up"></a>Checking the Status of the Guest OS Container
 
 We'll begin by verifying that the 64-bit guest OS container *is*, in fact, running. To do so, select <kbd>System Tools</kbd>&rarr;<kbd>Monitor Active Containers</kbd>, and a monitor console window should open:

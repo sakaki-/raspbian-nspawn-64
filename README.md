@@ -23,7 +23,7 @@ Raspberry Pi 3 Model B or B+ 64-bit | v1.0.0 | [raspbian-nspawn-64.img.xz](https
 
 Please read the instructions below before proceeding. Also please note that all images are provided 'as is' and without warranty. You should also be comfortable with the free and non-free licenses required by firmware, boot software and OS packages supplied on the image before proceeding: these may be reviewed [here](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/licenses).
 
-Also, please note that **this is an unofficial, user-driven respin of Raspbian**, and as such is not endorsed or supported by the Raspberry Pi foundation. That being said, no fundamental changes have been made to either the host Raspbian OS or guest Debian OS. You can read a detailed account of how this image was created on the Raspberry Pi forums, (**forthcoming**).
+Also, please note that **this is an unofficial, user-driven respin of Raspbian**, and as such is not endorsed or supported by the Raspberry Pi foundation. That being said, no fundamental changes have been made to either the host Raspbian OS or guest Debian OS. You can read a detailed account of how this image was created on the Raspberry Pi forums, [here](https://www.raspberrypi.org/forums/viewtopic.php?p=1422775#p1422775).
 
 > It is sensible to install this image to a **separate** microSD card from that used by your default Raspbian system; that way, when you are finished trying it out, you can simply power off, swap back to your old card, reboot, and your original system will be just as it was.
 

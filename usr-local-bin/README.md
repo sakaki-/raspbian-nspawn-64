@@ -16,7 +16,7 @@ The scripts are:
    ExecStart=/usr/local/bin/bthelper %I
    ```
    
-* <a id="ds64-run"></a>`ds64-run` `path` `<args>`: invokes the (fully-qualified) `path` executable within the 64-bit Debian Stretch (`ds64`) guest OS container (running as the `pi` user), using `systemd-run`, passing any arguments arguments given. Sets an appropriate environment so that the invoked application can use the host's `pulseaudio` server, and X11 display. Example:
+* <a id="ds64-run"></a>`ds64-run` `path` `<args>`: invokes the (fully-qualified) `path` executable within the 64-bit Debian Stretch (`ds64`) guest OS container (running as the 'reflected' copy of the invoking user), using `systemd-run`, passing any arguments arguments given. Sets an appropriate environment so that the invoked application can use the host's `pulseaudio` server, and X11 display. Example:
 
     ```console
     pi@raspberrypi:~ $ ds64-run /usr/bin/xeyes -fg red
@@ -35,7 +35,7 @@ The scripts are:
       || "The 64-bit container is down"
     ```
 
-* <a id="ds64-shell"></a>`ds64-shell`: opens a shell for user `pi` inside the 64-bit guest OS container. You can `sudo` from here: remember that the initial password for `pi` is `raspberry` (and this is *distinct* from any password set for the "parallel universe" `pi` in the host Raspbian OS). Uses `machinectl shell` internally. Note that you *can* run graphical apps from this shell (and they will appear on the host's desktop), but such apps will close when the shell is closed; better to use `ds64-run` or `ds64-runner` from a *host* shell, instead (or alternatively, <kbd>System Tools</kbd>&rarr;<kbd>Run 64-bit Program...</kbd>).  
+* <a id="ds64-shell"></a>`ds64-shell`: opens a shell for (the reflected copy of) the current user inside the 64-bit guest OS container. You can `sudo` from here without password. Uses `machinectl shell` internally. Note that you *can* run graphical apps from this shell (and they will appear on the host's desktop), but such apps will close when the shell is closed; better to use `ds64-run` or `ds64-runner` from a *host* shell, instead (or alternatively, <kbd>System Tools</kbd>&rarr;<kbd>Run 64-bit Program...</kbd>).  
 Example (installing a new aarch64 Debian package the guest):
 
     ```console
@@ -60,3 +60,10 @@ Example (installing a new aarch64 Debian package the guest):
     pi@raspberrypi:~ $ ds64-stop && cp -ax /var/lib/machines/debian-stretch-64{,.bak} && sync && ds64-start
     ```
 
+* <a id="reflect_apps"></a>`reflect-apps`: triggered by a (host) [`path` unit](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/etc-systemd-system#reflect-apps-path) watching for changes to `/usr/share/applications` within the container. When triggered, copies all `.desktop` files across to the host, prefixing their names to ensure unique, and also modifying their `Exec=` stanzas (with `ds64-runner` or `ds64-shell -c`, as appropriate) to allow direct invocation from a 32-bit context. Desktop files without `Type=Application` are ignored, and any prior desktop files at the target location in the host, which have `NoDisplay=true` set, will not be overwritten. Also copies contents of `/usr/share/{icons,pixmaps}` from the guest into the host (at `/usr/share/gdm/{icons,pixmaps}`), so (most) referenced icons will resolve, and reloads the (host's) main menu, so these changes are picked up.
+  
+  The net effect of this script is that when a new 64-bit application is installed in the guest, a menu entry to launch it (so it can play audio, display on the desktop etc.) should auto-magically get added to the guest's main menu, complete with icon. Such items will also be automatically removed should the package subsequently be uninstalled. Please note that the script will wait for all `apt-get`, `apt` and `dpkg` processes to complete before making modifications.
+
+* <a id="reflect_passwd"></a>`reflect-passwd`: triggered by a (host) [`path` unit](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/etc-systemd-system#reflect-passwd-path) watching for changes to `/etc/{passwd,shadow,group,gshadow)` within the host. When triggered, reflects user data (including hashed passwords) in the 1000 <= id < 1100 range into the container, ensuring that the primary group is also present. Removes clashing users or groups from the guest, and ensures that reflected users are members of groups cited in `$USE_GROUP` (see the script for details), iff such groups are present on the guest.
+  
+  The net effect of this script is that if you change password or create a new user on the host, it should auto-magically be carried over into the guest as well. No equivalent propagation of changes from guest to host is provided.

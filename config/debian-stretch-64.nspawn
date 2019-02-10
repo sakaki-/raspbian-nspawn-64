@@ -3,7 +3,7 @@ PrivateUsers=no
 Capability=CAP_NET_ADMIN
 
 [Files]
-Bind=/home/pi
+Bind=/home
 Bind=/run/user:/run/host-user/
 Bind=/etc/resolv.conf
 

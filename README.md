@@ -7,7 +7,9 @@ Bootable RPi3 (B and B+) image with 64-bit kernel, 32-bit Raspbian Stretch 'Desk
 
 This project is a bootable, microSD card **64-bit kernel, 32-bit Raspbian Stretch 'Desktop' host OS + 64-bit Debian Stretch guest OS image for the [Raspberry Pi 3 model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/) and [B+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)** single board computers (SBC). It is intended for users who would like to retain their familiar Raspbian tools, desktop and repos, but who also need to run one or more 64-bit only software components on their Pi.
 
-The guest 64-bit Debian OS is automatically started each boot inside a [`systemd-nspawn`](https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html) container. Using a provided `System Tools` menu item, you can easily open a 64-bit shell inside this container (to install new 64-bit packages, for example). Another menu item allows you to easily *run* 64-bit applications in the container, correctly set up so they display on the Raspbian desktop, can play audio, and have access to the `pi` user's home directory. Due to the containerization, such apps are however prevented from performing many harmful actions on the host (this is *not* just a [`chroot`](https://en.wikipedia.org/wiki/Chroot)). Package management in the guest uses the familiar `apt-get`, with the full Debian aarch64 repository available, and day-to-day *Raspbian* operation (with the exception of anything needing e.g. [MMAL or OpenMAX IL](https://github.com/raspberrypi/firmware/issues/550#issuecomment-190803961)) is pretty much per the stock image. WiFi, Bluetooth, I<sup>2</sup>C etc. all work, and 32-bit Raspbian apps can be installed and used just as on a regular RPi3 system.
+The guest 64-bit Debian OS is automatically started each boot inside a [`systemd-nspawn`](https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html) container. Using a provided `System Tools` menu item, you can easily open a 64-bit shell inside this container (to install new 64-bit packages, for example). Another menu item allows you to easily *run* 64-bit applications in the container, correctly set up so they display on the Raspbian desktop, can play audio, and have access to the current user's home directory. Due to the containerization, such apps are however prevented from performing many harmful actions on the host (this is *not* just a [`chroot`](https://en.wikipedia.org/wiki/Chroot)). Package management in the guest uses the familiar `apt-get`, with the full Debian aarch64 repository available, and day-to-day *Raspbian* operation (with the exception of anything needing e.g. [MMAL or OpenMAX IL](https://github.com/raspberrypi/firmware/issues/550#issuecomment-190803961)) is pretty much per the stock image. WiFi, Bluetooth, I<sup>2</sup>C etc. all work, and 32-bit Raspbian apps can be installed and used just as on a regular RPi3 system.
+
+As of version 1.1.0, launchers for 64-bit apps are *automatically* added to the 32-bit host's menu upon installation in the guest, and changes to 'regular' users (existence, password and primary group) are automatically reflected through from host to guest, for convenience.
 
 Basically, you get 64-bit capability as and when you need it, without the headache ^-^
 
@@ -19,7 +21,7 @@ The image may be downloaded from the link below (or via `wget`, per the instruct
 
 <a id="downloadlinks"></a>Variant | Version | Image | Digital Signature
 :--- | ---: | ---: | ---:
-Raspberry Pi 3 Model B or B+ 64-bit | v1.0.0 | [raspbian-nspawn-64.img.xz](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.0.0/raspbian-nspawn-64.img.xz) | [raspbian-nspawn-64.img.xz.asc](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.0.0/raspbian-nspawn-64.img.xz.asc)
+Raspberry Pi 3 Model B or B+ 64-bit | v1.1.0 | [raspbian-nspawn-64.img.xz](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.1.0/raspbian-nspawn-64.img.xz) | [raspbian-nspawn-64.img.xz.asc](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.1.0/raspbian-nspawn-64.img.xz.asc)
 
 Please read the instructions below before proceeding. Also please note that all images are provided 'as is' and without warranty. You should also be comfortable with the free and non-free licenses required by firmware, boot software and OS packages supplied on the image before proceeding: these may be reviewed [here](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/licenses).
 
@@ -45,8 +47,8 @@ A [decent power supply](https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=
 
 On your Linux box, issue (you may need to be `root`, or use `sudo`, for the following, hence the '#' prompt):
 ```console
-# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.0.0/raspbian-nspawn-64.img.xz
-# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.0.0/raspbian-nspawn-64.img.xz.asc
+# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.1.0/raspbian-nspawn-64.img.xz
+# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.1.0/raspbian-nspawn-64.img.xz.asc
 ```
 
 to fetch the compressed disk image file (~925MiB) and its signature.
@@ -89,7 +91,7 @@ You should see the RPi3's standard 'rainbow square' on-screen for about 2 second
 
 Follow though this dialog (overview [here](https://www.raspberrypi.org/blog/raspbian-update-june-2018/)); you will be prompted to reboot once complete. Do so, and wait for your system to come back up.
 
-> Note that the password you set via the wizard for the `pi` account is *only* for the 32-bit Raspbian (host) operating system. Inside the 64-bit Debian guest, the initial **`pi`** and **`root`** user passwords are set to **`raspberry`** as shipped, and the wizard does *not* change these.
+> Note that as of version 1.1.0 of the image, the password you set via the wizard for the `pi` account in the 32-bit Raspbian host **will also** be automatically reflected for the 'shadow' `pi` user inside the 64-bit Debian guest OS (and this will hold true for any subsequent password or user changes made while the container is running).
 
 > NB - if your connected computer monitor or TV output appears **flickering or distorted**, you may need to change the settings in the file `config.txt`, located in the microSD card's first partition (this partition is formatted `vfat` so you should be able to edit it on any PC; alternatively, when booted into the image, it is available at `/boot/config.txt`). Any changes made take effect on the next restart. For an explanation of the various options available in `config.txt`, please see [these notes](https://www.raspberrypi.org/documentation/configuration/config-txt/README.md) (the shipped defaults should work fine for most users, however). You can also use the bundled GUI tool to modify (some of) these settings: it is is available under <kbd>Preferences</kbd>&rarr;<kbd>Raspberry Pi Configuration</kbd>.<br><br>In particular, if the display appears to be inset by a black border, so it is not using the full screen real estate (this mostly happens when using monitors, and newer HDMI TVs), turn off "Underscan" (via the <kbd>Raspberry Pi Configuration</kbd> tool just mentioned), and reboot.
 
@@ -103,7 +105,7 @@ But, since your new `raspian-nspawn-64` image uses an RPi3-aware 64-bit kernel (
 
 So, let's now review how to carry out some key tasks on your new system.
 
-> NB: the way things are set up on the image as of v1.0.0, the default `pi` user is is 'special': if you add a *new* user to your system, the same menu options and home filesystem access within the container *won't* be available for them. Correcting this is a straightforward matter, but not one that has yet been carried out (as this is a proof of concept, rather than a production, release).
+> NB: unlike prior releases, as of v1.1.0, the default `pi` user is no longer 'special': if you add a *new* user to your system (with 1000<=`uid`<1100), the same menu options and home filesystem access within the container *will* be available for them (you *must* ensure your new user belongs to the `sudo` group, as `pi` does, to avail yourself of this however).
 
 ### <a id="checking_container_is_up"></a>Checking the Status of the Guest OS Container
 
@@ -121,7 +123,7 @@ Now you know the guest container is up, you can run a 64-bit application inside 
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/raspbian-nspawn-ds64-runner.jpg" alt="Running a 64-bit program via ds64-runner dialog" width="960px"/>
 
-> This works because the `pi` user's home directory, which include the necessary `.Xauthority`, is bind-mounted into the guest container (which has an identical `uid`/`gid` `pi` account), and because the host OS's X11 [Unix abstract domain socket](https://wiki.gentoo.org/wiki/Sakaki's_EFI_Install_Guide/Sandboxing_the_Firefox_Browser_with_Firejail#Graphical_Isolation_via_Xephyr) is still visible (since network namespacing is *not* in use).
+> This works because the `pi` user's home directory, which includes the necessary `.Xauthority`, is bind-mounted into the guest container (which has an identical `uid`/`gid` `pi` account), and because the host OS's X11 [Unix abstract domain socket](https://wiki.gentoo.org/wiki/Sakaki's_EFI_Install_Guide/Sandboxing_the_Firefox_Browser_with_Firejail#Graphical_Isolation_via_Xephyr) is still visible (since network namespacing is *not* in use). As of v1.1.0 of the image, this will also work for any other 'regular' user you create.
 
 If you like, you can use the [`ds64-runner`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-runner) program to achieve the same effect, from a (32-bit) Raspbian shell prompt. To see this, just click <kbd>Accessories</kbd>&rarr;<kbd>Terminal</kbd>, and issue:
 
@@ -131,25 +133,25 @@ pi@raspberrypi:~ $ ds64-runner xclock -geometry 350x350 -bg orange
 
 and another, similarly sized clock should appear (but this time with an orange face); the app will keep running even if the Raspbian shell is closed.
 
-### <a id="running_64bit_shell"></a>Shell Access into the 64-bit Container
+### <a id="running_64bit_shell"></a>Shell Access into the 64-bit Container (Installing 64-bit Apps)
 
 If you want to do any maintenance on your 64-bit guest OS (or just run CLI programs within it), you'll need to open a 64-bit shell. To do so, click <kbd>System Tools</kbd>&rarr;<kbd>Terminal (64-bit)</kbd>, and a 64-bit console will open:
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/raspbian-nspawn-ds64-shell.jpg" alt="Opening a shell in the 64-bit guest OS container" width="960px"/>
 
-> Notice how user `pi`'s home directory *is* visible (and writeable) by the `pi` user inside the guest OS, as the [container startup configuration bind-mounted it](https://github.com/sakaki-/raspbian-nspawn-64/blob/master/config/debian-stretch-64.nspawn). Most other directories on the host are either inaccessible or read-only from within the guest.
+> Notice how user `pi`'s home directory *is* visible (and writeable) by the `pi` user inside the guest OS, as the [container startup configuration bind-mounted `/home`](https://github.com/sakaki-/raspbian-nspawn-64/blob/master/config/debian-stretch-64.nspawn). Most other directories on the host are either inaccessible or read-only from within the guest.
 
-From here, you can do anything you like, this is a full, booted aarch64 Debian instance. So, for example, you could install a package using `apt-get`; once installed, you can then use [`ds64-runner`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-runner) (or the slighly less user-friendly [`ds64-run`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-run)) in a *Raspbian* shell to start it.
+From here, you can do anything you like, this is a full, booted aarch64 Debian instance. So, for example, you could install a package from the extensive Debian aarch64 repository, using `apt-get`.
 
-> You *can* start the target 64-bit program directly from the 64-bit shell as well of course, and that will work too, but the launched program will close whenever the shell is exited should you do so (`nohup` notwithstanding). So the above approach is generally to be preferred. If you have a 64-bit *server* process you want to run (that doesn't need graphical desktop access), you can just set up a new `systemd` unit on the guest (64-bit) OS directly, of course.
+<a id="automagic"></a>Note that as a convenience, from v1.1.0 of the image, **whenever you install a 64-bit package in this way, a menu item for it (complete with icon) will *automatically* be added to the (32-bit) host's desktop menu**; and you can simply select this to run it, just as you would a 32-bit app.
 
-Here's an example of installing and then using a 64-bit instance of the word processor `abiword`:
+> Incidentally, this works for 'terminal-based' apps (like `htop`) too. For avoidance of doubt, you can have 32-bit and 64-bit versions of the same package installed at the same time (their menu items are distinct). Also, should you later *uninstall* a 64-application, its corresponding menu item will automatically be *deleted*. The trick is worked by having a [`systemd` path unit](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/etc-systemd-system#reflect-apps-path) watch for new `.desktop` files being added to the guest filesystem, then invoking a script ([`/usr/local/bin/reflect-apps`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#reflect-apps)) to create matching `.desktop` entries on the host (which in turn call `ds64-runner` or `ds64-shell -c` internally, as appropriate).
+
+Here's an example of installing and then using a 64-bit instance of the word processor `abiword`, via the auto-created menu item:
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/raspbian-nspawn-abiword.jpg" alt="Installing a package in the 64-bit guest OS container" width="960px"/>
 
-> Remember that the `pi` user's password is initially **`raspberry`** within the guest OS, *even if* you changed the `pi` user's password in the host (Raspbian) OS (for example, via the first-run wizard). The initial `root` password in the guest is also `raspberry`.
-
-> You could of course also use <kbd>System Tools</kbd>&rarr;<kbd>Run 64-bit Program...</kbd> to launch `abiword`.
+> You could of course also use <kbd>System Tools</kbd>&rarr;<kbd>Run 64-bit Program...</kbd> to launch `abiword`, or call [`ds64-runner`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-runner) (or the slighly less user-friendly [`ds64-run`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-run)) from a *Raspbian* shell. Alternatively, you could also start the target 64-bit program directly from the 64-bit shell as well of course, and that will work too, but the launched program will close whenever the shell is exited should you do so (`nohup` notwithstanding). So the above approach is generally to be preferred. If you have a 64-bit *server* process you want to run (that doesn't need graphical desktop access), you can just set up a new `systemd` unit on the guest (64-bit) OS directly, of course.
 
 To close a container shell, press <kbd>Ctrl</kbd><kbd>d</kbd>, type `logout` (and press <kbd>Enter</kbd>), press <kbd>Ctrl</kbd><kbd>]</kbd> three times in quick succession, or just click the close box on the terminal window. You can have as many guest OS terminals open at one time as you like.
 
@@ -170,33 +172,13 @@ As the guest OS is a fully-booted real system, you can even e.g. set up `cron` j
 
 ### <a id="running_full_scale_apps"></a>Running Full-Scale Applications in the 64-bit Debian Guest OS
 
-Since the Debian instance has `dbus` running, and applications can access the host's `pulseaudio` server to play audio (and the X11 server for graphical interaction), it is possible to run even full-scale applications on the 64-bit guest OS. To illustrate this, the image ships with the 64-bit `firefox-esr` package installed. To run it, click on <kbd>Internet</kbd>&rarr;<kbd>Firefox Web Browser (64-bit)</kbd>, and after a short startup a browser window will open on your desktop:
+Since the Debian instance has `dbus` running, and applications can access the host's `pulseaudio` server to play audio (and the X11 server for graphical interaction), it is possible to run even full-scale applications on the 64-bit guest OS. To illustrate this, the image ships with the 64-bit `firefox-esr` package installed. To run it, click on <kbd>Internet</kbd>&rarr;<kbd>Firefox ESR (64-bit)</kbd>, and after a short startup a browser window will open on your desktop:
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/raspbian-nspawn-firefox.jpg" alt="Running firefox-esr in the 64-bit guest OS container" width="960px"/>
 
-If you then open a site like youtube.com, you can test out playing video. You should find that audio playback etc. works acceptably, and, as the `pi` user's home directory is bind-mounted, you can download etc. successfully.
+If you then open a site like youtube.com, you can test out playing video. You should find that audio playback etc. works acceptably, and, as the full `/home` directory is bind-mounted, you can download etc. successfully.
 
-If you'd like to create a menu item like this on the host (32-bit Raspbian) desktop for a 64-bit application you installed (to avoid having to use <kbd>System Tools</kbd>&rarr;<kbd>Run 64-bit Program...</kbd>, or [`ds64-runner`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-runner) at a terminal prompt, each time), you can do so easily, by following the same pattern it uses. For example, the `firefox` application has the following file in [`/home/pi/.local/share/applications/firefox-64.desktop`](https://github.com/sakaki-/raspbian-nspawn-64/blob/master/local-share-applications/firefox-64.desktop):
-
-```desktop
-[Desktop Entry]
-Comment=Browse the Web (64-bit)
-Terminal=false
-Name=Firefox Web Browser (64-bit)
-Exec=ds64-run /usr/bin/firefox %U
-Type=Application
-Icon=firefox-esr
-Categories=Network
-```
-> Notice how [`ds64-run`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-run) is used to actually start the application on the guest. We could equally well have used [`ds64-runner`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-bin#ds64-runner) here too.
-
-Place any custom icons your new [desktop file(s)](https://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html) refer to into [`/usr/local/share/pixmaps`](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/usr-local-share-pixmaps), and then run:
-
-```console
-pi@raspberrypi:~ $ lxpanelctl reload
-```
-
-to pick up the new entry and have it appear in the main menu.
+> As noted [earlier](#automagic), from v1.1.0 of the image, 64-bit applications *automatically* have an appropriate launcher added upon installation to the 32-bit host's desktop menu (complete with icon!), so you *won't* generally have to set up any `.desktop` files manually (as you did in v1.0.0). Just open a 64-bit container shell, `apt-get install` your target 64-bit application, and you should be good to go!
 
 ### <a id="manual_stop_start"></a>Manually Stopping or Starting the 64-bit Debian Guest OS Container
 
@@ -276,7 +258,7 @@ pi@debian-stretch-64:~ $
     
 You can then run `sudo su -` to get a root shell, if you need, or just elevate privileges as required for individual commands, using `sudo`.
 
-You can open as many concurrent container shells as you like. To exit such a shell, just type `logout`<kbd>Enter</kbd>, press <kbd>ctrl</kbd><kbd>d</kbd>, or press <kbd>ctrl</kbd><kbd>]</kbd> three times within a second. Operations like `poweroff` issued inside the container only affect the container - *not* your RPi3 itself. Note that issuing `reboot` will *not* work properly when the container is managed by `systemd-nspawn@.service`, as here; better to use `machinectl` (or equivalenly, <kbd>System Tools</kbd>&rarr;<kbd>Stop 64-bit Container</kbd> and <kbd>System Tools</kbd>&rarr;<kbd>Start 64-bit Container</kbd>) to stop and then start the container again. Networking identical to the host system *is* available (provided your host Raspbian OS has it configured), so you can `ping`, `wget`, `apt-get`, run web browsers etc. all from withing the container. By default, the `pi` user's home directory (only) is mapped inside the container for access.
+You can open as many concurrent container shells as you like. To exit such a shell, just type `logout`<kbd>Enter</kbd>, press <kbd>ctrl</kbd><kbd>d</kbd>, or press <kbd>ctrl</kbd><kbd>]</kbd> three times within a second. Operations like `poweroff` issued inside the container only affect the container - *not* your RPi3 itself. Note that issuing `reboot` will *not* work properly when the container is managed by `systemd-nspawn@.service`, as here; better to use `machinectl` (or equivalenly, <kbd>System Tools</kbd>&rarr;<kbd>Stop 64-bit Container</kbd> and <kbd>System Tools</kbd>&rarr;<kbd>Start 64-bit Container</kbd>) to stop and then start the container again. Networking identical to the host system *is* available (provided your host Raspbian OS has it configured), so you can `ping`, `wget`, `apt-get`, run web browsers etc. all from withing the container. By default, the full `/home` directory (only) is mapped inside the container for access.
 
 Stop (poweroff) the 64-bit container (will stop any apps running from within it):
 ```console
@@ -307,7 +289,7 @@ Enable auto-start on boot again (shipped default):
 pi@raspberrypi:~ $ sudo machinectl enable debian-stretch-64
 ```
 
-To access files in the container from the host, remember that user `pi`'s home directory is already mapped inside the guest, so you can copy files via that. Otherwise, the container's root directory prefix is `/var/lib/machines/debian-stretch-64`.
+To access files in the container from the host, remember that user `/home` directory is already mapped inside the guest, so you can copy files via that. Otherwise, the container's root directory prefix is `/var/lib/machines/debian-stretch-64`.
 
 There are many other options available of course. Please take the time to read the [`machinectl`](https://www.freedesktop.org/software/systemd/man/machinectl.html), [`systemctl`](https://www.freedesktop.org/software/systemd/man/systemctl.html) and [`systemd-run`](https://www.freedesktop.org/software/systemd/man/systemd-run.html) manpages.
 
@@ -319,7 +301,7 @@ Remember also that the package sets installed on the 32-bit and 64-bit (Raspbian
 
 To reiterate: this is an *unofficial* image and is supplied in the hope it will be useful, but without warranty.
 
-If you'd like to take this idea forward, perhaps by packaging the various container components as .debs, adding other 64-bit guests (Arch, for example, to get more up-to-date packages), addding a QEMU user-mode `binfmt_misc` handler so the containers can be used on 32-bit only RPis also, generalizing the support for `uid`s other than 1000 etc. etc. then please go for it, with my blessing. My 'real' 64-bit project is [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit); *this* one I put together because I've come to believe it's what most people  casually looking to run some 64-bit stuff on their RPi3 are actually asking for. But, Debian's not my thing, and accordingly I'm not looking to be this project's long-term maintainer. Maybe that person could be you ^-^?
+If you'd like to take this idea forward, perhaps by packaging the various container components as .debs, adding other 64-bit guests (Arch, for example, to get more up-to-date packages), adding a QEMU user-mode `binfmt_misc` handler so the containers can be used on 32-bit only RPis also etc. etc. then please go for it, with my blessing. My 'real' 64-bit project is [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit); *this* one I put together because I've come to believe it's what most people  casually looking to run some 64-bit stuff on their RPi3 are actually asking for. But, Debian's not my thing, and accordingly I'm not looking to be this project's long-term maintainer. Maybe that person could be you ^-^?
 
 Lastly, **feedback** is welcomed! So if you have any problems, questions or comments regarding `raspbian-nspawn-64`, feel free to drop me a line! (sakaki@deciban.com)
 

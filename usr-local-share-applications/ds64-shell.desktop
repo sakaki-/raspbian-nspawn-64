@@ -6,3 +6,4 @@ Exec=ds64-shell
 Type=Application
 Icon=ds64-shell
 Categories=System;Utility;
+StartupNotify=false

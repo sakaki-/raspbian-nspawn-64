@@ -46,5 +46,6 @@ C="eval \$\(which ${PA[0]}\) ${PA[@]:1}"
 # degraded
 ds64-run /bin/bash -c "${C} || zenity --error --no-wrap --timeout=5 "\
 "--title='Error starting program' "\
-"--text='The program you specified could not be started!\n"\
+"--text='The program you specified either could not be started,\n"\
+"or exited with an error!\n"\
 "Is it installed in the debian-stretch-64 container?' || true"

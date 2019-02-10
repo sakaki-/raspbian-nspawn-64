@@ -6,3 +6,4 @@ Exec=ds64-runner
 Type=Application
 Icon=ds64-runner.png
 Categories=System
+StartupNotify=false

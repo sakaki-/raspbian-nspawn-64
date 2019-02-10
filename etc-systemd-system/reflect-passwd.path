@@ -1,0 +1,13 @@
+[Unit] 
+Description=reflect-passwd
+
+[Path]
+PathExists=/etc/passwd
+PathModified=/etc/passwd
+PathModified=/etc/group
+PathModified=/etc/shadow
+PathModified=/etc/gshadow
+
+[Install]
+WantedBy=multi-user.target
+

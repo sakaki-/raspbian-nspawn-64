@@ -14,10 +14,14 @@ if ! ds64-running; then
   --timeout=5
         exit 1
 fi
+U="$(id --user)"
+G="$(id --group)"
 sudo systemd-run \
 	--setenv=QT_AUTO_SCREEN_SCALE_FACTOR=0 \
 	--setenv=DISPLAY="${DISPLAY}" \
-	--setenv=PULSE_SERVER="unix:/run/host-user/1000/pulse/native" \
+	--setenv=PULSE_SERVER="unix:/run/host-user/${U}/pulse/native" \
+	--setenv=PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games" \
 	--machine=debian-stretch-64 \
-	--uid=1000 --gid=1000 \
+	--uid=${U} --gid=${G} \
 	"${@}"
+

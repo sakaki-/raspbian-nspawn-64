@@ -6,3 +6,4 @@ Exec=ds64-stop
 Type=Application
 Icon=ds64-stop
 Categories=System
+StartupNotify=false

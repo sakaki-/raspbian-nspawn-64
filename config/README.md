@@ -16,8 +16,8 @@ directory problematic.
   * Not obvious, but automatically started containers drop the 
 `CAP_NET_ADMIN` [capability](http://man7.org/linux/man-pages/man7/capabilities.7.html) 
 (unless they have a private network namespace), so we re-instate it.
-  * Just as when starting manually, we have to specify the bind-mount for user `pi`'s home 
-directory into the container.
+  * We bind mount the `/home` directory into the container, so all (regular) users can
+access their home directories when using the container.
   * We also bind mount the special directory `/run/user` to `/run/host-user` 
 in the container. This will allow connection to the `pulseaudio` server 
 socket.

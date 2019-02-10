@@ -5,5 +5,5 @@ Name=Xeyes (64-bit)
 Exec=ds64-run /usr/bin/xeyes
 Type=Application
 Icon=xeyes
-StartupNotify=false
 Categories=Utility
+StartupNotify=false

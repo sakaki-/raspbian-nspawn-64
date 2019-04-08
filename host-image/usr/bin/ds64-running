@@ -1,0 +1,20 @@
+#!/bin/bash
+# returns whether the 64-bit container is currently running
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# License: GPL 3.0+
+# NO WARRANTY
+
+DS64_CONF="/etc/ds64.conf"
+[[ -s "${DS64_CONF}" ]] && source "${DS64_CONF}"
+DS64_NAME="${DS64_NAME:-debian-buster-64}"
+DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
+
+# the below test is less reliable, since the machine may not yet be
+# fully booted
+grep -iq running \
+     <(sudo machinectl show --property=State "${DS64_NAME}" 2>/dev/null)
+
+# really want to use --collect in the below as well, but systemd-run in
+# stretch doesn't have the option
+#sudo systemd-run --machine="${DS64_NAME}" --wait /bin/true &>/dev/null

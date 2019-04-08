@@ -1,0 +1,10 @@
+[Unit]
+Description=Initialize Container on Startup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/container-init
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

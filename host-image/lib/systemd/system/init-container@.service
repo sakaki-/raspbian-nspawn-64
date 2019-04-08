@@ -1,0 +1,13 @@
+[Unit]
+Description=Initialize Container %i Pre-Startup
+Before=machines.target
+After=dbus.service
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/init-container %i
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

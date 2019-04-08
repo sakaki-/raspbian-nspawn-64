@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# Reflect /etc/default/locale into the container at
+# /var/lib/machines/${1}/etc/default/host-locale.
+#
+# Takes a single parameter, the name of the machine to reflect from
+# ("debian-buster-64", for example).
+#
+# Changes will be picked up by a matching
+# reflect-locale.{path,service} pair in the guest, which will then
+# force any necessary reconfigure.  The net effect of this should be
+# that if you change locale, it will auto-magically carry over into
+# the guest as well.
+#
+# No equivalent propagation of changes from guest to host is provided.
+#
+# Intended to be triggered via a path unit watching the
+# /etc/default/locale (on the host).
+#
+# AUTHOR
+# ------
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+#
+# License (GPL v3.0)
+# ------------------
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+
+set -e
+set -u
+shopt -s nullglob
+
+DS64_NAME="${1:-debian-buster-64}"
+DS64_DIR="/var/lib/machines/${DS64_NAME}"
+
+HOST_PREFIX="/etc/default"
+CONTAINER="${DS64_DIR}"
+GUEST_PREFIX="${CONTAINER}/etc/default"
+LFILE="locale"
+# below are the system locales
+HOST_LOCALE="${HOST_PREFIX}/${LFILE}"
+GUEST_LOCALE="${GUEST_PREFIX}/host-${LFILE}"
+
+SCRIPT_NAME="$(basename -- "${0}")"
+
+if pidof -o %PPID -x "${SCRIPT_NAME}" &>/dev/null; then
+    # already running
+    exit 0
+fi
+
+# bail out if no container present at all
+if ! [[ -d "${CONTAINER}" ]]; then
+    exit 1
+fi
+
+# copy across the new locale data into the container
+cp -ax "${HOST_LOCALE}" "${GUEST_LOCALE}"
+
+exit 0

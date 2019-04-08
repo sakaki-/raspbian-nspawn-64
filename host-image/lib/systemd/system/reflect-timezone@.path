@@ -1,0 +1,10 @@
+[Unit] 
+Description=Watch for Changes to Host Timezone
+
+[Path]
+PathExists=/etc/timezone
+PathChanged=/etc/timezone
+
+[Install]
+WantedBy=multi-user.target
+

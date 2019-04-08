@@ -1,0 +1,9 @@
+[Unit] 
+Description=Watch for Changes to Host Locale
+
+[Path]
+PathExists=/etc/default/host-locale
+PathChanged=/etc/default/host-locale
+
+[Install]
+WantedBy=multi-user.target

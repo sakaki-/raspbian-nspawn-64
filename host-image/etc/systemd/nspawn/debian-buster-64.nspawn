@@ -1,0 +1,12 @@
+[Exec]
+PrivateUsers=no
+Capability=CAP_NET_ADMIN
+
+[Files]
+Bind=/home
+Bind=/run/user:/run/host-user/
+BindReadOnly=/etc/resolv.conf
+
+[Network]
+Private=no
+VirtualEthernet=no

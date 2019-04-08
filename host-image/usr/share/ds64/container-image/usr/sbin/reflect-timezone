@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# Force a reconfigure if the host and guest timezones differ.
+#
+# Intended to be triggered via a path unit watching the
+# /etc/host-timezone file for changes.
+#
+# AUTHOR
+# ------
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+#
+# License (GPL v3.0)
+# ------------------
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+
+set -e
+set -u
+shopt -s nullglob
+
+SCRIPT_NAME="$(basename -- "${0}")"
+
+if pidof -o %PPID -x "${SCRIPT_NAME}" &>/dev/null; then
+    # already running
+    exit 0
+fi
+
+# if the host and guest timezones differ, force a reconfigure
+if [[ -f /etc/host-timezone && -f /etc/timezone ]] && \
+    ! diff /etc/host-timezone /etc/timezone &>/dev/null; then
+    timedatectl set-timezone "$(cat /etc/host-timezone)"
+    # for safety
+    cat /etc/host-timezone > /etc/timezone
+fi
+
+exit 0

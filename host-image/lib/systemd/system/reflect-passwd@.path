@@ -1,0 +1,13 @@
+[Unit] 
+Description=Watch for Changes to Host Password or Group Info
+
+[Path]
+PathExists=/etc/passwd
+PathChanged=/etc/passwd
+PathChanged=/etc/group
+PathChanged=/etc/shadow
+PathChanged=/etc/gshadow
+
+[Install]
+WantedBy=multi-user.target
+

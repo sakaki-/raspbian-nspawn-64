@@ -1,0 +1,5 @@
+[Unit]
+Description=Reflect Host Password and Group Info into %i Container
+
+[Service]
+ExecStart=/usr/sbin/reflect-passwd %i

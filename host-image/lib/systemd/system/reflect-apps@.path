@@ -1,0 +1,10 @@
+[Unit] 
+Description=Watch for App Changes in the %i Container
+
+[Path]
+PathExists=/var/lib/machines/%i/usr/share/applications
+PathModified=/var/lib/machines/%i/usr/share/applications
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,121 @@
+#!/bin/bash
+#
+# Perform initial setup for /var/lib/machines/${1}.
+#
+# Takes a single parameter, the name of the machine to set up
+# ("debian-buster-64", for example).
+#
+# AUTHOR
+# ------
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+#
+# License (GPL v3.0)
+# ------------------
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+
+set -e
+set -u
+shopt -s nullglob
+
+DS64_NAME="${1:-debian-buster-64}"
+DS64_DIR="/var/lib/machines/${DS64_NAME}"
+
+SOURCE="${SRCDIR:-/usr/share/ds64/container-image}"
+CONTAINER="${DS64_DIR}"
+SYSD="/lib/systemd/system"
+SBIN="/usr/sbin"
+
+SCRIPT_NAME="$(basename -- "${0}")"
+
+if pidof -o %PPID -x "${SCRIPT_NAME}" &>/dev/null; then
+    # already running
+    exit 0
+fi
+
+# bail out if no container present at all
+if ! [[ -d "${CONTAINER}" ]]; then
+    exit 1
+fi
+
+# ensure the container has its name defined for the loopback
+# interfaces in /etc/hosts; sudo requires this to work properly
+if ! grep -q "^[[:space:]]*[^#].*\b${DS64_NAME}\b" "${CONTAINER}/etc/hosts"; then
+    echo -e "127.0.0.1\t${DS64_NAME}" >> "${CONTAINER}/etc/hosts"
+    echo -e "::1\t\t${DS64_NAME}" >> "${CONTAINER}/etc/hosts"
+fi
+# and set up a file containing the hostname for the container-init
+# service to find
+echo "${DS64_NAME}" > "${CONTAINER}"/etc/given-hostname
+
+# remove any machine-id file (first time); systemd will
+# automatically assign an appropiate value
+if [[ ! -f "${CONTAINER}/etc/.machine-id-cleared" ]]; then
+    rm -f "${CONTAINER}/etc/machine-id"
+    touch "${CONTAINER}/etc/.machine-id-cleared"
+fi
+
+# copy across the container-init service into the container, and
+# create a symlink to enable it
+# don't setup link if service already exists, to ensure user
+# can persistently disable it if required
+REINSTALL=0
+if [[ -e "${CONTAINER}${SYSD}/container-init.service" ]]; then
+    REINSTALL=1
+fi
+cp -a "${SOURCE}${SYSD}/container-init.service" "${CONTAINER}${SYSD}/"
+cp -a "${SOURCE}${SBIN}/container-init" "${CONTAINER}${SBIN}/"
+if ((REINSTALL==0)); then
+    rm -f "${CONTAINER}${SYSD}/multi-user.target.wants/container-init.service"
+    ln -s "${SYSD}/container-init.service" "${CONTAINER}${SYSD}/multi-user.target.wants/container-init.service"
+fi
+
+# ditto for the reflect-timezone path unit
+REINSTALL=0
+if [[ -e "${CONTAINER}${SYSD}/reflect-timezone.path" ]]; then
+    REINSTALL=1
+fi
+cp -a "${SOURCE}${SYSD}/reflect-timezone.path" "${CONTAINER}${SYSD}/"
+cp -a "${SOURCE}${SYSD}/reflect-timezone.service" "${CONTAINER}${SYSD}/"
+cp -a "${SOURCE}${SBIN}/reflect-timezone" "${CONTAINER}${SBIN}/"
+if ((REINSTALL==0)); then
+    rm -f "${CONTAINER}${SYSD}/multi-user.target.wants/reflect-timezone.path"
+    ln -s "${SYSD}/reflect-timezone.path" "${CONTAINER}${SYSD}/multi-user.target.wants/reflect-timezone.path"
+fi
+
+# ditto for the reflect-locale path unit
+REINSTALL=0
+if [[ -e "${CONTAINER}${SYSD}/reflect-locale.path" ]]; then
+    REINSTALL=1
+fi
+cp -a "${SOURCE}${SYSD}/reflect-locale.path" "${CONTAINER}${SYSD}/"
+cp -a "${SOURCE}${SYSD}/reflect-locale.service" "${CONTAINER}${SYSD}/"
+cp -a "${SOURCE}${SBIN}/reflect-locale" "${CONTAINER}${SBIN}/"
+if ((REINSTALL==0)); then
+    rm -f "${CONTAINER}${SYSD}/multi-user.target.wants/reflect-locale.path"
+    ln -s "${SYSD}/reflect-locale.path" "${CONTAINER}${SYSD}/multi-user.target.wants/reflect-locale.path"
+fi
+
+# ensure all members of sudo group can execute any command, without password
+cp -a "${SOURCE}/etc/sudoers.d/10_sudo-nopasswd" "${CONTAINER}/etc/sudoers.d/"
+
+# finally, call other 'reflect' helpers once, to ensure the host- data
+# inside the container is available for its first startup (it is up to
+# counterpart services inside the container to actually use this)
+/usr/sbin/reflect-locale "${DS64_NAME}"
+/usr/sbin/reflect-passwd "${DS64_NAME}"
+/usr/sbin/reflect-timezone "${DS64_NAME}"
+# we don't call the reflect-apps helper; that will be started soon,
+# and requires the container to be up in any event
+
+exit 0

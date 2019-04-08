@@ -1,0 +1,56 @@
+#!/bin/bash
+# Run the specified application, with any arguments, in the
+# 64-bit Debian container, using the host OS' X-server and pulseaudio
+# server. Also include a QT fixup for apps like vlc that need it.
+# Prompt (via zenity) for which apps to run, and, if a non-absolute
+# path is given, handle this appropriately.
+#
+# Alternatively, if argument(s) passed, use those instead.
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# License: GPL 3.0+
+# NO WARRANTY
+
+DS64_CONF="/etc/ds64.conf"
+[[ -s "${DS64_CONF}" ]] && source "${DS64_CONF}"
+DS64_NAME="${DS64_NAME:-debian-buster-64}"
+DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
+
+if ! ds64-running; then
+        zenity --error --no-wrap \
+  --title="Error starting 64-bit program" \
+  --text="The ${DS64_NAME} container is not running!\nPlease start it and try again." \
+  --timeout=5
+        exit 1
+fi
+# have we already been given the program to run via
+# the command line?
+if (($#==0)); then
+	# no, must ask the user
+	if ! P=$(zenity --entry --title="Run 64-bit program" \
+  --width=400 \
+  --text="Please enter the 64-bit program to run\n(parameters allowed):"); then
+		exit 1
+	fi
+	# force it through a "which" lookup, this will work for full paths
+	# and names; parse into array to allow arguments
+	read -ra PA <<< "${P}"
+else
+	# yes, just slurp it
+	PA=("${@}")
+fi
+# if nothing passed, do nothing
+if ((${#PA[@]}==0)); then
+	exit 1
+fi
+# consruct a string for container-side path lookup
+# passing remaining components through as arguments
+C="eval \$\(which ${PA[0]}\) ${PA[@]:1}"
+# make sure not to exit with a failure, or the starting service
+# will also fail, and the machine state will transit to
+# degraded
+ds64-run /bin/bash -c "${C} || zenity --error --no-wrap --timeout=5 "\
+"--title='Error starting program' "\
+"--text='The program you specified either could not be started,\n"\
+"or exited with an error!\n"\
+"Is it installed in the ${DS64_NAME} container?' || true"

@@ -1,0 +1,352 @@
+#!/bin/bash
+#
+# Reflect users from /etc/passwd in 1000 <= uid < 1100 range into the
+# container at /var/lib/machines/${1}, ensuring that the /etc/shadow
+# entries match too, and that the primary group is present. Remove any
+# clashing users or groups from the guest, and also ensure that the
+# reflected users are members of groups in USE_GROUP (see script), iff
+# such groups are present on the guest.
+#
+# Takes a single parameter, the name of the machine to reflect from
+# ("debian-buster-64", for example).
+#
+# The net effect of this should be that if you change password or
+# create a new user on the host, it will auto-magically carry over into
+# the guest as well.
+#
+# No equivalent propagation of changes from guest to host is provided.
+#
+# Intended to be triggered via a path unit watching the
+# /etc/{passwd,shadow,group,gshadow} files for changes (on the host).
+#
+# AUTHOR
+# ------
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+#
+# License (GPL v3.0)
+# ------------------
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+
+set -e
+set -u
+shopt -s nullglob
+
+DS64_NAME="${1:-debian-buster-64}"
+DS64_DIR="/var/lib/machines/${DS64_NAME}"
+
+# whether UID seen in host's passwd file
+declare -A HOST_UID_SEEN
+# whether GID seen in host's passwd file
+declare -A HOST_GID_SEEN
+# whether group name seen (via GID lookup) in host's passwd file
+declare -A HOST_GNAME_SEEN
+# whether user name seen in host's passwd file
+declare -A HOST_NAME_SEEN
+# lookup from UID to primary GID (on host)
+declare -A UID_TO_GID
+# lookup from GID to group name (on host)
+declare -A HOST_GID_TO_GNAME
+# whether name dropped in guest's passwd file
+declare -A GUEST_NAME_DROPPED
+# whether group name dropped in guest's group file 
+declare -A GUEST_GNAME_DROPPED
+# groups for managed users to belong to, where available
+# these groups will NOT be created if not present on guest
+declare -A USE_GROUP=( [adm]=1 [dialout]=1 [cdrom]=1 [sudo]=1 [audio]=1 [video]=1 [plugdev]=1 [games]=1 [users]=1 [input]=1 [netdev]=1 [gpio]=1 [i2c]=1 [spi]=1 )
+# arrays of stashed host lines, to append to group files
+# once clashing lines have been filtered out
+declare -a HOST_PASSWD_LINES
+declare -a HOST_GROUP_LINES
+declare -a HOST_SHADOW_LINES
+declare -a HOST_GSHADOW_LINES
+# comma counter
+declare -i C
+
+HOST_PREFIX="/etc"
+CONTAINER="${DS64_DIR}"
+GUEST_PREFIX="${CONTAINER}/etc"
+HOST_PASSWD="${HOST_PREFIX}/passwd"
+GUEST_PASSWD="${GUEST_PREFIX}/passwd"
+TMP_GUEST_PASSWD="${GUEST_PASSWD}~"
+BKP_GUEST_PASSWD="${GUEST_PASSWD}-"
+HOST_SHADOW="${HOST_PREFIX}/shadow"
+GUEST_SHADOW="${GUEST_PREFIX}/shadow"
+TMP_GUEST_SHADOW="${GUEST_SHADOW}~"
+BKP_GUEST_SHADOW="${GUEST_SHADOW}-"
+HOST_GROUP="${HOST_PREFIX}/group"
+GUEST_GROUP="${GUEST_PREFIX}/group"
+TMP_GUEST_GROUP="${GUEST_GROUP}~"
+BKP_GUEST_GROUP="${GUEST_GROUP}-"
+HOST_GSHADOW="${HOST_PREFIX}/gshadow"
+GUEST_GSHADOW="${GUEST_PREFIX}/gshadow"
+TMP_GUEST_GSHADOW="${GUEST_GSHADOW}~"
+BKP_GUEST_GSHADOW="${GUEST_GSHADOW}-"
+
+SCRIPT_NAME="$(basename -- "${0}")"
+if pidof -o %PPID -x "${SCRIPT_NAME}" &>/dev/null; then
+    # already running
+    exit 0
+fi
+
+# let things settle, as multiple files (passwd, group, shadow, gshadow)
+# may have been changed almost at once
+sleep 1
+
+# bail out if no container present at all
+if ! [[ -d "${CONTAINER}" ]]; then
+    exit 1
+fi
+
+# scan the host's group file, to establish a lookup
+# between gid and group name
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NGNAME="${BASH_REMATCH[1]}"
+        NGPASSWORD="${BASH_REMATCH[2]}"
+        NGID="${BASH_REMATCH[3]}"
+        NUSERS="${BASH_REMATCH[4]}"
+        # add to lookup
+        HOST_GID_TO_GNAME["${NGID}"]="${NGNAME}"
+    fi
+done < "${HOST_GROUP}"
+
+# now record any uids between 1000 <= uid < 1100 in the host's
+# /etc/passwd file; these will be reflected into the guest
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NNAME="${BASH_REMATCH[1]}"
+        NPASSWORD="${BASH_REMATCH[2]}"
+        NUID="${BASH_REMATCH[3]}"
+        NGID="${BASH_REMATCH[4]}"
+        NCOMMENT="${BASH_REMATCH[5]}"
+        NDIRECTORY="${BASH_REMATCH[6]}"
+        NSHELL="${BASH_REMATCH[7]}"
+        if ((NUID>=1000 && NUID<1100)); then
+            # add lookups, and append full line in array
+            HOST_UID_SEEN["${NUID}"]=1
+            HOST_NAME_SEEN["${NNAME}"]=1
+            UID_TO_GID["${NUID}"]="${NGID}"
+            HOST_GID_SEEN["${NGID}"]=1
+            HOST_GNAME_SEEN[${HOST_GID_TO_GNAME["${NGID}"]}]=1
+            HOST_PASSWD_LINES+=("${NEXTLINE}")
+        fi
+    fi
+done < "${HOST_PASSWD}"
+
+# process the guest /etc/passwd file, dropping any overlapping
+# entries, and replacing with the host set
+> "${TMP_GUEST_PASSWD}"
+chmod 0644 "${TMP_GUEST_PASSWD}"
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NNAME="${BASH_REMATCH[1]}"
+        NPASSWORD="${BASH_REMATCH[2]}"
+        NUID="${BASH_REMATCH[3]}"
+        NGID="${BASH_REMATCH[4]}"
+        NCOMMENT="${BASH_REMATCH[5]}"
+        NDIRECTORY="${BASH_REMATCH[6]}"
+        NSHELL="${BASH_REMATCH[7]}"
+        if [[ ${HOST_UID_SEEN["${NUID}"]+_} ]] || [[ ${HOST_NAME_SEEN["${NNAME}"]+_} ]]; then
+            # skip this one, its UID or NAME is already utilized in the
+            # reserved host users
+            # record the dropped name, so we can definitely skip it
+            # from the shadow file too
+            GUEST_NAME_DROPPED["${NNAME}"]=1
+        else
+            echo "${NEXTLINE}" >> "${TMP_GUEST_PASSWD}"
+        fi
+    fi
+done < "${GUEST_PASSWD}"
+for NEXTLINE in "${HOST_PASSWD_LINES[@]}"; do
+    echo "${NEXTLINE}" >> "${TMP_GUEST_PASSWD}"
+done
+
+# now scan the host's /etc/shadow file, recording the lines corresponding
+# to any reserved UIDs (or names)
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NNAME="${BASH_REMATCH[1]}"
+        NPASSWD="${BASH_REMATCH[2]}"
+        NDATE="${BASH_REMATCH[3]}"
+        NMINAGE="${BASH_REMATCH[4]}"
+        NMAXAGE="${BASH_REMATCH[5]}"
+        NWARN="${BASH_REMATCH[6]}"
+        NINACT="${BASH_REMATCH[7]}"
+        NEXP="${BASH_REMATCH[8]}"
+        NRES="${BASH_REMATCH[9]}"
+        if [[ ${HOST_NAME_SEEN["${NNAME}"]+_} ]]; then
+            HOST_SHADOW_LINES+=("${NEXTLINE}")
+        fi
+    fi
+done < "${HOST_SHADOW}"
+
+# next process the guest's /etc/shadow file, dropping any overlapping
+# entries, and replacing with the host set
+> "${TMP_GUEST_SHADOW}"
+chmod 0640 "${TMP_GUEST_SHADOW}"
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NNAME="${BASH_REMATCH[1]}"
+        NPASSWD="${BASH_REMATCH[2]}"
+        NDATE="${BASH_REMATCH[3]}"
+        NMINAGE="${BASH_REMATCH[4]}"
+        NMAXAGE="${BASH_REMATCH[5]}"
+        NWARN="${BASH_REMATCH[6]}"
+        NINACT="${BASH_REMATCH[7]}"
+        NEXP="${BASH_REMATCH[8]}"
+        NRES="${BASH_REMATCH[9]}"
+        if ! [[ ${HOST_NAME_SEEN["${NNAME}"]+_} ]] && ! [[ ${GUEST_NAME_DROPPED["${NNAME}"]+_} ]]; then
+            echo "${NEXTLINE}" >> "${TMP_GUEST_SHADOW}"
+        fi
+    fi
+done < "${GUEST_SHADOW}"
+for NEXTLINE in "${HOST_SHADOW_LINES[@]}"; do
+    echo "${NEXTLINE}" >> "${TMP_GUEST_SHADOW}"
+done
+
+# now onto groups; goal here is to ensure primary group
+# for all reserved users are present, that such
+# users are members of all groups in USE_GROUP that are
+# also present in the guest, and that there are no clashing
+# group entries
+
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NGNAME="${BASH_REMATCH[1]}"
+        NGPASSWORD="${BASH_REMATCH[2]}"
+        NGID="${BASH_REMATCH[3]}"
+        NUSERS="${BASH_REMATCH[4]}"
+        # note any lines whose GID is the primary for any reserved users
+        if [[ ${HOST_GID_SEEN["${NGID}"]+_} ]]; then
+            HOST_GROUP_LINES+=("${NEXTLINE}")
+        fi
+    fi
+done < "${HOST_GROUP}"
+
+# process the target group file, dropping any overlapping entries,
+# and replacing with the host set
+> "${TMP_GUEST_GROUP}"
+chmod 0644 "${TMP_GUEST_GROUP}"
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NGNAME="${BASH_REMATCH[1]}"
+        NGPASSWORD="${BASH_REMATCH[2]}"
+        NGID="${BASH_REMATCH[3]}"
+        NUSERS="${BASH_REMATCH[4]}"
+        # note any lines whose GID is the primary for any reserved users
+        if [[ ${HOST_GID_SEEN["${NGID}"]+_} ]] || [[ ${HOST_GNAME_SEEN["${NGNAME}"]+_} ]]; then
+            # record the dropped group name, so we can definitely skip it
+            # from the shadow file too
+            GUEST_GNAME_DROPPED["${NGNAME}"]=1
+        else
+            # reflect, but drop any clashing users first...
+            echo -n "${NGNAME}:${NGPASSWORD}:${NGID}:" >> "${TMP_GUEST_GROUP}"
+            C=0
+            for U in ${NUSERS//,/ }; do
+                if ! [[ ${HOST_NAME_SEEN["${U}"]+_} ]] && ! [[ ${GUEST_NAME_DROPPED["${U}"]+_} ]]; then
+                    if ((C++>0)); then
+                        echo -n "," >> "${TMP_GUEST_GROUP}"
+                    fi
+                    echo -n "${U}" >> "${TMP_GUEST_GROUP}"
+                fi
+            done
+            # now, if this is one of the "baseline" groups, add our target users to it
+            if [[  ${USE_GROUP["${NGNAME}"]+_} ]]; then
+                # iterate over keys in known users list, and add them
+                for U in "${!HOST_NAME_SEEN[@]}"; do
+                    if ((C++>0)); then
+                        echo -n "," >> "${TMP_GUEST_GROUP}"
+                    fi
+                    echo -n "${U}" >> "${TMP_GUEST_GROUP}"
+                done
+            fi
+            # ensure we write the closing newline
+            echo "" >> "${TMP_GUEST_GROUP}"
+
+        fi
+    fi
+done < "${GUEST_GROUP}"
+for NEXTLINE in "${HOST_GROUP_LINES[@]}"; do
+    echo "${NEXTLINE}" >> "${TMP_GUEST_GROUP}"
+done
+
+# now process the host's gshadow file, recording the lines corresponding
+# to any reserved GIDs
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NGNAME="${BASH_REMATCH[1]}"
+        NGPASSWORD="${BASH_REMATCH[2]}"
+        NGADMINS="${BASH_REMATCH[3]}"
+        NUSERS="${BASH_REMATCH[4]}"
+        # note any lines whose GID is the primary for any reserved users
+        if [[ ${HOST_GNAME_SEEN["${NGNAME}"]+_} ]]; then
+            HOST_GSHADOW_LINES+=("${NEXTLINE}")
+        fi
+    fi
+done < "${HOST_GSHADOW}"
+
+# now process the guest's gshadow file, copying through (to the temp file) any
+# lines whose group names don't clash with those reserved from the host and
+# which weren't purged earlier (but also dropping clashing users from
+# group membership)
+> "${TMP_GUEST_GSHADOW}"
+chmod 0640 "${TMP_GUEST_GSHADOW}"
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NGNAME="${BASH_REMATCH[1]}"
+        NGPASSWORD="${BASH_REMATCH[2]}"
+        NGADMINS="${BASH_REMATCH[3]}"
+        NUSERS="${BASH_REMATCH[4]}"
+        if ! [[ ${HOST_GNAME_SEEN["${NGNAME}"]+_} ]] && ! [[ ${GUEST_GNAME_DROPPED["${NGNAME}"]+_} ]]; then
+            # reflect, but drop any clashing users first...
+            echo -n "${NGNAME}:${NGPASSWORD}:${NGADMINS}:" >> "${TMP_GUEST_GSHADOW}"
+            C=0
+            for U in ${NUSERS//,/ }; do
+                if ! [[ ${HOST_NAME_SEEN["${U}"]+_} ]] && ! [[ ${GUEST_NAME_DROPPED["${U}"]+_} ]]; then
+                    if ((C++>0)); then
+                        echo -n "," >> "${TMP_GUEST_GSHADOW}"
+                    fi
+                    echo -n "${U}" >> "${TMP_GUEST_GSHADOW}"
+                fi
+            done
+            # now, if this is one of the "baseline" groups, add our target users to it
+            if [[  ${USE_GROUP["${NGNAME}"]+_} ]]; then
+                # iterate over keys in known users list, and add them
+                for U in "${!HOST_NAME_SEEN[@]}"; do
+                    if ((C++>0)); then
+                        echo -n "," >> "${TMP_GUEST_GSHADOW}"
+                    fi
+                    echo -n "${U}" >> "${TMP_GUEST_GSHADOW}"
+                done
+            fi
+            # ensure we write the closing newline
+            echo "" >> "${TMP_GUEST_GSHADOW}"
+        fi
+    fi
+done < "${GUEST_GSHADOW}"
+for NEXTLINE in "${HOST_GSHADOW_LINES[@]}"; do
+    echo "${NEXTLINE}" >> "${TMP_GUEST_GSHADOW}"
+done
+
+# lastly, do file rotation to activate the new entries
+cp "${GUEST_PASSWD}" "${BKP_GUEST_PASSWD}"
+cp "${GUEST_SHADOW}" "${BKP_GUEST_SHADOW}"
+cp "${GUEST_GROUP}" "${BKP_GUEST_GROUP}"
+cp "${GUEST_GSHADOW}" "${BKP_GUEST_GSHADOW}"
+mv "${TMP_GUEST_PASSWD}" "${GUEST_PASSWD}"
+mv "${TMP_GUEST_SHADOW}" "${GUEST_SHADOW}"
+mv "${TMP_GUEST_GROUP}" "${GUEST_GROUP}"
+mv "${TMP_GUEST_GSHADOW}" "${GUEST_GSHADOW}"
+
+exit 0

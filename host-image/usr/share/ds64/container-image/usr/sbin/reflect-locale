@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+# Force a reconfigure if the host and guest locales differ.
+#
+# Intended to be triggered via a path unit watching the
+# /etc/default/host-locale file for changes.
+#
+# AUTHOR
+# ------
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+#
+# License (GPL v3.0)
+# ------------------
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+
+set -e
+set -u
+shopt -s nullglob
+
+SCRIPT_NAME="$(basename -- "${0}")"
+
+if pidof -o %PPID -x "${SCRIPT_NAME}" &>/dev/null; then
+    # already running
+    exit 0
+fi
+
+# if the host default locale differs from ours, then
+# ensure that we have the appropriate locale generated
+# (and update /etc/locale.gen and force a locale-gen if not)
+# then select the new locale, via localectl
+
+# check if the host and guest default locales differ
+# we primarily care about the LANG variables
+if [[ -f /etc/default/host-locale && -f /etc/default/locale ]]; then
+    if [[ $(grep "^LANG=" /etc/default/host-locale) =~ ^LANG=([^[:space:]]*) ]]; then
+        HOST_LANG="${BASH_REMATCH[1]}"
+    else
+        HOST_LANG=""
+    fi
+    if [[ $(grep "^LANG=" /etc/default/locale) =~ ^LANG=([^[:space:]]*) ]]; then
+        OUR_LANG="${BASH_REMATCH[1]}"
+    else
+        OUR_LANG=""
+    fi
+    if [[ "${HOST_LANG}" != "${OUR_LANG}" ]]; then
+        # settings differ materially, the next thing is to generate the specified
+        # locale if it has not already been compiled
+        FOUND=0
+        # map to a canonical form without hyphens, in lowercase
+        HOST_LANG_C="${HOST_LANG,,}"
+        HOST_LANG_C="${HOST_LANG_C//-/}"
+        while read -r NEXTLINE; do
+            NEXTLINE_C="${NEXTLINE,,}"
+            NEXTLINE_C="${NEXTLINE_C//-/}"
+            if [[ "${HOST_LANG_C}" == "${NEXTLINE_C}" ]]; then
+                # good news, we already have it generated
+                FOUND=1
+                break
+            fi
+        done < <(locale -a)
+        if ((FOUND==0)); then
+            # oops, have to regenerate locales, after uncommenting the
+            # entry in /etc/locale.gen (adding it if it does not
+            # exist)
+            sed -i "s/^#[[:space:]]*${HOST_LANG}/${HOST_LANG}/" /etc/locale.gen 2>/dev/null
+            if ! grep -q "^${HOST_LANG}" /etc/locale.gen; then
+                # seems still missing, so add it manually; this may not
+                # work properly if a charset needs to be added
+                echo "${HOST_LANG}" >> /etc/locale.gen
+            fi
+            locale-gen
+        fi
+        
+        # that done, we now force the locale as the system default in
+        # the guest; note we also set the default sort order to C, for
+        # sanity
+        localectl set-locale "LANG=${HOST_LANG}" "LC_COLLATE=C"
+    fi
+fi
+
+exit 0

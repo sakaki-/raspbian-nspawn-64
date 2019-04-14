@@ -1,5 +1,5 @@
 [Desktop Entry]
-Comment=Run program in debian-stretch-64 container
+Comment=Run program in debian-buster-64 container
 Terminal=false
 Name=Run 64-bit Program...
 Exec=ds64-runner

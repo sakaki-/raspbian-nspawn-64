@@ -1,5 +1,5 @@
 [Desktop Entry]
-Comment=Stop debian-stretch-64 container
+Comment=Stop debian-buster-64 container
 Terminal=false
 Name=Stop 64-bit Container
 Exec=ds64-stop

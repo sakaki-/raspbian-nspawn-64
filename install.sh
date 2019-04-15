@@ -5,7 +5,7 @@
 # Takes a single argument, which must be one of:
 # * preinst: stop relevant services for upgrade of package
 # * install: install scripts, units and config files to $DESTDIR
-# * postinst: starts all host-side services
+# * postinst: enables all host-side services (but does not start them)
 # * prerm: stop relevant services for removal of package
 # * uninstall: remove scripts and units from $DESTDIR
 # * purge: uninstall + remove any configuration files
@@ -66,7 +66,7 @@ Usage: ${SCRIPT_NAME} command
 Commands:
   preinst: stop relevant services for upgrade of package
   install: install scripts, units and config files to ${DESTDIR}
-  postinst: starts all host-side services
+  postinst: enables all host-side services (but does not start them)
   prerm: stop relevant services for removal of package
   uninstall: remove scripts and units from ${DESTDIR}
   purge: uninstall + remove any configuration files

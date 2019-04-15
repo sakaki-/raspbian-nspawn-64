@@ -1,9 +1,0 @@
-#!/bin/bash
-# returns whether the debian-stretch-64 machine is currently running
-#
-# Copyright (c) 2019 sakaki <sakaki@deciban.com>
-# License: GPL 3.0+
-# NO WARRANTY
-
-grep -iq running \
-  <(sudo machinectl show --property=State debian-stretch-64 2>/dev/null)

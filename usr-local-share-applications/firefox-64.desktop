@@ -1,8 +1,0 @@
-[Desktop Entry]
-Comment=Browse the Web (64-bit)
-Terminal=false
-Name=Firefox Web Browser (64-bit)
-Exec=ds64-run /usr/bin/firefox %U
-Type=Application
-Icon=firefox-esr
-Categories=Network

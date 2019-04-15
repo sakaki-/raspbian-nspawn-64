@@ -1,6 +1,0 @@
-[Unit]
-Description=reflect-apps
-
-[Service]
-ExecStart=/usr/local/bin/reflect-apps
-

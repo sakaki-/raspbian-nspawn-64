@@ -1,9 +1,0 @@
-[Desktop Entry]
-Comment=A follow the mouse X demo (64-bit)
-Terminal=false
-Name=Xeyes (64-bit)
-Exec=ds64-run /usr/bin/xeyes
-Type=Application
-Icon=xeyes
-Categories=Utility
-StartupNotify=false

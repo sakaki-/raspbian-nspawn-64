@@ -1,9 +1,0 @@
-[Desktop Entry]
-Comment=Monitor active containers (aka 'machines')
-Terminal=false
-Name=Monitor Active Containers
-Exec=lxterminal --title="Active Containers" --geometry=42x6 --command="sudo watch --no-title systemctl list-machines"
-Type=Application
-Icon=list-machines
-Categories=System
-StartupNotify=false

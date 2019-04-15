@@ -1,9 +1,0 @@
-[Desktop Entry]
-Comment=Command-line terminal (64-bit)
-Terminal=true
-Name=Terminal (64-bit)
-Exec=ds64-shell
-Type=Application
-Icon=ds64-shell
-Categories=System;Utility;
-StartupNotify=false

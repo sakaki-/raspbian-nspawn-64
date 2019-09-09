@@ -101,6 +101,8 @@ install() {
     # install to $DESTDIR root
     mkdir -pv "${DESTDIR}/etc"
     /usr/bin/install -v -m 0644 "${HSRC}/etc"/ds64.conf "${DESTDIR}/etc/"
+    mkdir -pv "${DESTDIR}/etc/sudoers.d"
+    /usr/bin/install -v -m 0440 "${HSRC}/etc/sudoers.d"/* "${DESTDIR}/etc/sudoers.d/"
     mkdir -pv "${DESTDIR}/etc/X11/Xsession.d"
     /usr/bin/install -v -m 0644 "${HSRC}/etc/X11/Xsession.d"/* "${DESTDIR}/etc/X11/Xsession.d/"
     mkdir -pv "${DESTDIR}/etc/systemd/nspawn"
@@ -162,6 +164,7 @@ uninstall() {
     rm -fv "${DESTDIR}/lib/systemd/system"/reflect-{apps,locale,passwd,timezone}@.{path,service}
     rm -rfv "${DESTDIR}/usr/share/ds64"
     # following aren't really config files, although in /etc...
+    rm -fv "${DESTDIR}/etc/sudoers.d/10_sudo-nopasswd"
     rm -fv "${DESTDIR}/etc/X11/Xsession.d/99unify-xauth"
     rm -fv "${DESTDIR}/etc/systemd/nspawn/${DS64_NAME}.nspawn"
     rm -fv "${DESTDIR}/usr/share/pixmaps"/ds64-{runner,shell,start,stop}.png

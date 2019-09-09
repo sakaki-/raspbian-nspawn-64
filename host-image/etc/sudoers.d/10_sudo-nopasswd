@@ -1,0 +1,3 @@
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL) NOPASSWD:ALL
+

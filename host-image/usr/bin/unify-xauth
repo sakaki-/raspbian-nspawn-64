@@ -1,0 +1,30 @@
+#!/bin/bash
+# Modify .Xauthority file to work on all hosts, which is
+# necessary to allow it to be used inside an nspawn container
+# See e.g., https://stackoverflow.com/a/25280523
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# License: GPL 3.0+
+# NO WARRANTY
+
+set -e
+set -u
+
+[[ "${XAUTHORITY:-}" && -s "${XAUTHORITY}" ]] || exit 0
+ALLHOSTXA="${XAUTHORITY}-allhosts"
+[[ -s "${ALLHOSTXA}" ]] && [[ "${ALLHOSTXA}" -nt "${XAUTHORITY}" ]] && exit 0
+
+T="$(tempfile)"
+
+trap_cleanup() {
+  trap - SIGHUP SIGQUIT SIGINT SIGTERM SIGKILL EXIT
+  [[ "${T}" ]] && rm -f "${T}"
+  exit 1
+}
+
+trap trap_cleanup SIGHUP SIGQUIT SIGINT SIGTERM SIGKILL EXIT
+xauth -f "${XAUTHORITY}" nextract - "${DISPLAY}" | \
+  sed -e 's/^..../ffff/' | \
+  xauth -f "${T}" nmerge -
+mv "${T}" "${ALLHOSTXA}"
+

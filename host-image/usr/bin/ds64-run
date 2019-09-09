@@ -24,9 +24,14 @@ G="$(id --group)"
 sudo systemd-run \
 	--setenv=QT_AUTO_SCREEN_SCALE_FACTOR=0 \
 	--setenv=DISPLAY="${DISPLAY}" \
+	--setenv=USER="${USER}" \
+	--setenv=LANG="${LANG}" \
+	--setenv=NO_AT_BRIDGE="${NO_AT_BRIDGE}" \
+	--setenv=DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/${U}/bus" \
 	--setenv=PULSE_SERVER="unix:/run/host-user/${U}/pulse/native" \
-	--setenv=PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games" \
+	--setenv=PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games" \
 	--machine="${DS64_NAME}" \
 	--uid=${U} --gid=${G} \
+	--same-dir \
 	"${@}"
 

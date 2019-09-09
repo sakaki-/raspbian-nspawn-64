@@ -1,0 +1,4 @@
+# This file is sourced by Xsession(5), not executed.
+# Ensure FamilyWild .Xauthority-allhosts exists
+# to allow invocation from systemd-nspawn guest
+unify-xauth || true

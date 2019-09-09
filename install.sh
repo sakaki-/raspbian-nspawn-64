@@ -101,6 +101,8 @@ install() {
     # install to $DESTDIR root
     mkdir -pv "${DESTDIR}/etc"
     /usr/bin/install -v -m 0644 "${HSRC}/etc"/ds64.conf "${DESTDIR}/etc/"
+    mkdir -pv "${DESTDIR}/etc/X11/Xsession.d"
+    /usr/bin/install -v -m 0644 "${HSRC}/etc/X11/Xsession.d"/* "${DESTDIR}/etc/X11/Xsession.d/"
     mkdir -pv "${DESTDIR}/etc/systemd/nspawn"
     /usr/bin/install -v -m 0644 "${HSRC}/etc/systemd/nspawn"/*.nspawn "${DESTDIR}/etc/systemd/nspawn/"
     mkdir -pv "${DESTDIR}/lib/systemd/system"
@@ -153,12 +155,14 @@ prerm() {
 uninstall() {
     # remove from destdir root
     rm -fv "${DESTDIR}/usr/bin"/ds64-{run,runner,running,shell,start,stop}
+    rm -fv "${DESTDIR}/usr/bin"/unify-xauth
     rm -fv "${DESTDIR}/usr/sbin"/init-container
     rm -fv "${DESTDIR}/usr/sbin"/reflect-{apps,locale,passwd,timezone}
     rm -fv "${DESTDIR}/lib/systemd/system"/init-container@.service
     rm -fv "${DESTDIR}/lib/systemd/system"/reflect-{apps,locale,passwd,timezone}@.{path,service}
     rm -rfv "${DESTDIR}/usr/share/ds64"
     # following aren't really config files, although in /etc...
+    rm -fv "${DESTDIR}/etc/X11/Xsession.d/99unify-xauth"
     rm -fv "${DESTDIR}/etc/systemd/nspawn/${DS64_NAME}.nspawn"
     rm -fv "${DESTDIR}/usr/share/pixmaps"/ds64-{runner,shell,start,stop}.png
     rm -fv "${DESTDIR}/usr/share/pixmaps"/list-machines.{png,LICENSE}

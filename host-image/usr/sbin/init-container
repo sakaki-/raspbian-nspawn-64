@@ -108,8 +108,10 @@ fi
 
 # ensure all members of sudo group can execute any command, without password
 cp -a "${SOURCE}/etc/sudoers.d/010_sudo-nopasswd" "${CONTAINER}/etc/sudoers.d/"
+chmod 0440 "${CONTAINER}/etc/sudoers.d/010_sudo-nopasswd"
 # prevent accessibility bus issues
 cp -a "${SOURCE}/etc/sudoers.d/010_at-export" "${CONTAINER}/etc/sudoers.d/"
+chmod 0440 "${CONTAINER}/etc/sudoers.d/010_at-export"
 
 # finally, call other 'reflect' helpers once, to ensure the host- data
 # inside the container is available for its first startup (it is up to

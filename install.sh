@@ -164,7 +164,7 @@ uninstall() {
     rm -fv "${DESTDIR}/lib/systemd/system"/reflect-{apps,locale,passwd,timezone}@.{path,service}
     rm -rfv "${DESTDIR}/usr/share/ds64"
     # following aren't really config files, although in /etc...
-    rm -fv "${DESTDIR}/etc/sudoers.d/10_sudo-nopasswd"
+    rm -fv "${DESTDIR}/etc/sudoers.d/010_sudo-nopasswd"
     rm -fv "${DESTDIR}/etc/X11/Xsession.d/99unify-xauth"
     rm -fv "${DESTDIR}/etc/systemd/nspawn/${DS64_NAME}.nspawn"
     rm -fv "${DESTDIR}/usr/share/pixmaps"/ds64-{runner,shell,start,stop}.png

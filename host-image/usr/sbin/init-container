@@ -107,9 +107,9 @@ if ((REINSTALL==0)); then
 fi
 
 # ensure all members of sudo group can execute any command, without password
-cp -a "${SOURCE}/etc/sudoers.d/10_sudo-nopasswd" "${CONTAINER}/etc/sudoers.d/"
+cp -a "${SOURCE}/etc/sudoers.d/010_sudo-nopasswd" "${CONTAINER}/etc/sudoers.d/"
 # prevent accessibility bus issues
-cp -a "${SOURCE}/etc/sudoers.d/10_at-export" "${CONTAINER}/etc/sudoers.d/"
+cp -a "${SOURCE}/etc/sudoers.d/010_at-export" "${CONTAINER}/etc/sudoers.d/"
 
 # finally, call other 'reflect' helpers once, to ensure the host- data
 # inside the container is available for its first startup (it is up to

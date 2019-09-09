@@ -24,6 +24,7 @@ G="$(id --group)"
 sudo systemd-run \
 	--setenv=QT_AUTO_SCREEN_SCALE_FACTOR=0 \
 	--setenv=DISPLAY="${DISPLAY}" \
+	--setenv=XAUTHORITY="${XAUTHORITY}-allhosts" \
 	--setenv=USER="${USER}" \
 	--setenv=LANG="${LANG}" \
 	--setenv=NO_AT_BRIDGE="${NO_AT_BRIDGE}" \

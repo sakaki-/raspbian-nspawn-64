@@ -55,7 +55,7 @@ if pidof -o %PPID -x "${SCRIPT_NAME}" &>/dev/null; then
 fi
 
 # let things settle
-sleep 1
+sleep 2
 while pidof -x apt-get &>/dev/null || pidof -x apt &>/dev/null || pidof -x dpkg &>/dev/null; do
     sleep 1
 done

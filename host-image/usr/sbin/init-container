@@ -117,6 +117,12 @@ chmod 0440 "${CONTAINER}/etc/sudoers.d/010_at-export"
 cp -a "${SOURCE}/etc/sudoers.d/010_libgl-export" "${CONTAINER}/etc/sudoers.d/"
 chmod 0440 "${CONTAINER}/etc/sudoers.d/010_libgl-export"
 
+# ensure guest's pulseaudio also in non-timer mode
+if [[ -s "${CONTAINER}/etc/pulse/default.pa" ]]; then
+    sed -i -e 's#^load-module module-udev-detect$#load-module module-udev-detect tsched=0#g' \
+        "${CONTAINER}/etc/pulse/default.pa"
+fi
+
 # finally, call other 'reflect' helpers once, to ensure the host- data
 # inside the container is available for its first startup (it is up to
 # counterpart services inside the container to actually use this)

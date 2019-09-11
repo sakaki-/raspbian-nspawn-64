@@ -9,6 +9,7 @@ DS64_CONF="/etc/ds64.conf"
 [[ -s "${DS64_CONF}" ]] && source "${DS64_CONF}"
 DS64_NAME="${DS64_NAME:-debian-buster-64}"
 DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
+GUEST_LIBGL_ALWAYS_SOFTWARE="${GUEST_LIBGL_ALWAYS_SOFTWARE:-1}"
 
 if ! ds64-running; then
         zenity --error --no-wrap \
@@ -22,7 +23,7 @@ exec sudo machinectl shell \
 	--setenv=QT_AUTO_SCREEN_SCALE_FACTOR=0 \
 	--setenv=DISPLAY="${DISPLAY}" \
 	--setenv=XAUTHORITY="${XAUTHORITY}-allhosts" \
-	--setenv=LIBGL_ALWAYS_SOFTWARE=1 \
+	--setenv=LIBGL_ALWAYS_SOFTWARE="${GUEST_LIBGL_ALWAYS_SOFTWARE}" \
 	--setenv=USER="${USER}" \
 	--setenv=LANG="${LANG}" \
 	--setenv=NO_AT_BRIDGE="${NO_AT_BRIDGE}" \

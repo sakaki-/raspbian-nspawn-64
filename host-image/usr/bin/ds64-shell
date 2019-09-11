@@ -34,4 +34,3 @@ exec sudo machinectl shell \
 	"${DS64_NAME}" \
 	/bin/bash \
 	"${@}"
-

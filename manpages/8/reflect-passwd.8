@@ -1,0 +1,90 @@
+.TH REFLECT\-PASSWD 8 "OCTOBER 2019"
+.SH NAME
+.PP
+reflect\-passwd \- sync some user, group info from host into guest OS
+.SH SYNOPSIS
+.PP
+\fB\fCreflect\-passwd\fR \fIMACHINENAME\fP
+.SH DESCRIPTION
+.PP
+\fB\fCreflect\-passwd\fR ensures that the host's user and group information (for
+users in the 1000 <= UID < 1100 range) is copied into the guest OS
+image (with any conflicts resolved in favour of the host data).
+.PP
+The process operates broadly as follows:
+.RS
+.IP \(bu 2
+The host's \fI/etc/group\fP file is parsed, to establish a mapping
+between GID and group name.
+.IP \(bu 2
+Then, the host's \fI/etc/passwd\fP file is parsed, and any UIDS
+1000 <= UID < 1100 in the host are recorded. Call this the active set.
+.IP \(bu 2
+The guest's \fI/etc/passwd\fP file is then processed, dropping any lines with 
+overlapping UIDs or usernames, and inserting corresponding active set lines
+from the counterpart host version of the file.
+.IP \(bu 2
+Then the host's \fI/etc/shadow\fP file is parsed, recording the (hashed)
+password data corresponding to entries in the active set.
+.IP \(bu 2
+Next, the guest's \fI/etc/shadow\fP file is processed, dropping any overlapping
+lines, and inserting the active set password data just captured.
+.IP \(bu 2
+Then the host's \fI/etc/group\fP file is parsed, recording any primary groups
+for users in the active set.
+.IP \(bu 2
+Next, the guest's \fI/etc/group\fP file is processed, dropping any clashing
+lines, and ensuring that all active set members belong
+to their corresponding primary groups (creating these if required),
+and of the \fB\fC$USE_GROUP\fR
+secondary groups (viz. \fB\fCadm\fR, \fB\fCdialout\fR, \fB\fCsudo\fR,
+\fB\fCaudio\fR, \fB\fCvideo\fR, \fB\fCplugdev\fR, \fB\fCgames\fR, \fB\fCusers\fR, \fB\fCinput\fR, \fB\fCnetdev\fR, 
+\fB\fCgpio\fR, \fB\fCi2c\fR and \fB\fCspi\fR) providing such groups are already defined on the
+guest (i.e., these secondary groups are \fInot\fP created where absent on the
+guest).
+.IP \(bu 2
+Then, the host's \fI/etc/gshadow\fP file is parsed, recording the (hashed)
+password data corresponding to entries in the core group set just defined.
+.IP \(bu 2
+Finally, the guest's \fI/etc/gshadow\fP file is processed, removing any
+clashing lines, and replacing these with those just captured from the
+counterpart host file.
+.RE
+.PP
+Modifications are made to a set of temporary files first, then switched
+over en bloc, to mitigate against mid\-execution crashes.
+.SH INVOCATION
+.PP
+Note that \fB\fCreflect\-passwd\fR is not intended to be directly user\-executed; it is
+normally called via the 
+.BR systemd (1) 
+\fB\fCreflect\-passwd@\fR\fIMACHINENAME\fP service.
+.SH EXIT STATUS
+.PP
+The exit status is 0 if the user and group information is successfully
+sync'd; and a non\-zero error code otherwise.
+.SH FILES
+.PP
+Operates on the bootable 64\-bit OS image tree at
+\fI/var/lib/machines/MACHINENAME\fP\&.
+.SH BUGS
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR reflect-apps (8), 
+.BR reflect-locale (8), 
+.BR reflect-timezone (8),
+.BR systemd-nspawn (1)

@@ -1,0 +1,51 @@
+.TH UNIFY\-XAUTH 1 "OCTOBER 2019"
+.SH NAME
+.PP
+unify\-xauth \- modify .Xauthority file to work on any host
+.SH SYNOPSIS
+.PP
+\fB\fCunify\-xauth\fR
+.SH DESCRIPTION
+.PP
+\fB\fCunify\-xauth\fR modifies the Xorg credentials file pointed to by the
+\fB\fC$XAUTHORITY\fR environment variable, so that it may be used on any host
+(this allows it to be passed e.g. into a 64\-bit 
+.BR systemd-nspawn (1) 
+guest OS,
+where the hostname will not be the same as that of the main, host OS).
+.PP
+The modified credentials file will be saved to \fB\fC$XAUTHORITY\fR\-allhosts;
+the original is retained unmodified.
+.SH EXIT STATUS
+.PP
+The exit status is 0 if the the updated Xorg credentials file was
+created successfully, and a non\-zero error code otherwise.
+.SH ENVIRONMENT
+.PP
+The program expects the \fB\fC$XAUTHORITY\fR environment variable to be set,
+and to point to the current credentials file (this will most commonly
+be \fI~/.Xauthority\fP).
+.SH FILES
+.PP
+Reads \fB\fC$XAUTHORITY\fR (most commonly, this will be \fI~/.Xauthority\fP) and
+writes to \fB\fC$XAUTHORITY\fR\-allhosts (most commonly,
+\fI~/.Xauthority\-allhosts\fP).
+.SH BUGS
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR systemd-nspawn (1), 
+.BR Xorg (1)

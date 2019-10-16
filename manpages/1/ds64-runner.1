@@ -1,0 +1,92 @@
+.TH DS64\-RUNNER 1 "OCTOBER 2019"
+.SH NAME
+.PP
+ds64\-runner \- find and execute program in 64\-bit Debian sidekick OS
+.SH SYNOPSIS
+.PP
+\fB\fCds64\-runner\fR \fICOMMAND\fP [ARGS]
+.SH DESCRIPTION
+.PP
+\fB\fCds64\-runner\fR attempts to execute the specified \fICOMMAND\fP in the current 64\-bit
+Debian 'sidekick' OS (which must be running). The standard \fB\fC$PATH\fR will
+be used to resolve \fICOMMAND\fP inside that OS' container, so in general,
+this command is easier to use than 
+.BR ds64-run (1) 
+(which requires fully
+qualified paths).
+.PP
+The command execution is asynchronous, so this may be used to execute
+long\-running desktop GUI programs.
+.PP
+The invoked command has the necessary environment variables set to enable it
+to use the host's 
+.BR pulseaudio (1) 
+server, access the host's 
+.BR Xorg (1) 
+server
+etc.
+.PP
+You can use 
+.BR sudo (8) 
+with \fB\fCds64\-runner\fR; for example (assuming you have
+.BR mousepad (1) 
+installed in the guest OS):
+.PP
+\fB\fCds64\-runner sudo mousepad /etc/foo.conf\fR
+.PP
+If the sidekick OS is not running, or if \fICOMMAND\fP could not be found,
+or if \fICOMMAND\fP exits with an error, a \fB\fCzenity\fR dialog will be shown,
+with a 5 second auto\-dismissal timeout.
+.SH EXIT STATUS
+.PP
+The exit status is 1 if the sidekick OS is not running, and 0 otherwise
+(regardless of the return status of the invoked \fICOMMAND\fP, or whether
+\fICOMMAND\fP could be found).
+.PP
+If \fICOMMAND\fP could not be found or exits with an error status, the failed
+jobs count for the container is \fBnot\fP incremented (only a 
+.BR zenity (1) 
+dialog
+is shown). This is different behaviour to 
+.BR ds64-run (1).
+.SH FILES
+.PP
+\fI/etc/ds64.conf\fP
+.PP
+Configuration file specifying various controlling environment
+variables, including \fB\fC$DS64_NAME\fR (defaults to \fIdebian\-buster\-64\fP) and
+\fB\fC$DS64_DIR\fR (defaults to \fI/var/lib/machines/debian\-buster\-64\fP).
+.SH BUGS
+.PP
+\fB\fCds64\-runner\fR cannot currently be used to start a 
+.BR bash (1) 
+shell (although
+of course it can be used to do this indirectly, by starting e.g. a
+terminal application). Use 
+.BR ds64-shell (1) 
+for that instead.
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR bash (1), 
+.BR ds64-run (1), 
+.BR ds64-shell (1), 
+.BR mousepad (1), 
+.BR pulseaudio (1),
+.BR sudo (8), 
+.BR systemctl (1), 
+.BR Xorg (1), 
+.BR zenity (1)

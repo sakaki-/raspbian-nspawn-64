@@ -1,0 +1,55 @@
+.TH REFLECT\-TIMEZONE 8 "OCTOBER 2019"
+.SH NAME
+.PP
+reflect\-timezone \- sync host's \fI/etc/timezone/\fP into guest OS
+.SH SYNOPSIS
+.PP
+\fB\fCreflect\-timezone\fR \fIMACHINENAME\fP
+.SH DESCRIPTION
+.PP
+\fB\fCreflect\-timezone\fR ensures that the host's \fI/etc/timezone\fP is
+copied across into the guest OS image, as \fI/etc/host\-timezone\fP\&.
+.PP
+For correct operation, it relies upon the existence of a counterpart
+\fB\fCreflect\-timezone\fR path unit, service and \fI/usr/sbin\fP script
+in the guest (set up by
+.BR init-container (8)), 
+which monitors this file, and will force the
+new timezone to be applied when changes are detected.
+.SH INVOCATION
+.PP
+Note that \fB\fCreflect\-timezone\fR is not intended to be user\-executed; it is
+normally called via the 
+.BR systemd (1) 
+\fB\fCreflect\-timezone@\fR\fIMACHINENAME\fP service.
+.SH EXIT STATUS
+.PP
+The exit status is 0 if the timezone is successfully copied to the guest, and
+a non\-zero error code otherwise.
+.SH FILES
+.PP
+Operates on the bootable 64\-bit OS image tree at
+\fI/var/lib/machines/MACHINENAME\fP\&.
+.SH BUGS
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR init-container (8), 
+.BR reflect-apps (8), 
+.BR reflect-locale (8), 
+.BR reflect-passwd (8),
+.BR systemd-nspawn (1), 
+.BR Xorg (1)

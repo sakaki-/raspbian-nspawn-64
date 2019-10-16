@@ -1,0 +1,36 @@
+.TH DS64\-RUNNING 1 "OCTOBER 2019"
+.SH NAME
+.PP
+ds64\-running \- test if the 64\-bit Debian sidekick OS is up
+.SH SYNOPSIS
+.PP
+\fB\fCds64\-running\fR
+.SH DESCRIPTION
+.PP
+\fB\fCds64\-runnng\fR checks if the 64\-bit Debian 'sidekick' OS is currently
+running.
+.SH EXIT STATUS
+.PP
+The exit status is 0 if the sidekick OS is up, and 1 otherwise.
+.SH FILES
+.PP
+\fI/etc/ds64.conf\fP
+.PP
+Configuration file specifying various controlling environment
+variables, including \fB\fC$DS64_NAME\fR (defaults to \fIdebian\-buster\-64\fP) and
+\fB\fC$DS64_DIR\fR (defaults to \fI/var/lib/machines/debian\-buster\-64\fP).
+.SH BUGS
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]

@@ -1,0 +1,98 @@
+.TH INIT\-CONTAINER 8 "OCTOBER 2019"
+.SH NAME
+.PP
+init\-container \- perform initial setup for 64\-bit Debian guest OS
+.SH SYNOPSIS
+.PP
+\fB\fCinit\-container\fR \fIMACHINENAME\fP
+.SH DESCRIPTION
+.PP
+\fB\fCinit\-container\fR performs initial setup on the bootable 64\-bit Debian image
+\fI/var/lib/machines/MACHINENAME\fP, to prepare it for use as part of the
+\fB\fCraspbian\-nspawn\-64\fR package.
+.PP
+Because all customization is performed by a host\-side script in this
+way, the actual image itself (supplied by e.g., the \fB\fCdebian\-buster\-64\fR
+package) can be a vanilla system, itself created by e.g., 
+.BR debootstrap (1).
+.PP
+\fB\fCinit\-container\fR performs the following modifications to the base
+image:
+.RS
+.IP \(bu 2
+Ensures \fIMACHINENAME\fP resolves for the IPv4 and IPv6 loopback
+interfaces in \fI/etc/hosts\fP\&.
+.IP \(bu 2
+On first invocation only, removes any \fI/etc/machine\-id\fP file (one
+will automatically assigned on boot, and will be retained from that
+point forward).
+.IP \(bu 2
+Copies in the (counterpart, guest\-OS side) \fB\fCcontainer\-init\fR,
+\fB\fCreflect\-timezone\fR and
+\fB\fCreflect\-locale\fR systemd service files, path units, and matching
+\fI/usr/sbin\fP binaries, and enables them.
+.IP \(bu 2
+Ensures all members of the \fB\fCsudo\fR group can execute any command,
+without password.
+.IP \(bu 2
+Masks issues due to the unavailability of the accessibility bus.
+.IP \(bu 2
+Ensures that software DRI rendering is available (as, at the time of
+writing, the current Debian (Buster) \fB\fCmesa\fR does not allow the use of
+\fI/dev/dri\fP).
+.IP \(bu 2
+Adds a fixup to 
+.BR pulseaudio (1) 
+(inhibiting timer mode).
+.IP \(bu 2
+Finally, calls the 
+.BR reflect-locale (8), 
+.BR reflect-passwd (8) 
+and
+.BR reflect-timezone (8) 
+(host\-side) helpers once, to ensure the
+relevant host data
+is available in the guest at startup. The 
+.BR reflect-apps (8) 
+helper is \fInot\fP
+called, as that migrates data from guest to host (and will be invoked
+once the image is up in any event).
+.RE
+.SH INVOCATION
+.PP
+Note that \fB\fCinit\-container\fR is not intended to be directly user\-executed; it is
+normally called via the 
+.BR systemd (1) 
+\fB\fCinit\-container@\fR\fIMACHINENAME\fP service.
+.SH EXIT STATUS
+.PP
+The exit status is 0 if the specified \fIMACHINENAME\fP image is present
+and has been successfully modified; and a non\-zero error code
+otherwise.
+.SH FILES
+.PP
+Operates on the bootable 64\-bit OS image tree at
+\fI/var/lib/machines/MACHINENAME\fP\&.
+.SH BUGS
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR reflect-apps (8), 
+.BR reflect-locale (8), 
+.BR reflect-passwd (8),
+.BR reflect-timezone (8), 
+.BR systemd-nspawn (1), 
+.BR Xorg (1)

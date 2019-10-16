@@ -1,0 +1,58 @@
+.TH REFLECT\-APPS 8 "OCTOBER 2019"
+.SH NAME
+.PP
+reflect\-apps \- map desktop files from guest to host OS
+.SH SYNOPSIS
+.PP
+\fB\fCreflect\-apps\fR \fIMACHINENAME\fP
+.SH DESCRIPTION
+.PP
+\fB\fCreflect\-apps\fR maps desktop files from the guest to host's
+\fI/usr/share/applications\fP, prefixing their
+\fB\fCExec\fR stanzas with \fB\fCds\-runner\fR or \fB\fCds\-shell \-c\fR (as appropriate), to
+allow direct invocation of their underlying 64\-bit applications
+(inside the container) from the 32\-bit host GUI.
+.PP
+Desktop files without \fB\fCType=Application\fR are ignored, and any prior
+desktop files at the target location in the host which have \fB\fCNoDisplay=true\fR
+set will not be overwritten.
+.PP
+The contents of \fI/usr/share/icons\fP on the guest are also copied, with
+symlinks resolved, into \fI/usr/share/gdm/icons\fP on the host,
+so that (most, at least) icons referenced from the mapped desktop files
+will still refer.
+.SH INVOCATION
+.PP
+Note that \fB\fCreflect\-apps\fR is not intended to be directly user\-executed; it is
+normally called via the 
+.BR systemd (1) 
+\fB\fCreflect\-apps@\fR\fIMACHINENAME\fP service.
+.SH EXIT STATUS
+.PP
+The exit status is 0 if the user and group information is successfully
+sync'd; and a non\-zero error code otherwise.
+.SH FILES
+.PP
+Sources data from the bootable 64\-bit OS image tree at
+\fI/var/lib/machines/MACHINENAME\fP\&.
+.SH BUGS
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR reflect-locale (8), 
+.BR reflect-passwd (8), 
+.BR reflect-timezone (8),
+.BR systemd-nspawn (1)

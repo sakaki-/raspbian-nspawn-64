@@ -1,0 +1,55 @@
+.TH DS64\-STOP 1 "OCTOBER 2019"
+.SH NAME
+.PP
+ds64\-stop \- shut down the 64\-bit Debian sidekick OS, if running
+.SH SYNOPSIS
+.PP
+\fB\fCds64\-stop\fR
+.SH DESCRIPTION
+.PP
+\fB\fCds64\-stop\fR attempts to shut down the current 64\-bit Debian 'sidekick' guest
+OS, if it is running.
+.PP
+Upon a error\-free return from this command, you can rely upon the guest OS
+being down, allowing you to e.g., safely take a backup of its root filesystem.
+.PP
+NB: any programs or shells currently running inside the guest will be
+forcibly closed when the container is stopped.
+.PP
+To start the guest back up again, use 
+.BR ds64-start (1).
+.PP
+A 
+.BR zenity (1) 
+dialog status display is provided on exit, with a 5 second
+auto\-dismissal timeout.
+.SH EXIT STATUS
+.PP
+The exit status is 0 if the guest OS is shut down upon exit, and 1 otherwise.
+.SH FILES
+.PP
+\fI/etc/ds64.conf\fP
+.PP
+Configuration file specifying various controlling environment
+variables, including \fB\fC$DS64_NAME\fR (defaults to \fIdebian\-buster\-64\fP) and
+\fB\fC$DS64_DIR\fR (defaults to \fI/var/lib/machines/debian\-buster\-64\fP).
+.SH BUGS
+.PP
+Bugs should be reported on the
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+.SH COPYRIGHT
+.PP
+Copyright \[co] 2019 sakaki
+.PP
+License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
+.PP
+This is free software, you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH AUTHORS
+.PP
+sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR ds64-runner (1), 
+.BR ds64-start (1), 
+.BR zenity (1)

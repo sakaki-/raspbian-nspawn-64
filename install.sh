@@ -134,7 +134,20 @@ postinst() {
     # enable and start Debian sidekick (ds) container itself
     # if possible
     systemctl enable "systemd-nspawn@${DS64_NAME}.service"
-    echo "Please reboot your system to start using ${DS64_NAME}" >&2
+    if [[ $(uname -m) == "aarch64" ]]; then
+        echo "Detected an aarch64 kernel; starting services ..."
+        for S in "${SERVICES[@]}"; do
+            systemctl start "${S}" || true
+        done
+        systemctl start "systemd-nspawn@${DS64_NAME}.service" || true
+    else
+        echo "You need a 64-bit kernel to use ${DS64_NAME} (yours is 32-bit)." >&2
+        echo >&2
+        echo "To get the official 64-bit kernel, please run 'sudo rpi-update', then"
+        echo "set arm_64bit=1 in /boot/config.txt, to stipulate its use." >&2
+        echo >&2
+        echo "Once done, please reboot your system to start using ${DS64_NAME}!" >&2
+    fi
     # ensure new menu items / icons visible on host
     # assumes default LXDE menu system
     lxpanelctl reload || true

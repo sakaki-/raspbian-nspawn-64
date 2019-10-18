@@ -145,7 +145,7 @@ postinst() {
         # graphical apps will work immediately
         if U="$(who | grep '(:0)' | cut -d' ' -f1 | head -n1)" && [[ ! -z "${U}" ]]; then
             UXA="/home/${U}/.Xauthority"
-            if [[ -s "${UXA}" && ! -s "${UXA}-allhosts" ]]; then
+            if [[ -s "${UXA}" ]]; then
                 su --login "${U}" -c "XAUTHORITY=${UXA} DISPLAY=:0 unify-xauth" &>/dev/null || true
             fi
         fi

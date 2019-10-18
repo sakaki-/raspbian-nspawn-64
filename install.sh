@@ -127,7 +127,7 @@ postinst() {
     # but do not start them - require reboot (since we may
     # still be under a 32-bit kernel etc. on first
     # install)
-    local S
+    local S U UXA
     for S in "${SERVICES[@]}"; do
         systemctl enable "${S}"
     done
@@ -140,6 +140,15 @@ postinst() {
             systemctl start "${S}" || true
         done
         systemctl start "systemd-nspawn@${DS64_NAME}.service" || true
+        # bit of a hack, but if a user is logged into the :0 X-server,
+        # generate their .Xauthority-allhosts file now, so
+        # graphical apps will work immediately
+        if U="$(who | grep '(:0)' | cut -d' ' -f1 | head -n1)" && [[ ! -z "${U}" ]]; then
+            UXA="/home/${U}/.Xauthority"
+            if [[ -s "${UXA}" && ! -s "${UXA}-allhosts" ]]; then
+                su --login "${U}" -c "XAUTHORITY=${UXA} DISPLAY=:0 unify-xauth" &>/dev/null || true
+            fi
+        fi
     else
         echo "You need a 64-bit kernel to use ${DS64_NAME} (yours is 32-bit)." >&2
         echo >&2

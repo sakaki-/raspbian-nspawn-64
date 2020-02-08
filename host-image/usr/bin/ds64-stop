@@ -9,34 +9,48 @@ DS64_CONF="/etc/ds64.conf"
 [[ -s "${DS64_CONF}" ]] && source "${DS64_CONF}"
 DS64_NAME="${DS64_NAME:-debian-buster-64}"
 DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
+HAS_ZENITY=0
+which zenity &>/dev/null && [[ ${DISPLAY:-} ]] && HAS_ZENITY=1
 
 if ! ds64-running; then
+    if ((HAS_ZENITY==1)); then
         zenity --info --no-wrap \
-  --title="Nothing to do" \
-  --text="The ${DS64_NAME} container is already stopped." \
-  --timeout=5
-        exit 0
+               --title="Nothing to do" \
+               --text="The ${DS64_NAME} container is already stopped." \
+               --timeout=5
+    else
+        >&2 echo "Nothing to do: the ${DS64_NAME} container is already stopped."
+    fi
+    exit 0
 fi
 sudo machinectl stop "${DS64_NAME}"
 RUNNING=1
 for ((i=0;i<10;i++)); do
-        if ! ds64-running; then
-                RUNNING=0
-                break
-        fi
-	sleep 1
+    if ! ds64-running; then
+        RUNNING=0
+        break
+    fi
+    sleep 1
 done
 if ((RUNNING==0)); then
+    if ((HAS_ZENITY==1)); then
         zenity --info --no-wrap \
-  --title="Success" \
-  --text="The ${DS64_NAME} container is now stopped." \
-  --timeout=5
-        exit 0
+               --title="Success" \
+               --text="The ${DS64_NAME} container is now stopped." \
+               --timeout=5
+    else
+        echo "Success: the ${DS64_NAME} container is now stopped."
+    fi
+    exit 0
 else
-	zenity --error --no-wrap \
-  --title="Error" \
-  --text="Failed to stop the ${DS64_NAME} container!" \
-  --timeout=5
-        exit 1
+    if ((HAS_ZENITY==1)); then
+        zenity --error --no-wrap \
+               --title="Error" \
+               --text="Failed to stop the ${DS64_NAME} container!" \
+               --timeout=5
+    else
+        >&2 echo "Error: failed to stop the ${DS64_NAME} container!"
+    fi
+    exit 1
 fi
 

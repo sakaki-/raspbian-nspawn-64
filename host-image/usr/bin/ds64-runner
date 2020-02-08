@@ -15,26 +15,37 @@ DS64_CONF="/etc/ds64.conf"
 [[ -s "${DS64_CONF}" ]] && source "${DS64_CONF}"
 DS64_NAME="${DS64_NAME:-debian-buster-64}"
 DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
+HAS_ZENITY=0
+which zenity &>/dev/null && [[ ${DISPLAY:-} ]] && HAS_ZENITY=1
 
 if ! ds64-running; then
-        zenity --error --no-wrap \
-  --title="Error starting 64-bit program" \
-  --text="The ${DS64_NAME} container is not running!\nPlease start it and try again." \
-  --timeout=5
-        exit 1
+    if ((HAS_ZENITY==1)); then
+	zenity --error --no-wrap \
+	       --title="Error starting 64-bit program" \
+	       --text="The ${DS64_NAME} container is not running!\nPlease start it and try again." \
+	       --timeout=5
+    else
+	>&2 echo -e "Error starting 64-bit program: the ${DS64_NAME} container is not running!\nPlease start it and try again."
+    fi
+    exit 1
 fi
 # have we already been given the program to run via
 # the command line?
 if (($#==0)); then
-	# no, must ask the user
+    # no, must ask the user if we can do so elegantly, error out otherwise
+    if ((HAS_ZENITY==1)); then
 	if ! P=$(zenity --entry --title="Run 64-bit program" \
-  --width=400 \
-  --text="Please enter the 64-bit program to run\n(parameters allowed):"); then
+			--width=400 \
+			--text="Please enter the 64-bit program to run\n(parameters allowed):"); then
 		exit 1
 	fi
 	# force it through a "which" lookup, this will work for full paths
 	# and names; parse into array to allow arguments
 	read -ra PA <<< "${P}"
+    else
+	>&2 echo "Error: you must pass a command to execute (parameters allowed)."
+	exit 1
+    fi
 else
 	# yes, just slurp it
 	PA=("${@}")

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Stop the 64-bit Debian container, if running.
 #
-# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# Copyright (c) 2019-20 sakaki <sakaki@deciban.com>
 # License: GPL 3.0+
 # NO WARRANTY
 
@@ -11,6 +11,8 @@ DS64_NAME="${DS64_NAME:-debian-buster-64}"
 DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
 HAS_ZENITY=0
 which zenity &>/dev/null && [[ ${DISPLAY:-} ]] && HAS_ZENITY=1
+
+check-aarch64 || exit 1
 
 if ! ds64-running; then
     if ((HAS_ZENITY==1)); then

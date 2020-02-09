@@ -135,7 +135,7 @@ postinst() {
     # if possible
     systemctl enable "systemd-nspawn@${DS64_NAME}.service"
     if [[ $(uname -m) == "aarch64" ]]; then
-        echo "Detected an aarch64 kernel; starting services ..."
+        echo "Detected an aarch64 kernel; starting services ..." >&2
         for S in "${SERVICES[@]}"; do
             systemctl start "${S}" || true
         done
@@ -150,11 +150,7 @@ postinst() {
             fi
         fi
     else
-        echo "You need a 64-bit kernel to use ${DS64_NAME} (yours is 32-bit)." >&2
-        echo >&2
-        echo "Please set arm_64bit=1 in /boot/config.txt, to stipulate its use." >&2
-        echo >&2
-        echo "Once done, reboot your system to start using ${DS64_NAME}!" >&2
+        echo "Did not detect an aarch64 kernel; not starting services" >&2
     fi
     # ensure new menu items / icons visible on host
     # assumes default LXDE menu system

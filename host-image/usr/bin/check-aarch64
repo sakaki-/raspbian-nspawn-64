@@ -1,0 +1,34 @@
+#!/bin/bash
+# Show (and return) error if kernel not aarch64.
+#
+# Copyright (c) 2020 sakaki <sakaki@deciban.com>
+# License: GPL 3.0+
+# NO WARRANTY
+
+DS64_CONF="/etc/ds64.conf"
+[[ -s "${DS64_CONF}" ]] && source "${DS64_CONF}"
+DS64_NAME="${DS64_NAME:-debian-buster-64}"
+DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
+HAS_ZENITY=0
+SENTINEL=/tmp/.aarch64-err-shown
+which zenity &>/dev/null && [[ ${DISPLAY:-} ]] && HAS_ZENITY=1
+
+if [[ $(uname -m) != "aarch64" ]]; then
+    if [[ -f "${SENTINEL}" ]]; then
+        # already warned
+        exit 1
+    fi
+    touch "${SENTINEL}"	
+    if ((HAS_ZENITY==1)); then
+        zenity --error --no-wrap \
+               --title="Error" \
+               --text="Please boot under a 64-bit kernel and try again." \
+               --timeout=5
+    else
+        >&2 echo "Error: please boot under a 64-bit kernel and try again."
+    fi
+    exit 1
+fi
+
+exit 0
+

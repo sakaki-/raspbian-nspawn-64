@@ -66,6 +66,8 @@ if ! ds64-running; then
     exit 0
 fi
 
+check-aarch64 || exit 1
+
 # bail out if no container present at all
 if ! [[ -d "${CONTAINER}" ]]; then
     exit 1

@@ -1,8 +1,8 @@
 [//]: # (Use md2man to generate the man page from this Markdown)
 [//]: # (https://github.com/sunaku/md2man)
 
-DS64-SHELL 1 "OCTOBER 2019"
-===========================
+DS64-SHELL 1 "FEBRUARY 2020"
+============================
 
 NAME
 ----
@@ -40,7 +40,8 @@ the `-c` option, e.g.:
 `ds64-shell -c top`
 
 If the sidekick OS is not running when `ds64-shell` is invoked,
-a `zenity` error dialog will be shown, with a 5 second auto-dismissal timeout.
+a `zenity` error dialog will be shown, with a 5 second auto-dismissal
+timeout, where possible.
 
 EXIT STATUS
 -----------
@@ -67,7 +68,7 @@ Bugs should be reported on the
 COPYRIGHT
 ---------
 
-Copyright &copy; 2019 sakaki
+Copyright &copy; 2019-20 sakaki
 
 License GPLv3+ [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
 

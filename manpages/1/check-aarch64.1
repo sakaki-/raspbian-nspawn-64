@@ -1,17 +1,17 @@
-.TH DS64\-RUNNING 1 "FEBRUARY 2020"
+.TH CHECK\-AARCH64 1 "FEBRUARY 2020"
 .SH NAME
 .PP
-ds64\-running \- test if the 64\-bit Debian sidekick OS is up
+check\-aarch64 \- check if running kernel is aarch64 (64\-bit)
 .SH SYNOPSIS
 .PP
-\fB\fCds64\-running\fR
+\fB\fCcheck\-aarch64\fR
 .SH DESCRIPTION
 .PP
-\fB\fCds64\-running\fR checks if the 64\-bit Debian 'sidekick' OS is currently
-running.
+\fB\fCcheck\-aarch64\fR checks if the currently running kernel is 64\-bit; a
+warning (using zenity, if available) is displayed if not.
 .SH EXIT STATUS
 .PP
-The exit status is 0 if the sidekick OS is up, and 1 otherwise.
+The exit status is 0 if the kernel is aarch64, and 1 otherwise.
 .SH FILES
 .PP
 \fI/etc/ds64.conf\fP
@@ -22,10 +22,10 @@ variables, including \fB\fC$DS64_NAME\fR (defaults to \fIdebian\-buster\-64\fP) 
 .SH BUGS
 .PP
 Bugs should be reported on the
-project's GitHub`page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
+project's GitHub page \[la]https://github.com/sakaki-/raspbian-nspawn-64/issues\[ra]\&.
 .SH COPYRIGHT
 .PP
-Copyright \[co] 2019\-20 sakaki
+Copyright \[co] 2020 sakaki
 .PP
 License GPLv3+ GNU GPL version 3 or later \[la]http://gnu.org/licenses/gpl.html\[ra]
 .PP
@@ -34,3 +34,7 @@ There is NO WARRANTY, to the extent permitted by law.
 .SH AUTHORS
 .PP
 sakaki \[la]sakaki@deciban.com\[ra]
+.SH SEE ALSO
+.PP
+.BR uname (1), 
+.BR zenity (1)

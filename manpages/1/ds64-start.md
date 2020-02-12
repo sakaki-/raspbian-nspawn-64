@@ -1,8 +1,8 @@
 [//]: # (Use md2man to generate the man page from this Markdown)
 [//]: # (https://github.com/sunaku/md2man)
 
-DS64-START 1 "OCTOBER 2019"
-===========================
+DS64-START 1 "FEBRUARY 2020"
+============================
 
 NAME
 ----
@@ -27,7 +27,7 @@ invoke applications within it using ds64-runner(1).
 To shut down the guest again, use ds64-stop(1).
 
 A zenity(1) dialog status display is provided on exit, with a 5 second
-auto-dismissal timeout.
+auto-dismissal timeout, where possible.
 
 EXIT STATUS
 -----------
@@ -53,7 +53,7 @@ Bugs should be reported on the
 COPYRIGHT
 ---------
 
-Copyright &copy; 2019 sakaki
+Copyright &copy; 2019-20 sakaki
 
 License GPLv3+ [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
 

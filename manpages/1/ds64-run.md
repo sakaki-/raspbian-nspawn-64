@@ -1,8 +1,8 @@
 [//]: # (Use md2man to generate the man page from this Markdown)
 [//]: # (https://github.com/sunaku/md2man)
 
-DS64-RUN 1 "OCTOBER 2019"
-=========================
+DS64-RUN 1 "FEBRUARY 2020"
+==========================
 
 NAME
 ----
@@ -30,7 +30,7 @@ to use the host's pulseaudio(1) server, access the host's Xorg(1) server
 etc.
 
 If the sidekick OS is not running, a zenity(1) error dialog will be
-shown, with a 5 second auto-dismissal timeout.
+shown, with a 5 second auto-dismissal timeout, where available.
 
 EXIT STATUS
 -----------
@@ -60,7 +60,7 @@ Bugs should be reported on the
 COPYRIGHT
 ---------
 
-Copyright &copy; 2019 sakaki
+Copyright &copy; 2019-20 sakaki
 
 License GPLv3+ [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
 

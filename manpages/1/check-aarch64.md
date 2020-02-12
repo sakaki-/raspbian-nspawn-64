@@ -1,40 +1,29 @@
 [//]: # (Use md2man to generate the man page from this Markdown)
 [//]: # (https://github.com/sunaku/md2man)
 
-DS64-STOP 1 "FEBRUARY 2020"
-===========================
+CHECK-AARCH64 1 "FEBRUARY 2020"
+===============================
 
 NAME
 ----
 
-ds64-stop - shut down the 64-bit Debian sidekick OS, if running
+check-aarch64 - check if running kernel is aarch64 (64-bit)
 
 SYNOPSIS
 --------
 
-`ds64-stop`
+`check-aarch64`
 
 DESCRIPTION
 -----------
 
-`ds64-stop` attempts to shut down the current 64-bit Debian 'sidekick' guest
-OS, if it is running.
-
-Upon a error-free return from this command, you can rely upon the guest OS
-being down, allowing you to e.g., safely take a backup of its root filesystem.
-
-NB: any programs or shells currently running inside the guest will be
-forcibly closed when the container is stopped.
-
-To start the guest back up again, use ds64-start(1).
-
-A zenity(1) dialog status display is provided on exit, with a 5 second
-auto-dismissal timeout, where possible.
+`check-aarch64` checks if the currently running kernel is 64-bit; a
+warning (using zenity, if available) is displayed if not.
 
 EXIT STATUS
 -----------
 
-The exit status is 0 if the guest OS is shut down upon exit, and 1 otherwise.
+The exit status is 0 if the kernel is aarch64, and 1 otherwise.
 
 FILES
 -----
@@ -45,7 +34,6 @@ Configuration file specifying various controlling environment
 variables, including `$DS64_NAME` (defaults to *debian-buster-64*) and
 `$DS64_DIR` (defaults to */var/lib/machines/debian-buster-64*).
 
-
 BUGS
 ----
 
@@ -55,7 +43,7 @@ Bugs should be reported on the
 COPYRIGHT
 ---------
 
-Copyright &copy; 2019-20 sakaki
+Copyright &copy; 2020 sakaki
 
 License GPLv3+ [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
 
@@ -68,7 +56,7 @@ AUTHORS
 
 sakaki <sakaki@deciban.com>
 
+
 SEE ALSO
 --------
-
-ds64-runner(1), ds64-start(1), zenity(1)
+uname(1), zenity(1)

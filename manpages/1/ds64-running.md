@@ -1,8 +1,8 @@
 [//]: # (Use md2man to generate the man page from this Markdown)
 [//]: # (https://github.com/sunaku/md2man)
 
-DS64-RUNNING 1 "OCTOBER 2019"
-=============================
+DS64-RUNNING 1 "FEBRUARY 2020"
+==============================
 
 NAME
 ----
@@ -17,7 +17,7 @@ SYNOPSIS
 DESCRIPTION
 -----------
 
-`ds64-runnng` checks if the 64-bit Debian 'sidekick' OS is currently
+`ds64-running` checks if the 64-bit Debian 'sidekick' OS is currently
 running.
 
 EXIT STATUS
@@ -43,7 +43,7 @@ Bugs should be reported on the
 COPYRIGHT
 ---------
 
-Copyright &copy; 2019 sakaki
+Copyright &copy; 2019-20 sakaki
 
 License GPLv3+ [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
 

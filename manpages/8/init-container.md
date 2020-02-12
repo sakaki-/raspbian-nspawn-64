@@ -1,8 +1,8 @@
 [//]: # (Use md2man to generate the man page from this Markdown)
 [//]: # (https://github.com/sunaku/md2man)
 
-INIT-CONTAINER 8 "OCTOBER 2019"
-============================
+INIT-CONTAINER 8 "FEBRUARY 2020"
+================================
 
 NAME
 ----
@@ -79,7 +79,7 @@ Bugs should be reported on the
 COPYRIGHT
 ---------
 
-Copyright &copy; 2019 sakaki
+Copyright &copy; 2019-20 sakaki
 
 License GPLv3+ [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
 

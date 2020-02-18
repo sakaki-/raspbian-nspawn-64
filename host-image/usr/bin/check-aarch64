@@ -10,22 +10,16 @@ DS64_CONF="/etc/ds64.conf"
 DS64_NAME="${DS64_NAME:-debian-buster-64}"
 DS64_DIR="${DS64_DIR:-/var/lib/machines/${DS64_NAME}}"
 HAS_ZENITY=0
-SENTINEL=/tmp/.aarch64-err-shown
 which zenity &>/dev/null && [[ ${DISPLAY:-} ]] && HAS_ZENITY=1
 
 if [[ $(uname -m) != "aarch64" ]]; then
-    if [[ -f "${SENTINEL}" ]]; then
-        # already warned
-        exit 1
-    fi
-    touch "${SENTINEL}"	
     if ((HAS_ZENITY==1)); then
         zenity --error --no-wrap \
                --title="Error" \
-               --text="Please boot under a 64-bit kernel and try again." \
+               --text="Please boot under a 64-bit kernel and try again.\n\n(Add arm_64bit=1 to /boot/config.txt, and restart.)" \
                --timeout=5
     else
-        >&2 echo "Error: please boot under a 64-bit kernel and try again."
+        >&2 echo "Error: please boot under a 64-bit kernel and try again.\n\n(Add arm_64bit=1 to /boot/config.txt, and restart.)"
     fi
     exit 1
 fi

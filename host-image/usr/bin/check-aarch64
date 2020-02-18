@@ -19,7 +19,7 @@ if [[ $(uname -m) != "aarch64" ]]; then
                --text="Please boot under a 64-bit kernel and try again.\n\n(Add arm_64bit=1 to /boot/config.txt, and restart.)" \
                --timeout=5
     else
-        >&2 echo "Error: please boot under a 64-bit kernel and try again.\n\n(Add arm_64bit=1 to /boot/config.txt, and restart.)"
+        >&2 echo -e "Error: please boot under a 64-bit kernel and try again.\n\n(Add arm_64bit=1 to /boot/config.txt, and restart.)"
     fi
     exit 1
 fi

@@ -2,8 +2,8 @@
 #
 # Perform initial setup for container.
 #
-# Ensures that hostname is setup correctly (following /etc/given-hostname)
-# etc.
+# Ensures that hostname is setup correctly (following /etc/given-hostname),
+# bind-mounts shadow directories and files for regular users, etc.
 #
 # AUTHOR
 # ------
@@ -39,5 +39,33 @@ if [[ -s /etc/given-hostname ]] && \
        ! diff /etc/hostname /etc/given-hostname &>/dev/null; then
     hostnamectl set-hostname "$(cat /etc/given-hostname)"
 fi
+HOSTNAME="$(cat /etc/given-hostname)"
+
+# now for all uids 1000 <= uid < 1100 in the guest's
+# /etc/passwd file, which have a home directory specified and
+# present, bind mount the following, where found:
+#   <homedir>/.<file>-$HOSTNAME -> <homedir>/.<file>
+#   <homedir>/.<dir>-$HOSTNAME -> <homedir>/.<dir>
+# this allows the user to easily prevent 'pollution' between
+# 64-bit and 32-bit instances, by creating e.g. a
+# ~/.config-debian-buster-64 directory,
+# ~/.bash_history-debian-buster-64 file etc
+# only regular files and directories are considered for bind mounting
+while read -r NEXTLINE; do
+    if [[ "$NEXTLINE" =~ ^([^:]+):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^:]*)$ ]]; then
+        NUID="${BASH_REMATCH[3]}"
+        NDIRECTORY="${BASH_REMATCH[6]}"
+        if ((NUID>=1000 && NUID<1100)) && [[ "${NDIRECTORY}" ]] && [[ -d "${NDIRECTORY}" ]]; then
+            while read -r NEXTLINE; do
+                MASK="${NEXTLINE}"
+                ORIG="${MASK%-debian-buster-64}"
+                if [[ -d "${MASK}" && -d "${ORIG}" || -f "${MASK}" && -f "${ORIG}" ]]; then
+                    # same type, so do the mapping
+                    mount --bind "${MASK}" "${ORIG}"
+                fi
+            done < <(find "${NDIRECTORY}" -mindepth 1 -maxdepth 1 \( -type d -o -type f \) -name '.*-'"${HOSTNAME}")
+        fi
+    fi
+done < "/etc/passwd"
 
 exit 0

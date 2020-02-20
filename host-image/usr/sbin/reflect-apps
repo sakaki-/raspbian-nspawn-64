@@ -63,7 +63,11 @@ done
 # bail out if ds64 not running, but, not an error since
 # e.g. user may have guest container down for maintenance
 if ! ds64-running; then
-    exit 0
+    # try one more time
+    sleep 2
+    if ! ds64-running; then
+        exit 0
+    fi
 fi
 
 check-aarch64 || exit 1
@@ -73,55 +77,65 @@ if ! [[ -d "${CONTAINER}" ]]; then
     exit 1
 fi
 
-mkdir -p "${CONTAINER_APP_DIR}"
-mkdir -p "${HOST_APP_DIR}"
+do_reflect_apps() {
+    mkdir -p "${CONTAINER_APP_DIR}"
+    mkdir -p "${HOST_APP_DIR}"
 
-# begin by removing any shadowed .desktop files that don't explicitly
-# have NoDisplay=true set (the latter are left as a way to block
-# certain apps from being auto-reflected
-for F in "${HOST_APP_DIR}"/ds64-app-*.desktop; do
-    if ! grep -q "^NoDisplay=true" "${F}"; then
-        rm -f "${F}"
-    fi
-done
-
-for F in "${CONTAINER_APP_DIR}"/*.desktop; do
-    NEXTFNAME="ds64-app-${F##*/}"
-    T="${HOST_APP_DIR}/${NEXTFNAME}"
-    if grep -q "^Type=Application" "${F}" 2>/dev/null && ! grep -q "^NoDisplay=true" "${F}"; then
-        # unless the .desktop file already exists, copy it over, modifying it en route
-        # so that both desktop and script-based files can be invoked from the
-        # 32-bit Raspbian host
-        # if you mark a copied variant as NoDisplay=true then it will not show up
-        # in the menu, and the copy so marked will not be overwritten
-        if ! [[ -s "${T}" ]]; then
-            # deal with shell and GUI apps separately
-            if grep -q "Terminal=true" "${F}" 2>/dev/null; then
-                sed -e 's/^\(Name.*\)$/\1 (64-bit)/; s/^\(Comment.*\)$/\1 (64-bit)/; s/^Exec=\(.*\)$/Exec=ds64-shell -c \1/; /^TryExec/d; /^StartupNotify/d' "${F}" > "${T}"
-            else
-                sed -e 's/^\(Name.*\)$/\1 (64-bit)/; s/^\(Comment.*\)$/\1 (64-bit)/; s/^Exec=\(.*\)$/Exec=ds64-runner \1/; /^TryExec/d; /^StartupNotify/d' "${F}" > "${T}"
-            fi
-            echo "StartupNotify=false" >> "${T}"
-            # .desktop files do not need to be executable
-            chmod 0644 "${T}"
+    # begin by removing any shadowed .desktop files that don't explicitly
+    # have NoDisplay=true set (the latter are left as a way to block
+    # certain apps from being auto-reflected
+    for F in "${HOST_APP_DIR}"/ds64-app-*.desktop; do
+        if ! grep -q "^NoDisplay=true" "${F}"; then
+            rm -f "${F}"
         fi
-    fi
-done
+    done
 
-# ensure at least most icons available
-mkdir -p "/usr/share/gdm"
-rm -rf "/usr/share/gdm/icons"
-rm -rf "/usr/share/gdm/pixmaps"
+    for F in "${CONTAINER_APP_DIR}"/*.desktop; do
+        NEXTFNAME="ds64-app-${F##*/}"
+        T="${HOST_APP_DIR}/${NEXTFNAME}"
+        if grep -q "^Type=Application" "${F}" 2>/dev/null && ! grep -q "^NoDisplay=true" "${F}"; then
+            # unless the .desktop file already exists, copy it over, modifying it en route
+            # so that both desktop and script-based files can be invoked from the
+            # 32-bit Raspbian host
+            # if you mark a copied variant as NoDisplay=true then it will not show up
+            # in the menu, and the copy so marked will not be overwritten
+            if ! [[ -s "${T}" ]]; then
+                # deal with shell and GUI apps separately
+                if grep -q "Terminal=true" "${F}" 2>/dev/null; then
+                    sed -e 's/^\(Name.*\)$/\1 (64-bit)/; s/^\(Comment.*\)$/\1 (64-bit)/; s/^Exec=\(.*\)$/Exec=ds64-shell -c \1/; /^TryExec/d; /^StartupNotify/d' "${F}" > "${T}"
+                else
+                    sed -e 's/^\(Name.*\)$/\1 (64-bit)/; s/^\(Comment.*\)$/\1 (64-bit)/; s/^Exec=\(.*\)$/Exec=ds64-runner \1/; /^TryExec/d; /^StartupNotify/d' "${F}" > "${T}"
+                fi
+                echo "StartupNotify=false" >> "${T}"
+                # .desktop files do not need to be executable
+                chmod 0644 "${T}"
+            fi
+        fi
+    done
 
-# make a copy inside the container first, to resolve any dangling symlinks
-machinectl shell "${DS64_NAME}" /bin/bash -c "rm -rf /tmp/icons /tmp/pixmaps; cp -rL /usr/share/icons /tmp/icons; cp -rL /usr/share/pixmaps /tmp/pixmaps" &>/dev/null
-machinectl copy-from "${DS64_NAME}" "/tmp/pixmaps" "/usr/share/gdm/pixmaps" &>/dev/null
-machinectl copy-from "${DS64_NAME}" "/tmp/icons" "/usr/share/gdm/icons" &>/dev/null
-# remove menu caches to ensure visible on host
-for D in /home/*; do
-    find "${D}/.cache/menus" -type f -delete
-done
-lxpanelctl reload || true
-machinectl shell "${DS64_NAME}" /bin/bash -c "rm -rf /tmp/icons /tmp/pixmaps" &>/dev/null
-touch /etc/xdg/menus/lxde-*.menu
+    # ensure at least most icons available
+    mkdir -p "/usr/share/gdm"
+    rm -rf "/usr/share/gdm/icons"
+    rm -rf "/usr/share/gdm/pixmaps"
+
+    # make a copy inside the container first, to resolve any dangling symlinks
+    machinectl shell "${DS64_NAME}" /bin/bash -c "rm -rf /tmp/icons /tmp/pixmaps; cp -rL /usr/share/icons /tmp/icons; cp -rL /usr/share/pixmaps /tmp/pixmaps" &>/dev/null
+    machinectl copy-from "${DS64_NAME}" "/tmp/pixmaps" "/usr/share/gdm/pixmaps" &>/dev/null
+    machinectl copy-from "${DS64_NAME}" "/tmp/icons" "/usr/share/gdm/icons" &>/dev/null
+    # remove menu caches to ensure visible on host
+    for D in /home/*; do
+        find "${D}/.cache/menus" -type f -delete
+    done
+    lxpanelctl reload || true
+    machinectl shell "${DS64_NAME}" /bin/bash -c "rm -rf /tmp/icons /tmp/pixmaps" &>/dev/null
+    touch /etc/xdg/menus/lxde-*.menu
+}
+
+if ! do_reflect_apps; then
+    # try one more time before giving up, there can be timing
+    # issues on startup
+    sleep 2
+    do_reflect_apps
+fi
+
 exit 0

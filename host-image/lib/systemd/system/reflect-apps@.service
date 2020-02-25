@@ -1,5 +1,9 @@
 [Unit]
 Description=Reflect %i Container's Apps as Launchers on Host
+StartLimitIntervalSec=150
+StartLimitBurst=20
 
 [Service]
 ExecStart=/usr/sbin/reflect-apps %i
+Restart=on-failure
+RestartSec=5

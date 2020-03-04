@@ -1,6 +1,8 @@
 # raspbian-nspawn-64
 Bootable RPi4 B and RPi3 B/B+ image with 64-bit kernel, 32-bit Raspbian Buster 'Desktop' host OS, 64-bit Debian Buster guest OS in lightweight, autostarted `systemd-nspawn` container.
 
+> Note: thanks to ShiftPlusOne, as of 2 March 2020 **`raspbian-nspawn-64` can be installed from the official Raspbian repo, just like any other regular package, using `apt`** - so no need for a custom bootable image! For more details, please see [this post](https://www.raspberrypi.org/forums/viewtopic.php?p=1621085#p1621085).
+
 ## Description
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi4/Raspberry_Pi_3_B_and_B_plus_and_4_B.jpg" alt="[Raspberry Pi 4B, 3B and B+]" width="250px" align="right"/>

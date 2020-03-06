@@ -3,9 +3,9 @@ Bootable RPi4 B and RPi3 B/B+ image with 64-bit kernel, 32-bit Raspbian Buster '
 
 > Note: thanks to ShiftPlusOne, as of 2 March 2020 **`raspbian-nspawn-64` can be installed from the official Raspbian repo, just like any other regular package, using `apt`** - so no need for a custom bootable image! For more details, please see [this post](https://www.raspberrypi.org/forums/viewtopic.php?p=1621085#p1621085), but the essence is just:
 
-    ```console
-    pi@raspberrypi:~ $ sudo apt-get update && sudo apt-get install -y debian-buster-64
-    ```
+```console
+pi@raspberrypi:~ $ sudo apt-get update && sudo apt-get install -y debian-buster-64
+```
 
 ## Description
 

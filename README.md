@@ -27,7 +27,7 @@ The image may be downloaded from the link below (or via `wget`, per the instruct
 
 <a id="downloadlinks"></a>Variant | Version | Image | Digital Signature
 :--- | ---: | ---: | ---:
-Raspberry Pi  4B, 3B/B+ 64-bit| v1.3.0 | [raspbian-nspawn-64.img.xz](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.3.0/raspbian-nspawn-64.img.xz) | [raspbian-nspawn-64.img.xz.asc](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.3.0/raspbian-nspawn-64.img.xz.asc)
+Raspberry Pi  4B, 3B/B+ 64-bit| v1.4.8 | [raspbian-nspawn-64.img.xz](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.4.8/raspbian-nspawn-64.img.xz) | [raspbian-nspawn-64.img.xz.asc](https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.4.8/raspbian-nspawn-64.img.xz.asc)
 
 Please read the instructions below before proceeding. Also please note that all images are provided 'as is' and without warranty. You should also be comfortable with the free and non-free licenses required by firmware, boot software and OS packages supplied on the image before proceeding: these may be reviewed [here](https://github.com/sakaki-/raspbian-nspawn-64/tree/master/licenses).
 
@@ -38,7 +38,7 @@ Also, please note that **this is an unofficial, user-driven respin of Raspbian**
 ## Prerequisites
 
 To try this out, you will need:
-* A [microSD](https://en.wikipedia.org/wiki/Secure_Digital) card of _at least_ 8GB capacity (the image is 940MiB compressed, 7.26GiB == 7.79GB uncompressed, so it should fit on any card marked as >= 8GB). [Class A1 cards](https://www.raspberrypi.org/forums/viewtopic.php?p=1517864#p1517864) are particularly recommended, but not required.
+* A [microSD](https://en.wikipedia.org/wiki/Secure_Digital) card of _at least_ 8GB capacity (the image is 1,196MiB compressed, 5.25GiB == 5.64GB uncompressed, so it should fit on any card marked as >= 8GB). [Class A1 cards](https://www.raspberrypi.org/forums/viewtopic.php?p=1517864#p1517864) are particularly recommended, but not required.
    > I have found most SanDisk cards work fine; if you are having trouble, a good sanity check is to try writing the [standard Raspbian 32-bit image](https://www.raspberrypi.org/downloads/raspbian/) to your card, to verify that your Pi3 will boot with it, before proceeding.
 
 * A Raspberry Pi 4 Model B, or Pi 3 Model B or B+ (obviously!).
@@ -56,11 +56,11 @@ For simplicity, I am going to assume that you will be logging into the image (at
 
 On your Linux box, issue (you may need to be `root`, or use `sudo`, for the following, hence the '#' prompt):
 ```console
-# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.3.0/raspbian-nspawn-64.img.xz
-# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.3.0/raspbian-nspawn-64.img.xz.asc
+# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.4.8/raspbian-nspawn-64.img.xz
+# wget -c https://github.com/sakaki-/raspbian-nspawn-64/releases/download/v1.4.8/raspbian-nspawn-64.img.xz.asc
 ```
 
-to fetch the compressed disk image file (~940MiB) and its signature.
+to fetch the compressed disk image file (~1,196MiB) and its signature.
 
 Next, if you like, verify the image using gpg (this step is optional):
 ```console

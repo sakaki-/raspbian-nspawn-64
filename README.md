@@ -21,7 +21,7 @@ Basically, you get 64-bit capability as and when you need it, without the headac
 
 Here's a screenshot of the image running on an RPi 4B:
 
-<img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi4/raspbian-nspawn-full-a.jpg" alt="raspbian-nspawn-64 in use (Pi4 screenshot)" width="960px"/>
+<img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi4/raspbian-nspawn-full-a-2.jpg" alt="raspbian-nspawn-64 in use (Pi4 screenshot)" width="960px"/>
 
 The image may be downloaded from the link below (or via `wget`, per the instructions which follow).
 

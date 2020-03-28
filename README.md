@@ -318,6 +318,17 @@ To access files in the container from the host, remember that user `/home` direc
 There are many other options available of course. Please take the time to read the [`machinectl`](https://www.freedesktop.org/software/systemd/man/machinectl.html), [`systemctl`](https://www.freedesktop.org/software/systemd/man/systemctl.html) and [`systemd-run`](https://www.freedesktop.org/software/systemd/man/systemd-run.html) manpages.
 
 
+## <a id="wiki"></a>Project Wiki
+
+In addition to the notes in this README, this project also has an associated open wiki, containing a number of short tutorial articles you may find helpful when using `raspbian-nspawn-64`.
+
+You can view the wiki homepage [here](https://github.com/sakaki-/raspbian-nspawn-64/wiki). Feel free to add your own material!
+
+Current articles include:
+
+* [Accessing Devices (e.g. I2C) from Inside the Container](https://github.com/sakaki-/raspbian-nspawn-64/wiki/Accessing-Devices-%28e.g.-I2C%29-from-Inside-the-Container)
+
+
 ## <a id="closing"></a>Closing Thoughts
 
 Don't forget you can still carry out all the normal `apt-get update && apt-get -y upgrade`, `apt-get install -y <pkgname>` etc. operations that you normally would on your **32-bit** Raspbian host OS! Only install and run packages from the 64-bit container when you really need to (for example, because modern versions aren't available in the repos in 32-bit form, as is the case with e.g., `mongodb`), or for fun of course ^-^

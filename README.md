@@ -327,6 +327,7 @@ You can view the wiki homepage [here](https://github.com/sakaki-/raspbian-nspawn
 Current articles include:
 
 * [Accessing Devices (e.g. I2C) from Inside the Container](https://github.com/sakaki-/raspbian-nspawn-64/wiki/Accessing-Devices-%28e.g.-I2C%29-from-Inside-the-Container)
+* [Using Docker Inside the Container](https://github.com/sakaki-/raspbian-nspawn-64/wiki/Using-Docker-Inside-the-Container)
 
 
 ## <a id="closing"></a>Closing Thoughts

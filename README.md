@@ -317,6 +317,8 @@ To access files in the container from the host, remember that user `/home` direc
 
 There are many other options available of course. Please take the time to read the [`machinectl`](https://www.freedesktop.org/software/systemd/man/machinectl.html), [`systemctl`](https://www.freedesktop.org/software/systemd/man/systemctl.html) and [`systemd-run`](https://www.freedesktop.org/software/systemd/man/systemd-run.html) manpages.
 
+> Note: if you need to change the default container hostname (from `debian-buster-64`), you need to edit the file `/etc/given-hostname` *within* the container, and then restart it.
+
 
 ## <a id="wiki"></a>Project Wiki
 
